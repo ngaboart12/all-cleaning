@@ -1,0 +1,124 @@
+{
+    "services": [
+        {
+            "id": 1,
+            "slug": "homeclean",
+            "name": "Home cleaning",
+            "description": "Keep your home looking fresh and clean with regular maintenance. The standard cleaning service includes dusting all surfaces, vacuuming carpets, sweeping and mopping floors, wiping down countertops, cleaning bathrooms, and tidying up living spaces.",
+            "features":[
+                {
+                    "id": 1,
+                    "name": "Customized cleaning plans tailored to your home needs"
+                },
+                {
+                    "id": 2,
+                    "name": "Customized cleaning plans tailored to your home needs"
+                },
+                {
+                    "id": 3,
+                    "name": "Customized cleaning plans tailored to your home needs"
+                },
+                {
+                    "id": 4,
+                    "name": "Customized cleaning plans tailored to your home needs"
+                }
+            ]
+        },
+        {
+            "id": 2,
+            "slug": "movin",
+            "name": "Move-In/Move-Out Cleaning",
+            "description": "Moving can be stressful, so let us handle the cleaning. This service ensures your old home is spotless for the next occupant and your new home is ready for you. It includes thorough cleaning of all rooms, appliances, cabinets, and fixtures.",
+            "features":[
+                {
+                    "id": 1,
+                    "name": "Detailed cleaning checklist to ensure nothing is missed"
+                },
+                {
+                    "id": 2,
+                    "name": "Detailed cleaning checklist to ensure nothing is missed"
+                },
+                {
+                    "id": 3,
+                    "name": "Customized cleaning plans tailored to your home needs"
+                },
+                {
+                    "id": 4,
+                    "name": "Customized cleaning plans tailored to your home needs"
+                }
+            ]
+        },
+        {
+            "id": 3,
+            "slug": "carclean",
+            "name": "Car Cleaning",
+            "description": " Keep your vehicle looking its best with our comprehensive car cleaning services. We offer interior and exterior cleaning, including washing, waxing, vacuuming, and detailing.",
+            "features":[
+                {
+                    "id": 1,
+                    "name": "Detailed cleaning checklist to ensure nothing is missed"
+                },
+                {
+                    "id": 2,
+                    "name": "Detailed cleaning checklist to ensure nothing is missed"
+                },
+                {
+                    "id": 3,
+                    "name": "Customized cleaning plans tailored to your home needs"
+                },
+                {
+                    "id": 4,
+                    "name": "Customized cleaning plans tailored to your home needs"
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "slug": "officeclean",
+            "name": "Office Cleaning",
+            "description": "A clean office is crucial for a productive work environment. This service includes daily or weekly cleaning of workspaces, restrooms, kitchens, and common areas. Customizable plans fit the specific needs of your business.",
+            "features":[
+                {
+                    "id": 1,
+                    "name": "Detailed cleaning checklist to ensure nothing is missed"
+                },
+                {
+                    "id": 2,
+                    "name": "Detailed cleaning checklist to ensure nothing is missed"
+                },
+                {
+                    "id": 3,
+                    "name": "Customized cleaning plans tailored to your home needs"
+                },
+                {
+                    "id": 4,
+                    "name": "Customized cleaning plans tailored to your home needs"
+                }
+            ]
+        },
+        {
+            "id": 5,
+            "slug": "reatailclean",
+            "name": "Retail Cleaning",
+            "description": "Moving can be stressful, so let us handle the cleaning. This service ensures your old home is spotless for the next occupant and your new home is ready for you. It includes thorough cleaning of all rooms, appliances, cabinets, and fixtures.",
+            "features":[
+                {
+                    "id": 1,
+                    "name": "Detailed cleaning checklist to ensure nothing is missed"
+                },
+                {
+                    "id": 2,
+                    "name": "Detailed cleaning checklist to ensure nothing is missed"
+                },
+                {
+                    "id": 3,
+                    "name": "Customized cleaning plans tailored to your home needs"
+                },
+                {
+                    "id": 4,
+                    "name": "Customized cleaning plans tailored to your home needs"
+                }
+            ]
+        }
+    ]
+}
