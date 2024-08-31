@@ -67,7 +67,7 @@ const CompanyDetails = () => {
                 {Array.from({length:8}).map((item:any,index)=>{
                     return(
                 <div className='w-full'>
-                    <Image src={`/image/${index %2 !==0 ? 'homeclean.png' : 'loudry.png'} `} width={1000} height={1000} className='w-full rounded-[22px]' alt='hsg' />
+                    <Image src={`/image/homeclean.png`} width={1000} height={1000} className='w-full rounded-[22px]' alt='hsg' />
                 </div>
                     )
                 })}
