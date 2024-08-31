@@ -3,11 +3,12 @@ import Image from 'next/image'
 import React, { useState } from 'react'
 import ChooseType from './registerSteps/ChooseType'
 import { useFormik } from 'formik'
-import { accountTypeValidationSchema, locationValidationSchema, PersonalDetailsValidationSchema } from '@/lib/validation/formikSchema'
+import { accountTypeValidationSchema, locationValidationSchema, passwordvalidateSchema, PersonalDetailsValidationSchema } from '@/lib/validation/formikSchema'
 import ChooseLocation from './registerSteps/ChooseLocation'
 import PersonalDetails from './registerSteps/PersonalDetails'
 import VerfiyOtp from './registerSteps/VerfiyOtp'
 import * as Yup from "yup"
+import CreatePassword from './registerSteps/CreatePasword.'
 
 
 const SignUp = () => {
@@ -63,6 +64,17 @@ const SignUp = () => {
       setSteps(5)
     },
   });
+  const PasswordFormik= useFormik({
+    initialValues: {
+      password: '',
+      repassword: '',
+
+    },
+    validationSchema: passwordvalidateSchema,
+    onSubmit: ()=>{
+        setSteps(6)
+    }
+  })
 
 
 
@@ -77,7 +89,7 @@ const SignUp = () => {
           {steps === 2 && (<ChooseLocation LocationFormik={LocationFormik}/>)}
           {steps === 3 && (<PersonalDetails PersonalDetailsFormik={PersonalDetailsFormik}/>)}
           {steps === 4 && (<VerfiyOtp OtpFormik={OtpFormik} PersonalDetailsFormik={PersonalDetailsFormik}/>)}
-          {steps === 5 && (<VerfiyOtp OtpFormik={OtpFormik} PersonalDetailsFormik={PersonalDetailsFormik}/>)}
+          {steps === 5 && (<CreatePassword  PasswordFormik={PasswordFormik}/>)}
          
         </div>
         <div className='hidden   w-1/2 bg-[#1990AF] md:flex flex-col items-center gap-[20px]  relative'>
@@ -92,7 +104,6 @@ const SignUp = () => {
           <div className='w-full relative z-20  mt-[-30px]'>
             <Image alt='ttt' src={`/image/authback.png`} width={1000} height={1000} className='w-full h-full' />
           </div>
-
         </div>
       </div>
     </div>
