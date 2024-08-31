@@ -59,10 +59,6 @@ const VerifyOtp = ({ PersonalDetailsFormik, OtpFormik }: Props) => {
                         />
                     ))}
                 </div>
-                <div className='w-full flex flex-row items-center justify-between px-4'>
-                    <a href="#" className='text-[12px] sm:text-[14px] text-[#13829F]'></a>
-                    <a href="#" className='text-[12px] sm:text-[14px] text-[#13829F]'>Already have an account?</a>
-                </div>
                 <div className='flex flex-col gap-[4px]'>
                     <button type='submit' className={`w-full h-[50px] rounded-[24px] ${isButtonDisabled ? 'bg-gray-400' : 'bg-[#1990AF]'} text-white`} disabled={isButtonDisabled}>
                         Verify

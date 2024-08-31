@@ -27,7 +27,7 @@ const SignIn = () => {
                         </div>
                         <div className='w-full flex flex-row items-center justify-between px-4'>
                             <a href="#" className='text-[12px]  sm:text-[14px] text-[#13829F]'>Forgot  your Password?</a>
-                            <a href="#" className='text-[12px]  sm:text-[14px] text-[#13829F]'>Need an Account?</a>
+                            <a href="/auth/signup" className='text-[12px]  sm:text-[14px] text-[#13829F]'>Need an Account?</a>
                         </div>
                         <div className='flex flex-col gap-[4px]'>
                             <button type='submit' className='w-full  h-[50px] rounded-[24px] bg-[#1990AF] text-white'> Sign in</button>

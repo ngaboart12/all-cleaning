@@ -3,12 +3,13 @@ import Image from 'next/image'
 import React, { useState } from 'react'
 import ChooseType from './registerSteps/ChooseType'
 import { useFormik } from 'formik'
-import { accountTypeValidationSchema, locationValidationSchema, passwordvalidateSchema, PersonalDetailsValidationSchema } from '@/lib/validation/formikSchema'
+import { accountTypeValidationSchema, companyProfileValidationSchema, locationValidationSchema, passwordvalidateSchema, PersonalDetailsValidationSchema } from '@/lib/validation/formikSchema'
 import ChooseLocation from './registerSteps/ChooseLocation'
 import PersonalDetails from './registerSteps/PersonalDetails'
 import VerfiyOtp from './registerSteps/VerfiyOtp'
 import * as Yup from "yup"
 import CreatePassword from './registerSteps/CreatePasword.'
+import CompanyProfile from './registerSteps/CompanyProfile'
 
 
 const SignUp = () => {
@@ -49,14 +50,14 @@ const SignUp = () => {
   })
   const OtpFormik = useFormik({
     initialValues: {
-      otp: ['', '', '', ''],  // Array of 4 empty strings for each OTP digit
+      otp: ['', '', '', ''],
     },
     validationSchema: Yup.object({
       otp: Yup.array()
         .of(
           Yup.string()
             .required("Required")
-            .matches(/^\d$/, "Must be a digit")  // Ensure it's a single digit
+            .matches(/^\d$/, "Must be a digit")
         )
         .length(4, "Must be 4 digits"),
     }),
@@ -75,6 +76,18 @@ const SignUp = () => {
         setSteps(6)
     }
   })
+  const CompanyProfileFormik= useFormik({
+    initialValues: {
+      companyName: '',
+      companyEmail: '',
+      companyAddress: '',
+
+    },
+    validationSchema: companyProfileValidationSchema,
+    onSubmit: ()=>{
+        setSteps(7)
+    }
+  })
 
 
 
@@ -90,6 +103,8 @@ const SignUp = () => {
           {steps === 3 && (<PersonalDetails PersonalDetailsFormik={PersonalDetailsFormik}/>)}
           {steps === 4 && (<VerfiyOtp OtpFormik={OtpFormik} PersonalDetailsFormik={PersonalDetailsFormik}/>)}
           {steps === 5 && (<CreatePassword  PasswordFormik={PasswordFormik}/>)}
+          {steps === 6 && (<CompanyProfile  CompnayProfileFormik={CompanyProfileFormik}/>)}
+          {steps === 7 && (<CompanyProfile  CompnayProfileFormik={CompanyProfileFormik}/>)}
          
         </div>
         <div className='hidden   w-1/2 bg-[#1990AF] md:flex flex-col items-center gap-[20px]  relative'>

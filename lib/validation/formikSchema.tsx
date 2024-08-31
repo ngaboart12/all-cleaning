@@ -17,3 +17,9 @@ export const passwordvalidateSchema = Yup.object({
     password: Yup.string().required("Please enter your pasword").min(4, "at least 4 charaters"),
     repassword: Yup.string().required("Please confirm password").min(4, "at least 4 charaters"),
 })
+
+export const companyProfileValidationSchema = Yup.object({
+    companyName: Yup.string().required("Please fill your company name"),
+    companyEmail: Yup.string().required("Please fill your company email").email("Please enter valid email"),
+    companyAddress: Yup.string().required("Please fill your compay address")
+})

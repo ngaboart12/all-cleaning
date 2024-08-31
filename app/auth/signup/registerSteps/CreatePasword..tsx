@@ -5,11 +5,20 @@ type Props = {
 };
 
 const CreatePassword = ({ PasswordFormik }: Props) => {
+    const handelSubmit = (e: React.FormEvent)=>{
+        e.preventDefault()
+        if(PasswordFormik.values.password !== PasswordFormik.values.repassword){
+            PasswordFormik.setFieldError('repassword', "Password do not match")
+        }else{
+            PasswordFormik.handleSubmit()
+        }
+
+    }
     return (
         <div className='flex flex-col gap-[4px]'>
             <h1 className='text-[16px] text-[#E2B659] font-[500]'>Your Personal Details</h1>
             <span className='text-[#13829F] font-[600] text-[16px]'>Fill in your personal details to proceed with registration.</span>
-            <form onSubmit={PasswordFormik.handleSubmit} className='flex flex-col gap-[10px] py-4'>
+            <form onSubmit={handelSubmit} className='flex flex-col gap-[10px] py-4'>
                 <div className='w-full h-[50px] rounded-[24px] bg-[#F9F9F9]'>
                     <input 
                         type="text" 

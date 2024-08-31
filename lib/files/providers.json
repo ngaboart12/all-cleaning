@@ -1,0 +1,46 @@
+[
+    {
+        "id": 1,
+        "name": "Supreme Shine Cleaners 1",
+        "joinedDate": "20 June 2023",
+        "location": "Los angele,Calionia",
+        "from" : "40, 000",
+        "services": [
+            "Home Cleaning",
+            "Office  Cleaning "
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Sparkle Shine Services",
+        "joinedDate": "20 June 2023",
+        "location": "Los angele,Calionia",
+        "from" : "40, 000",
+        "services": [
+            "Home Cleaning",
+            "Office  Cleaning ",
+            "Carpet Cleaning"
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Spotless Horizons",
+        "joinedDate": "20 June 2023",
+        "location": "Los angele,Calionia",
+        "from" : "40, 000",
+        "services": [
+            "Home Cleaning",
+            "Office  Cleaning "
+        ]
+    },
+    {
+        "id": 4,
+        "name": "Diamond Dust Cleaners",
+        "joinedDate": "20 June 2023",
+        "location": "Los angele,Calionia",
+        "from" : "40, 000",
+        "services": [
+            "Home Cleaning"
+        ]
+    }
+]

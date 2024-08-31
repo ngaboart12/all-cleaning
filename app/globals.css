@@ -96,3 +96,13 @@ input[type="number"]::-webkit-inner-spin-button {
 input[type="number"] {
     -moz-appearance: textfield;
 }
+
+.providerButton{
+  height: 0px;
+  overflow: hidden;
+  transition:  2s ease-in-out;
+
+}
+.provider:hover .providerButton{
+  height: auto;
+}
