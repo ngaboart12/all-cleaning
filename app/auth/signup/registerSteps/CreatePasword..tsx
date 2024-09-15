@@ -2,6 +2,7 @@ import React from 'react';
 
 type Props = {
     PasswordFormik: any;
+    
 };
 
 const CreatePassword = ({ PasswordFormik }: Props) => {

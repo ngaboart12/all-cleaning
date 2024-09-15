@@ -1,6 +1,7 @@
 "use client"
 import Image from 'next/image'
 import React, { useState } from 'react'
+
 import ChooseType from './registerSteps/ChooseType'
 import { useFormik } from 'formik'
 import { accountTypeValidationSchema, companyProfileValidationSchema, locationValidationSchema, passwordvalidateSchema, PersonalDetailsValidationSchema } from '@/lib/validation/formikSchema'
@@ -73,7 +74,13 @@ const SignUp = () => {
     },
     validationSchema: passwordvalidateSchema,
     onSubmit: ()=>{
-        setSteps(6)
+        if(TypeFormik.values.type == "customer"){
+          location.href ='/client/dashboard'
+
+        }else{
+
+          setSteps(6)
+        }
     }
   })
   const CompanyProfileFormik= useFormik({
@@ -102,7 +109,7 @@ const SignUp = () => {
           {steps === 2 && (<ChooseLocation LocationFormik={LocationFormik}/>)}
           {steps === 3 && (<PersonalDetails PersonalDetailsFormik={PersonalDetailsFormik}/>)}
           {steps === 4 && (<VerfiyOtp OtpFormik={OtpFormik} PersonalDetailsFormik={PersonalDetailsFormik}/>)}
-          {steps === 5 && (<CreatePassword  PasswordFormik={PasswordFormik}/>)}
+          {steps === 5 && (<CreatePassword   PasswordFormik={PasswordFormik}/>)}
           {steps === 6 && (<CompanyProfile  CompnayProfileFormik={CompanyProfileFormik}/>)}
           {steps === 7 && (<CompanyProfile  CompnayProfileFormik={CompanyProfileFormik}/>)}
          
