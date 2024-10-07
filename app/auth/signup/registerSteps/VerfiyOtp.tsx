@@ -1,30 +1,31 @@
 import React, { useRef, useEffect, useState } from 'react';
+import ReactLoading from 'react-loading';
 
 type Props = {
     PersonalDetailsFormik: any;
     OtpFormik: any;
+    resendOtp: any;
+    isVerfied: boolean
+    isOtpExpired: string
 };
 
-const VerifyOtp = ({ PersonalDetailsFormik, OtpFormik }: Props) => {
+const VerifyOtp = ({ PersonalDetailsFormik, OtpFormik, resendOtp, isVerfied, isOtpExpired }: Props) => {
     const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
     const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
     useEffect(() => {
-        // Check if all OTP fields are filled
         const allFilled = OtpFormik.values.otp.every((value: string) => value.length === 1);
         setIsButtonDisabled(!allFilled);
     }, [OtpFormik.values.otp]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
         const value = e.target.value;
-
-        // Allow only numbers
-        if (/^\d$/.test(value)) {  // Ensure the value is a single digit (0-9)
+        if (/^\d$/.test(value)) { 
             OtpFormik.setFieldValue(`otp[${index}]`, value);
             if (index < inputRefs.current.length - 1) {
-                inputRefs.current[index + 1]?.focus();  // Move focus to the next input
+                inputRefs.current[index + 1]?.focus(); 
             }
-        } else if (value === '') {  // Allow clearing the input
+        } else if (value === '') { 
             OtpFormik.setFieldValue(`otp[${index}]`, '');
         }
     };
@@ -32,7 +33,7 @@ const VerifyOtp = ({ PersonalDetailsFormik, OtpFormik }: Props) => {
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, index: number) => {
         if (e.key === 'Backspace' && !e.currentTarget.value) {
             if (index > 0) {
-                inputRefs.current[index - 1]?.focus();  // Move focus to the previous input on backspace
+                inputRefs.current[index - 1]?.focus(); 
             }
         }
     };
@@ -52,19 +53,34 @@ const VerifyOtp = ({ PersonalDetailsFormik, OtpFormik }: Props) => {
                             onChange={(e) => handleChange(e, index)}
                             onKeyDown={(e) => handleKeyDown(e, index)}
                             ref={(el) => {
-                                inputRefs.current[index] = el;  // Assign refs to input elements
+                                inputRefs.current[index] = el;  
                             }}
                             className='w-[40px] h-[40px] rounded-[40px] border-2 border-[#13829F] text-center'
                             placeholder='0'
                         />
                     ))}
                 </div>
+                {isVerfied && (
+                    <div className='p-4 bg-secondary/60 rounded-[6px] mt-2 flex flex-row items-center justify-center gap-[10px]'>
+                        <span className='text-white font-[400]'>OTP Verfication sucessfully </span>
+                        <div>
+                            <ReactLoading type={'spin'} color='white' height={20} width={20} />
+                        </div>
+                    </div>
+                )}
+                {isOtpExpired !== "" && (
+                    <div className='p-4 bg-secondary/60 rounded-[6px] mt-2 flex flex-row items-center justify-center gap-[10px]'>
+                        <span className='text-white font-[400]'>{isOtpExpired}</span>
+
+                    </div>
+                )}
+
                 <div className='flex flex-col gap-[4px]'>
                     <button type='submit' className={`w-full h-[50px] rounded-[24px] ${isButtonDisabled ? 'bg-gray-400' : 'bg-[#1990AF]'} text-white`} disabled={isButtonDisabled}>
                         Verify
                     </button>
                     <span className='text-[13px] font-[400] text-[#999797] text-center'>Didn’t receive any code?</span>
-                    <a href="#" className=' text-[14px] text-[#13829F] font-[600] text-center'>Resend code</a>
+                    <div onClick={() => resendOtp()} className=' text-[14px] text-[#13829F] font-[600] text-center'>Resend code</div>
                 </div>
             </form>
         </div>

@@ -6,9 +6,14 @@ import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import SplashScreen from '@/components/SplashScreen'; // Import your splash screen component
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
+
 
 const inter = Inter({ subsets: ['latin'] });
 const lexend = Lexend({ subsets: ['latin'] });
+const queryClient = new QueryClient()
+
 
 
 
@@ -28,17 +33,23 @@ export default function RootLayout({
   }, []);
 
   return (
+
     <html lang="en">
       <body className={`${lexend.className} max-w-[1724px] relative mx-auto`}>
         {loading ? (
           <SplashScreen />
         ) : (
           <>
-            <main className="relative overflow-hidden">
-              {children}
-            </main>
+            <QueryClientProvider client={queryClient}>
+              <main className="relative overflow-hidden">
+                {children}
+                <ReactQueryDevtools initialIsOpen={false} />
+              </main>
+            </QueryClientProvider>
           </>
         )}
+       
+
       </body>
     </html>
   );

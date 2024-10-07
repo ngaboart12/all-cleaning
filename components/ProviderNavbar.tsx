@@ -5,10 +5,10 @@ import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import React from 'react'
 
-const DashNavbar = () => {
-    const {data: session,status} = useSession()
-    const token: any = session?.user.token
+const ProviderNavbar = () => {
     const params = usePathname()
+    const { data: session, status } = useSession()
+    const token: any = session?.user.token
     return (
         <div className='px-[20px] top-0 max-w-[1724px] lg:px-20 p-3 bg-white flex flex-row items-center justify-between fixed w-full z-[300]'>
             <a href="" className='rounded-[8px]  text-white font-[700]'>
@@ -17,10 +17,10 @@ const DashNavbar = () => {
 
 
             <div className=' flex-row gap-[50px] items-center hidden md:flex'>
-                <a href="./" className={` text-[12px] font-[400] hover:scale-110 duration-300  rounded-[8px] ${params == "/client/dashboard" ? " bg-primary px-6 p-2 text-white" : " text-primary "}`}>Home</a>
-                <a href="/services" className='text-primary text-[12px] font-[400] hover:scale-110 duration-300'>Services</a>
-                <a href="./dashboard/bookings" className={` rounded-[8px] ${params == "/client/dashboard/bookings" ? " bg-primary px-6 p-2 text-white" : "text-primary"} text-[12px] font-[400] hover:scale-110 duration-300`}>Bookings</a>
-                <a href="" className='text-primary text-[12px] font-[400] hover:scale-110 duration-300'>Cleaners</a>
+                <a href="./" className={` text-[12px] font-[400] hover:scale-110 duration-300  rounded-[8px] ${params == "/provider" ? " bg-[#F7F7F7] px-6 p-2 text-black" : " text-black"}`}>Home</a>
+                <a href="/services" className='text-black text-[12px] font-[400] hover:scale-110 duration-300'>Services</a>
+                <a href="./dashboard/bookings" className={` rounded-[8px] ${params == "/provider/service" ? " bg-[#F7F7F7] px-6 p-2 text-black" : "text-black"} text-[12px] font-[400] hover:scale-110 duration-300`}>Bookings</a>
+                <a href="" className='text-black text-[12px] font-[400] hover:scale-110 duration-300'>Cleaners</a>
                 <div className=' cursor-pointer '>
                     <svg width="48" height="49" viewBox="0 0 48 49" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect y="0.5" width="48" height="48" rx="12" fill="#FDFBFB" />
@@ -29,10 +29,13 @@ const DashNavbar = () => {
                         <path d="M27 31.5C27 33.1569 25.6569 34.5 24 34.5C22.3431 34.5 21 33.1569 21 31.5" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                 </div>
-                <span onClick={()=>handleLogout(token)} className='text-black cursor-pointer'>{session?.user.email}</span>
+                {/* <span onClick={() => handleLogout(token)} className='text-black cursor-pointer'>{session?.user.name}</span> */}
                 <div className='flex cursor-pointer flex-row items-center gap-[4px]'>
                     <div className='p-2 rounded-full bg-primary text-white'>
-                        <h1 className='text-white font-[600]'>Ms</h1>
+                        <h1 className='text-white font-[600]'>
+                            {session?.user.name?.split(" ")[0].slice(0, 1).toLocaleUpperCase()}
+                            {session?.user.name?.split(" ")[1]?.slice(0, 1).toLocaleUpperCase()}
+                        </h1>
                     </div>
                     <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M18 9.50005C18 9.50005 13.5811 15.5 12 15.5C10.4188 15.5 6 9.5 6 9.5" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -48,4 +51,4 @@ const DashNavbar = () => {
     )
 }
 
-export default DashNavbar
+export default ProviderNavbar

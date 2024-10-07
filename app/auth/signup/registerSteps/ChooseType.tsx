@@ -1,6 +1,5 @@
 import React from 'react'
 
-
 type props = {
     TypeFormik: any,
 }
@@ -14,7 +13,7 @@ const ChooseType = ({ TypeFormik }: props) => {
                 {TypeFormik.touched.type && TypeFormik.errors.type && (
                     <span className='text-[#fc5555] text-[12px]'>{TypeFormik.errors.type}</span>
                 )}
-                <div onClick={() => TypeFormik.setFieldValue('type', "customer")} className={`w-full p-[15px] cursor-pointer items-center rounded-[30px] border-2 ${TypeFormik.values.type == "customer" ? "border-[#13829F]" : "border-[#F8F8F8]"} bg-[#FBFBFB] flex flex-row gap-[20px]`}>
+                <div onClick={() => TypeFormik.setFieldValue('type', "CLIENT")} className={`w-full p-[15px] cursor-pointer items-center rounded-[30px] border-2 ${TypeFormik.values.type == "CLIENT" ? "border-[#13829F]" : "border-[#F8F8F8]"} bg-[#FBFBFB] flex flex-row gap-[20px]`}>
                     <div>
                         <div className='p-2 rounded-[12px] bg-white'>
                             <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -28,7 +27,7 @@ const ChooseType = ({ TypeFormik }: props) => {
                         <span className='text-[12px] text-[#7D7D7D] max-w-[200px]'>Book professional cleaning services </span>
                     </div>
                 </div>
-                <div onClick={() => TypeFormik.setFieldValue('type', "cleaner")} className={`w-full p-[15px] cursor-pointer items-center rounded-[30px] border-2 ${TypeFormik.values.type == "cleaner" ? "border-[#13829F]" : "border-[#F8F8F8]"}  bg-[#FBFBFB] flex flex-row gap-[20px]`}>
+                <div onClick={() => TypeFormik.setFieldValue('type', "PROVIDER")} className={`w-full p-[15px] cursor-pointer items-center rounded-[30px] border-2 ${TypeFormik.values.type == "PROVIDER" ? "border-[#13829F]" : "border-[#F8F8F8]"}  bg-[#FBFBFB] flex flex-row gap-[20px]`}>
                     <div>
                         <div className='p-2 rounded-[12px] bg-white'>
                             <svg width="27" height="27" viewBox="0 0 27 27" fill="none" xmlns="http://www.w3.org/2000/svg">

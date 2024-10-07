@@ -32,7 +32,11 @@ const PaymentMethod = ({ setSteps,setConfirmed }: props) => {
     ]
     return (
         <div className=' w-full md:w-2/3 bg-white p-4 rounded-[6px] flex flex-col gap-[10px]'>
-            <h1 className='text-[18px] font-[700]'>Booking Review</h1>
+            <h1 className='text-[18px] font-[700]'>Payment</h1>
+            <div className='p-6 bg-[#FAFAFA] rounded-[12px] flex  flex-col'>
+                <h1 className='text-[16px] font-[600]'>Total amount</h1>
+                <span className='text-[24px] font-[700] text-primary'>$140</span>
+            </div>
             <form action="" method="post" className='flex flex-col h-full justify-between gap-[20px] w-full'>
                 <div className=' flex flex-col gap-[10px]'>
                     <h1 className='text-[16px] font-[600] text-[#1D3C6A]'>Choose payment method</h1>

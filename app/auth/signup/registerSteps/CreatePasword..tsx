@@ -1,11 +1,13 @@
 import React from 'react';
+import ReactLoading from 'react-loading';
 
 type Props = {
     PasswordFormik: any;
+    loading: boolean
     
 };
 
-const CreatePassword = ({ PasswordFormik }: Props) => {
+const CreatePassword = ({ PasswordFormik,loading }: Props) => {
     const handelSubmit = (e: React.FormEvent)=>{
         e.preventDefault()
         if(PasswordFormik.values.password !== PasswordFormik.values.repassword){
@@ -51,7 +53,13 @@ const CreatePassword = ({ PasswordFormik }: Props) => {
                     <a href="#" className='text-[12px] sm:text-[14px] text-[#13829F]'>Already have an account?</a>
                 </div>
                 <div className='flex flex-col gap-[4px]'>
-                    <button type='submit' className='w-full h-[50px] rounded-[24px] bg-[#1990AF] text-white'> Continue</button>
+                    <button type='submit' className='w-full flex items-center justify-center h-[50px] rounded-[24px] bg-[#1990AF] text-white'>
+                        {loading ? (
+                            <ReactLoading type={'bars'} width={40} className='mt-[25px]' color='white' />
+                        ): (
+                            "Continue"
+                        )}
+                    </button>
                 </div>
             </form>
         </div>
