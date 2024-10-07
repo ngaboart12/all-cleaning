@@ -34,7 +34,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
 
   if (status === "loading") {
-    return <p>Loading...</p>;
+    return ;
   }
 
   if (status === "authenticated" && session?.user?.role === "PROVIDER") {
