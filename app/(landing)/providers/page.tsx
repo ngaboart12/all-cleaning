@@ -5,7 +5,7 @@ import React from 'react';
 import providers from "@/lib/files/providers.json"
 
 const Providers = () => {
-  const searchParams = useSearchParams();
+  const searchParams:any = useSearchParams();
   const serviceName = searchParams.get('serviceName');
 
   return (
