@@ -6,6 +6,7 @@ import InfoTable from '@/components/reusable/tables/InfoTable';
 import React, { useEffect, useState } from 'react';
 
 const Page = () => {
+  const [isApproved,setIsApproved] = useState<boolean>(false)
   const headers = [
     { key: 'ClientName', title: 'Name', },
     { key: 'Service', title: 'Service' },

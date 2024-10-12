@@ -120,8 +120,8 @@ const BookService = () => {
                                         </svg>
 
                                         <div className='flex flex-col gap-[2px]'>
-                                            <span className='text-[16px] text-primary'>step 1/5</span>
-                                            <span className='text-[16px] text-[#747474]'>Service Type</span>
+                                            <span className='text-[16px] text-primary'>step 1/3</span>
+                                            <span className='text-[16px] text-[#747474]'>Service details</span>
                                         </div>
                                     </div>
                                     <div className='px-3'>
@@ -136,7 +136,7 @@ const BookService = () => {
                                         </svg>
 
                                         <div className='flex flex-col gap-[2px]'>
-                                            <span className='text-[16px] text-[#747474]'>step 2/5</span>
+                                            <span className='text-[16px] text-[#747474]'>step 2/3</span>
                                             <span className='text-[16px] text-[#747474]'>Service details</span>
                                         </div>
                                     </div>
@@ -179,11 +179,11 @@ const BookService = () => {
 
 
                         </div>
-                        {steps === 1 && (<SelectType setSteps={setSteps} />)}
-                        {steps === 2 && (<ServiceDetailsForm setSteps={setSteps} />)}
-                        {steps === 3 && (<SelectProvider setSteps={setSteps} />)}
-                        {steps === 4 && (<BookingReview setSteps={setSteps} />)}
-                        {steps === 5 && (<PaymentMethod setConfirmed={setConfirmed} setSteps={setSteps} />)}
+                        {/* {steps === 1 && (<SelectType setSteps={setSteps} />)} */}
+                        {steps === 1 && (<ServiceDetailsForm setSteps={setSteps} />)}
+                        {/* {steps === 3 && (<SelectProvider setSteps={setSteps} />)} */}
+                        {steps === 2 && (<BookingReview setSteps={setSteps} />)}
+                        {steps === 3 && (<PaymentMethod setConfirmed={setConfirmed} setSteps={setSteps} />)}
                     </>
                 )}
 

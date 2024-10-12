@@ -43,7 +43,7 @@ const Services = () => {
                                     </div>
                                 </div>
                                 <div className='grid grid-cols-2  gap-[20px] md:pr-10'>
-                                    <a href={`/providers?serviceName=${item.name}`} className=' flex flex-row items-center justify-center rounded-[30px] p-[15px] bg-[#13829F]'>
+                                    <a href={`/serve/service-company/01861bec-37a4-49a5-bef8-66180a6503d3`} className=' flex flex-row items-center justify-center rounded-[30px] p-[15px] bg-[#13829F]'>
                                         <span className='text-center text-white'>Book Now</span>
                                         <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M9.00005 6C9.00005 6 15 10.4189 15 12C15 13.5812 9 18 9 18" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />

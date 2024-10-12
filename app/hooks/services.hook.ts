@@ -36,6 +36,20 @@ export const useFetchProviderServicesQuery = (token: string) => {
     enabled: !!token, 
   });
 };
+const fetchProviderWithService = async (serviceId: string) => {
+  const response = await axios.get(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/service/service-providers/${serviceId}`,
+  );
+  return response.data;
+};
+
+export const useFetchProviderWithServiceQuery = (serviceId: string) => {
+  return useQuery({
+    queryKey: ["providerWithService"],
+    queryFn: () => fetchProviderWithService(serviceId),
+    enabled: !!serviceId, 
+  });
+};
 
 interface ServiceData {
   description: string;

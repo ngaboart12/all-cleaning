@@ -51,7 +51,7 @@ const PopularService = () => {
         <div className='px-[20px] lg:px-20 py-20 bg-white flex flex-col gap-[40px]'>
             <div className='flex flex-row items-center justify-between'>
                 <h1 className='text-[30px] text-primary font-[700]'>Our Popular Services</h1>
-                <a href="" className='flex flex-row gap-[10px] items-center'>
+                <a href="/serve" className='flex flex-row gap-[10px] items-center'>
                     <span className='uppercase text-secondary text-[12px] font-[600]'>explore ALL</span>
                     <div>
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
