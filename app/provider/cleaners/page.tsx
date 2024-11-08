@@ -53,7 +53,7 @@ const CleanersPage = () => {
 
       ) : (
         <>
-          {services && services.filter((item: any) => item.isComplete == true).length == 0 && (
+          {services && services.filter((item: any) => item.isComplete == false).length == 0 && (
             <div className='w-full items-center justify-center flex bg-white rounded-[12px] py-4'>
               <svg width="355" height="355" viewBox="0 0 355 355" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <circle cx="177" cy="178" r="53.5" stroke="black" />
@@ -102,8 +102,8 @@ const CleanersPage = () => {
             </div>
           )}
 
-          <div className=' w-full grid grid-cols-1 md:grid-cols-2 lg  :grid-cols-3 gap-[10px]'>
-            {services.filter((item: any) => item.isComplete == true).map((service: any, index: number) => {
+          <div className=' w-full grid grid-cols-1 md:grid-cols-2 gap-[10px]'>
+            {services.filter((item: any) => item.isComplete == false).map((service: any, index: number) => {
               const date = new Date(service.createdAt);
               const options: any = { day: '2-digit', month: 'long', year: 'numeric' };
               const formattedDate = date.toLocaleDateString('en-US', options).replace(',', '');
@@ -122,8 +122,8 @@ const CleanersPage = () => {
                         
                         </div>
                     <div className='flex flex-col gap-[2px]'>
-                        <span className='text-[16px] font-[400] text-black'>{service.service.title}</span>
-                        <span className='text-[14px] text-[#ABABAB]'>{service.provider.email}</span>
+                        <span className='text-[16px] font-[400] text-black'>{`Ishimwe Olivier`}</span>
+                        <span className='text-[14px] text-[#ABABAB]'>{`ishimweolivier@gmail.com`}</span>
                     </div>
 
                     </div>

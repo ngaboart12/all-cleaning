@@ -6,6 +6,7 @@ import '../globals.css';
 import SplashScreen from '@/components/SplashScreen';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { SessionProvider, useSession } from 'next-auth/react';
 
 const inter = Inter({ subsets: ['latin'] });
 const lexend = Lexend({ subsets: ['latin'] });
@@ -18,14 +19,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={`${lexend.className} max-w-[1724px] relative mx-auto bg-primary`}>
-            <Navbar />
-            <main className="relative overflow-hidden">
-              {children}
-            </main>
-            <Footer />
-      </body>
-    </html>
+    <SessionProvider>
+      <html lang="en">
+        <body className={`${lexend.className} max-w-[1724px] relative mx-auto bg-primary`}>
+          <Navbar />
+          <main className="relative overflow-hidden">
+            {children}
+          </main>
+          <Footer />
+        </body>
+      </html>
+    </SessionProvider>
   );
 }

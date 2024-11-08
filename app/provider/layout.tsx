@@ -20,7 +20,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const { data: session, status } = useSession();
-  const [isApproved, setIsApproved] = useState<boolean>(false)
+  const [isApproved, setIsApproved] = useState<boolean>(true)
   const router = useRouter();
 
   useEffect(() => {

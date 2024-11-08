@@ -16,11 +16,11 @@ const DashNavbar = () => {
             </a>
 
 
-            <div className=' flex-row gap-[50px] items-center hidden md:flex'>
+            <div className=' flex-row gap-[40px] items-center hidden md:flex'>
                 <a href="./" className={` text-[12px] font-[400] hover:scale-110 duration-300  rounded-[8px] ${params == "/client/dashboard" ? " bg-primary px-6 p-2 text-white" : " text-primary "}`}>Home</a>
                 <a href="/services" className='text-primary text-[12px] font-[400] hover:scale-110 duration-300'>Services</a>
-                <a href="./dashboard/bookings" className={` rounded-[8px] ${params == "/client/dashboard/bookings" ? " bg-primary px-6 p-2 text-white" : "text-primary"} text-[12px] font-[400] hover:scale-110 duration-300`}>Bookings</a>
-                <a href="" className='text-primary text-[12px] font-[400] hover:scale-110 duration-300'>Cleaners</a>
+                <a href="/client/dashboard/bookings" className={` rounded-[8px] ${params == "/client/dashboard/bookings" ? " bg-primary px-6 p-2 text-white" : "text-primary"} text-[12px] font-[400] hover:scale-110 duration-300`}>Bookings</a>
+                <a href="/client/dashboard/profile" className={` rounded-[8px] ${params == "/client/dashboard/profile" ? " bg-primary px-6 p-2 text-white" : "text-primary"} text-[12px] font-[400] hover:scale-110 duration-300`}>Profile</a>
                 <div className=' cursor-pointer '>
                     <svg width="48" height="49" viewBox="0 0 48 49" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect y="0.5" width="48" height="48" rx="12" fill="#FDFBFB" />
@@ -29,7 +29,6 @@ const DashNavbar = () => {
                         <path d="M27 31.5C27 33.1569 25.6569 34.5 24 34.5C22.3431 34.5 21 33.1569 21 31.5" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
                 </div>
-                <span onClick={()=>handleLogout(token)} className='text-black cursor-pointer'>{session?.user.email}</span>
                 <div className='flex cursor-pointer flex-row items-center gap-[4px]'>
                     <div className='p-2 rounded-full bg-primary text-white'>
                         <h1 className='text-white font-[600]'>Ms</h1>

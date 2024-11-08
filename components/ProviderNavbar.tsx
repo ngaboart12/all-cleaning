@@ -18,9 +18,10 @@ const ProviderNavbar = () => {
 
             <div className=' flex-row gap-[50px] items-center hidden md:flex'>
                 <a href="./" className={` text-[12px] font-[400] hover:scale-110 duration-300  rounded-[8px] ${params == "/provider" ? " bg-[#F7F7F7] px-6 p-2 text-black" : " text-black"}`}>Home</a>
-                <a href="/services" className='text-black text-[12px] font-[400] hover:scale-110 duration-300'>Services</a>
-                <a href="./dashboard/bookings" className={` rounded-[8px] ${params == "/provider/service" ? " bg-[#F7F7F7] px-6 p-2 text-black" : "text-black"} text-[12px] font-[400] hover:scale-110 duration-300`}>Bookings</a>
-                <a href="" className='text-black text-[12px] font-[400] hover:scale-110 duration-300'>Cleaners</a>
+                <a href="/provider/services" className='text-black text-[12px] font-[400] hover:scale-110 duration-300'>Services</a>
+                <a href="/dashboard/bookings" className={` rounded-[8px] ${params == "/provider/service" ? " bg-[#F7F7F7] px-6 p-2 text-black" : "text-black"} text-[12px] font-[400] hover:scale-110 duration-300`}>Bookings</a>
+                <a href="/provider/cleaners" className='text-black text-[12px] font-[400] hover:scale-110 duration-300'>Cleaners</a>
+                <a href="/provider/manage_service" className='text-black text-[12px] font-[400] hover:scale-110 duration-300'>Manage</a>
                 <div className=' cursor-pointer '>
                     <svg width="48" height="49" viewBox="0 0 48 49" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <rect y="0.5" width="48" height="48" rx="12" fill="#FDFBFB" />
