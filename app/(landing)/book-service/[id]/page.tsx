@@ -91,7 +91,7 @@ const BookService = () => {
                                 <span className='text-[14px] font-[400] text-[#7A8487]'>Your cleaning service has been successfully booked</span>
                             </div>
                             <div className='rounded-[6px] p-4 bg-[#FBFBFB] flex'>
-                                <span className='text-[14px] font-[500] text-[#2E2C2C] text-center'>Thank you for your payment! The amount has been securely processed. Your cleaner will receive the payment once the service is completed to your satisfaction</span>
+                                <span className='text-[14px] font-[500] text-[#2E2C2C] text-center'>Thank you for your booking! The amount has been securely processed. Your cleaner will receive the quotation</span>
 
                             </div>
 
@@ -182,8 +182,9 @@ const BookService = () => {
                         {/* {steps === 1 && (<SelectType setSteps={setSteps} />)} */}
                         {steps === 1 && (<ServiceDetailsForm setSteps={setSteps} />)}
                         {/* {steps === 3 && (<SelectProvider setSteps={setSteps} />)} */}
-                        {steps === 2 && (<BookingReview setSteps={setSteps} />)}
-                        {steps === 3 && (<PaymentMethod setConfirmed={setConfirmed} setSteps={setSteps} />)}
+                        {steps === 2 && (<BookingReview setConfirmed={setConfirmed} setSteps={setSteps} />)}
+
+                        {/* {steps === 3 && (<PaymentMethod setConfirmed={setConfirmed} setSteps={setSteps} />)} */}
                     </>
                 )}
 

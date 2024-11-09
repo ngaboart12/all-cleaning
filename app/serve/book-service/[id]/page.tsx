@@ -95,7 +95,7 @@ const BookService = () => {
                                     <span className='text-[14px] font-[400] text-[#7A8487]'>Your cleaning service has been successfully booked</span>
                                 </div>
                                 <div className='rounded-[6px] p-4 bg-[#FBFBFB] flex'>
-                                    <span className='text-[14px] font-[500] text-[#2E2C2C] text-center'>Thank you for your payment! The amount has been securely processed. Your cleaner will receive the payment once the service is completed to your satisfaction</span>
+                                    <span className='text-[14px] font-[500] text-[#2E2C2C] text-center'>Thank you for your booking! The amount has been securely processed. Your cleaner will receive the payment once the service is completed to your satisfaction</span>
 
                                 </div>
 
@@ -114,71 +114,7 @@ const BookService = () => {
                         <>
 
                             <div className='w-full md:w-1/4  bg-white rounded-[12px] p-6 flex flex-col gap-[20px]'>
-                                <h1 className='text-[16px] font-[600]'> Booking steps</h1>
-                                <div className='flex flex-row gap-[10px]'>
-                                    <div className='flex flex-col'>
-                                        <div className='flex flex-row gap-[20px] items-center'>
-                                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <circle cx="16" cy="16" r="16" fill="#13829F" />
-                                                <path d="M23.0454 11.7639L13.5454 21.2639C13.4903 21.3191 13.4248 21.3629 13.3527 21.3927C13.2806 21.4226 13.2034 21.438 13.1253 21.438C13.0473 21.438 12.97 21.4226 12.898 21.3927C12.8259 21.3629 12.7604 21.3191 12.7053 21.2639L8.549 17.1076C8.43759 16.9962 8.375 16.8451 8.375 16.6875C8.375 16.53 8.43759 16.3789 8.549 16.2674C8.66041 16.156 8.81152 16.0934 8.96908 16.0934C9.12664 16.0934 9.27775 16.156 9.38916 16.2674L13.1253 20.0044L22.2053 10.9237C22.3167 10.8123 22.4678 10.7497 22.6253 10.7497C22.7829 10.7497 22.934 10.8123 23.0454 10.9237C23.1568 11.0351 23.2194 11.1862 23.2194 11.3438C23.2194 11.5013 23.1568 11.6524 23.0454 11.7639Z" fill="white" />
-                                            </svg>
-
-                                            <div className='flex flex-col gap-[2px]'>
-                                                <span className='text-[16px] text-primary'>step 1/5</span>
-                                                <span className='text-[16px] text-[#747474]'>Service Type</span>
-                                            </div>
-                                        </div>
-                                        <div className='px-3'>
-                                            <svg width="3" height="60" viewBox="0 0 3 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <line x1="1.5" y1="60" x2="1.5" stroke="#13829F" stroke-width="3" stroke-dasharray="6 6" />
-                                            </svg>
-                                        </div>
-                                        <div className='flex flex-row gap-[20px] items-center'>
-                                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <circle cx="16" cy="16" r="16" fill="#E4E4E4" />
-                                                <path d="M23.0454 11.7638L13.5454 21.2638C13.4903 21.319 13.4248 21.3628 13.3527 21.3927C13.2806 21.4226 13.2034 21.438 13.1253 21.438C13.0473 21.438 12.97 21.4226 12.898 21.3927C12.8259 21.3628 12.7604 21.319 12.7053 21.2638L8.549 17.1076C8.43759 16.9962 8.375 16.8451 8.375 16.6875C8.375 16.5299 8.43759 16.3788 8.549 16.2674C8.66041 16.156 8.81152 16.0934 8.96908 16.0934C9.12664 16.0934 9.27775 16.156 9.38916 16.2674L13.1253 20.0043L22.2053 10.9237C22.3167 10.8123 22.4678 10.7497 22.6253 10.7497C22.7829 10.7497 22.934 10.8123 23.0454 10.9237C23.1568 11.0351 23.2194 11.1862 23.2194 11.3437C23.2194 11.5013 23.1568 11.6524 23.0454 11.7638Z" fill="white" />
-                                            </svg>
-
-                                            <div className='flex flex-col gap-[2px]'>
-                                                <span className='text-[16px] text-[#747474]'>step 2/5</span>
-                                                <span className='text-[16px] text-[#747474]'>Service details</span>
-                                            </div>
-                                        </div>
-                                        <div className='px-3'>
-                                            <svg width="3" height="60" viewBox="0 0 3 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <line x1="1.5" y1="60" x2="1.5" stroke="#E4E4E4" stroke-width="3" stroke-dasharray="6 6" />
-                                            </svg>
-                                        </div>
-                                        <div className='flex flex-row gap-[20px] items-center'>
-                                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <circle cx="16" cy="16" r="16" fill="#E4E4E4" />
-                                                <path d="M23.0454 11.7638L13.5454 21.2638C13.4903 21.319 13.4248 21.3628 13.3527 21.3927C13.2806 21.4226 13.2034 21.438 13.1253 21.438C13.0473 21.438 12.97 21.4226 12.898 21.3927C12.8259 21.3628 12.7604 21.319 12.7053 21.2638L8.549 17.1076C8.43759 16.9962 8.375 16.8451 8.375 16.6875C8.375 16.5299 8.43759 16.3788 8.549 16.2674C8.66041 16.156 8.81152 16.0934 8.96908 16.0934C9.12664 16.0934 9.27775 16.156 9.38916 16.2674L13.1253 20.0043L22.2053 10.9237C22.3167 10.8123 22.4678 10.7497 22.6253 10.7497C22.7829 10.7497 22.934 10.8123 23.0454 10.9237C23.1568 11.0351 23.2194 11.1862 23.2194 11.3437C23.2194 11.5013 23.1568 11.6524 23.0454 11.7638Z" fill="white" />
-                                            </svg>
-
-                                            <div className='flex flex-col gap-[2px]'>
-                                                <span className='text-[16px] text-[#747474]'>step 3/5</span>
-                                                <span className='text-[16px] text-[#747474]'>Select  provider</span>
-                                            </div>
-                                        </div>
-                                        <div className='px-3'>
-                                            <svg width="3" height="60" viewBox="0 0 3 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <line x1="1.5" y1="60" x2="1.5" stroke="#E4E4E4" stroke-width="3" stroke-dasharray="6 6" />
-                                            </svg>
-                                        </div>
-                                        <div className='flex flex-row gap-[20px] items-center'>
-                                            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <circle cx="16" cy="16" r="16" fill="#E4E4E4" />
-                                                <path d="M23.0454 11.7638L13.5454 21.2638C13.4903 21.319 13.4248 21.3628 13.3527 21.3927C13.2806 21.4226 13.2034 21.438 13.1253 21.438C13.0473 21.438 12.97 21.4226 12.898 21.3927C12.8259 21.3628 12.7604 21.319 12.7053 21.2638L8.549 17.1076C8.43759 16.9962 8.375 16.8451 8.375 16.6875C8.375 16.5299 8.43759 16.3788 8.549 16.2674C8.66041 16.156 8.81152 16.0934 8.96908 16.0934C9.12664 16.0934 9.27775 16.156 9.38916 16.2674L13.1253 20.0043L22.2053 10.9237C22.3167 10.8123 22.4678 10.7497 22.6253 10.7497C22.7829 10.7497 22.934 10.8123 23.0454 10.9237C23.1568 11.0351 23.2194 11.1862 23.2194 11.3437C23.2194 11.5013 23.1568 11.6524 23.0454 11.7638Z" fill="white" />
-                                            </svg>
-
-                                            <div className='flex flex-col gap-[2px]'>
-                                                <span className='text-[16px] text-[#747474]'>step 4/5</span>
-                                                <span className='text-[16px] text-[#747474]'>service review</span>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
+                               
 
 
 
@@ -186,7 +122,7 @@ const BookService = () => {
                             {steps === 1 && (<SelectType setSteps={setSteps} />)}
                             {steps === 2 && (<ServiceDetailsForm setSteps={setSteps} />)}
                             {steps === 3 && (<SelectProvider setSteps={setSteps} />)}
-                            {steps === 4 && (<BookingReview setSteps={setSteps} />)}
+                            {steps === 4 && (<BookingReview setConfirmed={setConfirmed} setSteps={setSteps} />)}
                             {steps === 5 && (<PaymentMethod setConfirmed={setConfirmed} setSteps={setSteps} />)}
                         </>
                     )}

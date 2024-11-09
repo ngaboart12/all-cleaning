@@ -3,9 +3,10 @@ import React from 'react'
 
 type props = {
     setSteps: React.Dispatch<React.SetStateAction<number>>
+    setConfirmed: any
 }
 
-const BookingReview = ({ setSteps }: props) => {
+const BookingReview = ({ setSteps,setConfirmed }: props) => {
     return (
         <div className=' w-full md:w-2/3 bg-white p-6 rounded-[6px] flex flex-col gap-[20px]'>
             <h1 className='text-[18px] font-[700]'>Booking Review</h1>
@@ -63,7 +64,7 @@ const BookingReview = ({ setSteps }: props) => {
                     <div onClick={() => setSteps(3)} className=' cursor-pointer w-[200px] text-[13px] px-[10px] py-[10px] rounded-[6px] bg-[#EFEFEF] flex items-center justify-center'>
                         <span>Back</span>
                     </div>
-                    <button onClick={() => setSteps(5)} type='submit' className='w-[200px] text-[13px] px-[10px] py-[10px] rounded-[6px] bg-[#13829F] text-white flex items-center justify-center'>
+                    <button onClick={() => setConfirmed(true)} type='submit' className='w-[200px] text-[13px] px-[10px] py-[10px] rounded-[6px] bg-[#13829F] text-white flex items-center justify-center'>
                         <span>Confirm booking</span>
                     </button>
                 </div>

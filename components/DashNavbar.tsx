@@ -15,10 +15,8 @@ const DashNavbar = () => {
                 <Image src={`/image/logo2.png`} width={1000} height={1000} className='w-[80px]' alt='logo' />
             </a>
 
-
             <div className=' flex-row gap-[40px] items-center hidden md:flex'>
-                <a href="./" className={` text-[12px] font-[400] hover:scale-110 duration-300  rounded-[8px] ${params == "/client/dashboard" ? " bg-primary px-6 p-2 text-white" : " text-primary "}`}>Home</a>
-                <a href="/services" className='text-primary text-[12px] font-[400] hover:scale-110 duration-300'>Services</a>
+                <a href="/client/dashboard" className={` text-[12px] font-[400] hover:scale-110 duration-300  rounded-[8px] ${params == "/client/dashboard" ? " bg-primary px-6 p-2 text-white" : " text-primary "}`}>Home</a>
                 <a href="/client/dashboard/bookings" className={` rounded-[8px] ${params == "/client/dashboard/bookings" ? " bg-primary px-6 p-2 text-white" : "text-primary"} text-[12px] font-[400] hover:scale-110 duration-300`}>Bookings</a>
                 <a href="/client/dashboard/profile" className={` rounded-[8px] ${params == "/client/dashboard/profile" ? " bg-primary px-6 p-2 text-white" : "text-primary"} text-[12px] font-[400] hover:scale-110 duration-300`}>Profile</a>
                 <div className=' cursor-pointer '>

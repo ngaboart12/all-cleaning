@@ -62,10 +62,10 @@ const CompanyDocument = ({ CompanyDocumentFormik, loading }: Props) => {
             });
             const data = await response.json();
             CompanyDocumentFormik.setFieldValue('companyDocument', data.secure_url);
-            setUploadSuccess(true); // Set success state to true on successful upload
+            setUploadSuccess(true);
         } catch (error) {
             setError("Image upload failed");
-            setUploadSuccess(false); // Reset success state on error
+            setUploadSuccess(false); 
         } finally {
             setUploading(false);
         }

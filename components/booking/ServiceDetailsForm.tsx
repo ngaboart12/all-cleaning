@@ -77,7 +77,7 @@ const ServiceDetailsForm = ({ setSteps }: props) => {
                     <div onClick={() => setSteps(1)} className=' cursor-pointer w-[200px] px-[10px] py-[10px] rounded-[6px] bg-[#EFEFEF] flex items-center justify-center'>
                         <span>Back</span>
                     </div>
-                    <button onClick={() => setSteps(3)} type='submit' className='w-[200px] px-[10px] py-[10px] rounded-[6px] bg-[#13829F] text-white flex items-center justify-center'>
+                    <button onClick={() => setSteps(2)} type='submit' className='w-[200px] px-[10px] py-[10px] rounded-[6px] bg-[#13829F] text-white flex items-center justify-center'>
                         <span>Continue</span>
                     </button>
                 </div>

@@ -13,7 +13,7 @@ const UserProfile = () => {
                     <h1 className='text-black text-[20px] font-[400]'>My Profile</h1>
                     <span className='text-[14px] font-[400] text-black/40'>Ngabo Sevelin</span>
                 </div>
-                <button className='text-[12px] py-3 px-4 rounded-[12px] bg-red-500 text-white'>Delete Account</button>
+                <button className='text-[12px] py-3 px-4 rounded-[12px] bg-red-400 text-white'>Delete Account</button>
             </div>
             <div className='flex flex-row gap-[20px] w-full'>
                 <div className='w-1/3 bg-white p-4 flex flex-col gap-[20px]'>
@@ -60,8 +60,8 @@ const UserProfile = () => {
                                                     <span className='text-[13px]'>Los angels</span>
                                                 </div>
                                                 <div className='flex flex-row gap-[2px]'>
-                                                    <button className='p-1 px-2rounded-[4px] text-primary'>View</button>
-                                                    <button className='p-1 px-2 bg-red-500 rounded-[4px] text-white'>Delete</button>
+                                                    <button className='p-1 px-2rounded-[4px] text-[12px] text-primary'>View</button>
+                                                    <button className='p-1 px-2 bg-red-400 rounded-[4px] text-white'>Delete</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -72,8 +72,8 @@ const UserProfile = () => {
                                                     <span className='text-[13px]'>New york</span>
                                                 </div>
                                                 <div className='flex flex-row gap-[2px]'>
-                                                    <button className='p-1 px-2rounded-[4px] text-primary'>View</button>
-                                                    <button className='p-1 px-2 bg-red-500 rounded-[4px] text-white'>Delete</button>
+                                                    <button className='p-1 px-2rounded-[4px] text-[12px] text-primary'>View</button>
+                                                    <button className='p-1 px-2 bg-red-400 rounded-[4px] text-white'>Delete</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -89,20 +89,20 @@ const UserProfile = () => {
                                                     <span className='text-[13px]'>Los angels</span>
                                                 </div>
                                                 <div className='flex flex-row gap-[2px]'>
-                                                    <button className='p-1 px-2rounded-[4px] text-primary'>View</button>
-                                                    <button className='p-1 px-2 bg-red-500 rounded-[4px] text-white'>Delete</button>
+                                                    <button className='p-1 px-2rounded-[4px] text-[12px] text-primary'>View</button>
+                                                    <button className='p-1 px-2 bg-red-400 rounded-[4px] text-white'>Delete</button>
                                                 </div>
                                             </div>
                                         </div>
                                         <div className='border p-4 rounded-[12px] flex col gap-[10px]'>
                                             <div className='w-full flex flex-row justify-between gap-[10px] items-center'>
                                                 <div className='flex flex-col'>
-                                                    <h1 className='text-[16px] font-[600] text-black'>Rava</h1>
+                                                    <h1 className='text-[16px] font-[600]  text-black'>Rava</h1>
                                                     <span className='text-[13px]'>Los angels</span>
                                                 </div>
                                                 <div className='flex flex-row gap-[2px]'>
-                                                    <button className='p-1 px-2rounded-[4px] text-primary'>View</button>
-                                                    <button className='p-1 px-2 bg-red-500 rounded-[4px] text-white'>Delete</button>
+                                                    <button className='p-1 px-2rounded-[4px] text-[12px] text-primary'>View</button>
+                                                    <button className='p-1 px-2 bg-red-400 rounded-[4px] text-white'>Delete</button>
                                                 </div>
                                             </div>
                                         </div>
