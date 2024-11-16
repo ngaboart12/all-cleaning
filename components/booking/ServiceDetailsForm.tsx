@@ -42,7 +42,7 @@ const ServiceDetailsForm = ({ setSteps }: props) => {
                     <h1 className='text-[16px] font-[700]'>Property</h1>
                     <div className=' w-full grid grid-cols-1 md:grid-cols-2 gap-[10px]'>
                         <div className='flex flex-col gap-[4px]'>
-                            <span className='text-[14px]'>Property type</span>
+                            <span className='text-[14px]'>Property type </span>
 
                             <div className='w-full  rounded-[12px] bg-[#FBFBFB]'>
                                 <select name="" id="" className='w-full p-3 py-4 bg-transparent text-[13px]  '>
