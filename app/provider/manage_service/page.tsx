@@ -15,7 +15,7 @@ import SuccessPopup from '@/components/modal/SuccessPopup';
 interface AdditionalFee {
     id: string; // Add an id field
     title: string;
-    fees: string;
+    fee: string;
 }
 
 
@@ -55,7 +55,7 @@ const ManageServiceDetails = () => {
     const { data: session } = useSession();
     const token: any = session?.user.token;
 
-    const [additionalFees, setAdditionalFees] = useState([{ id: generateRandomId(), title: '', fees: '' }]);
+    const [additionalFees, setAdditionalFees] = useState([{ id: generateRandomId(), title: '', fee: '' }]);
 
 
 
@@ -77,7 +77,7 @@ const ManageServiceDetails = () => {
             const additionalFeesMapped = additionalFees.map(fee => ({
                 id: fee.id,
                 title: fee.title,
-                fees: Number(fee.fees) // Convert fees to number
+                fee: Number(fee.fee) // Convert fee to number
             }));
             const data = {
                 description: values.description,
@@ -169,11 +169,11 @@ const ManageServiceDetails = () => {
     };
 
     const handleAddFee = () => {
-        const newFee: AdditionalFee = { id: Date.now().toString(), title: '', fees: '' };
+        const newFee: AdditionalFee = { id: Date.now().toString(), title: '', fee: '' };
         setAdditionalFees([...additionalFees, newFee]);
     };
 
-    const handleFeeChange = (index: number, field: 'title' | 'fees', value: string) => {
+    const handleFeeChange = (index: number, field: 'title' | 'fee', value: string) => {
         const updatedFees = [...additionalFees];
         updatedFees[index][field] = value;
         setAdditionalFees(updatedFees);
@@ -332,8 +332,8 @@ const ManageServiceDetails = () => {
                                                 />
                                                 <input
                                                     type="number"
-                                                    value={fee.fees}
-                                                    onChange={(e) => handleFeeChange(index, 'fees', e.target.value)}
+                                                    value={fee.fee}
+                                                    onChange={(e) => handleFeeChange(index, 'fee', e.target.value)}
                                                     className='p-3 bg-[#F9F9F9] rounded-[8px] text-[13px] w-1/2'
                                                     placeholder='Amount'
                                                 />

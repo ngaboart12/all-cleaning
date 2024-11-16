@@ -12,9 +12,7 @@ const lexend = Lexend({ subsets: ['latin'] });
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <SessionProvider>
       <MainLayout>{children}</MainLayout>
-    </SessionProvider>
   );
 }
 
@@ -28,7 +26,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
     if (status === "unauthenticated") {
       router.push("/auth");
-    } else if (session?.user?.role !== "PROVIDER") {
+    } else if (session?.user?.role !== "PROVIDER" && session?.user?.role !== "FREELANCER") {
       router.push("/unauthorized");
     }
   }, [session, status, router]);

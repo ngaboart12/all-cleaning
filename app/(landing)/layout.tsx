@@ -19,7 +19,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <SessionProvider>
       <html lang="en">
         <body className={`${lexend.className} max-w-[1724px] relative mx-auto bg-primary`}>
           <Navbar />
@@ -29,6 +28,5 @@ export default function RootLayout({
           <Footer />
         </body>
       </html>
-    </SessionProvider>
   );
 }

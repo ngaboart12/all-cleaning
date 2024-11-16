@@ -41,14 +41,14 @@ const ChooseService = ({ ServicesFormik }: Props) => {
                         </div>
                     ) : (
                         <>
-                            {services.length === 0 ? (
+                            {services?.length === 0 ? (
                                 <div className='flex flex-col gap-[20px] items-center justify-center w-full'>
                                     <GiEmptyMetalBucketHandle color='black' size={40} />
                                     <h1 className='text-center'>NO SERVICE YET</h1>
                                 </div>
                             ) : (
                                 <div className='grid grid-cols-3 gap-[10px]'>
-                                    {services.map((service: any, index: number) => {
+                                    {services?.map((service: any, index: number) => {
                                         const isSelected = ServicesFormik.values.services.some((s: any) => s.serviceId === service.id);
 
                                         return (

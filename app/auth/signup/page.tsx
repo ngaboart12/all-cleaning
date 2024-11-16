@@ -20,6 +20,7 @@ import { services } from '@/public/documents/services'
 import CompanyDocument from './registerSteps/CompanyDocument'
 import CompanyBioMedia from './registerSteps/CompnayBioMedia'
 import { useSignupMutation } from '@/app/hooks/Signup'
+import ChooseCompanyType from './registerSteps/chooseCompanyType'
 
 
 const SignUp = () => {
@@ -40,17 +41,29 @@ const SignUp = () => {
     },
     validationSchema: accountTypeValidationSchema,
     onSubmit: () => {
-      if (TypeFormik.values.type === "customer") {
+      if (TypeFormik.values.type === "CLIENT") {
         setSteps(2)
       } else {
-        setSteps(2)
+        setSteps(10)
       }
+    }
+  })
+  const YourTypeFormik = useFormik({
+    initialValues: {
+      type: '',
+    },
+    validationSchema: accountTypeValidationSchema,
+    onSubmit: () => {
+      setSteps(2)
     }
   })
   const LocationFormik = useFormik({
     initialValues: {
       state: '',
       city: '',
+      country: '',
+      street: '',
+      postCode: '',
     },
     validationSchema: locationValidationSchema,
     onSubmit: () => {
@@ -69,7 +82,7 @@ const SignUp = () => {
       const data = {
         email: PersonalDetailsFormik.values.email,
       }
-      await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/user/sendotp`, data).then((res) => {
+      await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/sendotp`, data).then((res) => {
         if (res.status == 200) {
           setLoading(false)
           setSteps(4)
@@ -102,7 +115,7 @@ const SignUp = () => {
         email: PersonalDetailsFormik.values.email,
         otp: OtpFormik.values.otp
       }
-      await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/user/verfiyotp`, data).then((res) => {
+      await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/verifyotp`, data).then((res) => {
         console.log(res)
         if (res.status == 200) {
           setLoading(false)
@@ -144,9 +157,12 @@ const SignUp = () => {
           name: PersonalDetailsFormik.values.fullName,
           city: LocationFormik.values.city,
           state: LocationFormik.values.state,
+          country: LocationFormik.values.country,
+          street: LocationFormik.values.street,
+          postCode: LocationFormik.values.postCode,
           role: TypeFormik.values.type
         }
-        await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/user/signup`, data).then((res) => {
+        await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/signup`, data).then((res) => {
           console.log(res)
           if (res.status == 201) {
             setIsCusess(true)
@@ -213,7 +229,10 @@ const SignUp = () => {
           name: PersonalDetailsFormik.values.fullName,
           city: LocationFormik.values.city,
           state: LocationFormik.values.state,
-          role: TypeFormik.values.type,
+          country: LocationFormik.values.country,
+          street: LocationFormik.values.street,
+          postCode: LocationFormik.values.postCode,
+          role: YourTypeFormik.values.type == "FREELANCER" ? YourTypeFormik.values.type : TypeFormik.values.type,
           companyName: CompanyProfileFormik.values.companyName,
           companyEmail: CompanyProfileFormik.values.companyEmail,
           companyLogo: CompanyBioMediaFormik.values.companyLogo,
@@ -224,7 +243,7 @@ const SignUp = () => {
         signUp(data, {
           onSuccess: (response) => {
             setLoading(false)
-            if(response.token){
+            if (response.token) {
               setIsCusess(true)
               setTimeout(() => {
                 setIsCusess(false)
@@ -252,13 +271,12 @@ const SignUp = () => {
     const data = {
       email: PersonalDetailsFormik.values.email
     }
-    axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/user/sendotp`, data).then((res) => {
+    axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/sendotp`, data).then((res) => {
       setSteps(7)
     }).catch((error) => {
       console.log(error)
     })
   }
-  console.log(isOtpExpired)
 
 
 
@@ -280,6 +298,7 @@ const SignUp = () => {
             {steps === 7 && (<ChooseService ServicesFormik={ServicesFormik} />)}
             {steps === 8 && (<CompanyDocument loading={loading} CompanyDocumentFormik={CompanyDocumentFormik} />)}
             {steps === 9 && (<CompanyBioMedia loading={loading} CompanyBioMediaFormik={CompanyBioMediaFormik} />)}
+            {steps === 10 && (<ChooseCompanyType YourTypeFormik={YourTypeFormik} />)}
             <span className='text-[12px] text-[#ee5c5c] font-[500]'>{errorMessage}</span>
 
           </div>

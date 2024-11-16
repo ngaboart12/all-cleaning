@@ -8,6 +8,9 @@ export const accountTypeValidationSchema = Yup.object({
 export const locationValidationSchema = Yup.object({
     state: Yup.string().required("Please choose your state"),
     city: Yup.string().required("Please choose your city"),
+    country: Yup.string().required("Please choose your country"),
+    street: Yup.string().required("Please choose your street"),
+    postCode: Yup.string().required("Please choose your postal code"),
 })
 export const PersonalDetailsValidationSchema = Yup.object({
     fullName: Yup.string().required("Please fill your Name"),

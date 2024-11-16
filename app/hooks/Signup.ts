@@ -17,7 +17,7 @@ const signupUser = async (userData: {
   files: string; 
   servicesData?: any[];
 }) => {
-  const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/user/signup`, JSON.stringify(userData), {
+  const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/signup`, JSON.stringify(userData), {
     headers: {
       'Content-Type': 'application/json', 
     },

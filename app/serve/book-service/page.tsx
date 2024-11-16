@@ -6,11 +6,17 @@ import SelectType from '@/components/booking/SelectType'
 import ServiceDetailsForm from '@/components/booking/ServiceDetailsForm'
 import NavbarHome from '@/components/Home/NavbarHome'
 import Image from 'next/image'
+import { useSearchParams } from 'next/navigation'
+import { useParams } from 'next/navigation'
 import React, { useState } from 'react'
 
 const BookService = () => {
     const [steps, setSteps] = useState<number>(1)
     const [confirmed, setConfirmed] = useState<boolean>(false)
+    const searchParams = useSearchParams();
+    const serviceId = searchParams?.get("serviceId");
+    const onerviceId = searchParams?.get("onerviceId");
+
     return (
         <div className='flex flex-col'>
             <NavbarHome />
@@ -119,11 +125,11 @@ const BookService = () => {
 
 
                             </div>
-                            {steps === 1 && (<SelectType setSteps={setSteps} />)}
-                            {steps === 2 && (<ServiceDetailsForm setSteps={setSteps} />)}
-                            {steps === 3 && (<SelectProvider setSteps={setSteps} />)}
-                            {steps === 4 && (<BookingReview setConfirmed={setConfirmed} setSteps={setSteps} />)}
-                            {steps === 5 && (<PaymentMethod setConfirmed={setConfirmed} setSteps={setSteps} />)}
+                            {/* {steps === 1 && (<SelectType setSteps={setSteps} />)} */}
+                            {steps === 1 && (<ServiceDetailsForm setSteps={setSteps} />)}
+                            {/* {steps === 2 && (<SelectProvider setSteps={setSteps} />)} */}
+                            {steps === 2 && (<BookingReview setConfirmed={setConfirmed} setSteps={setSteps} />)}
+                            {steps === 3 && (<PaymentMethod setConfirmed={setConfirmed} setSteps={setSteps} />)}
                         </>
                     )}
 

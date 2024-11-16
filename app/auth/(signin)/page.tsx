@@ -33,7 +33,7 @@ const SignIn = () => {
 
                 if (session?.user?.role === 'ADMIN') {
                     location.href = '/admin-dashboard';
-                } else if (session?.user?.role === 'PROVIDER') {
+                } else if (session?.user?.role === 'PROVIDER' || session?.user?.role === 'FREELANCER') {
                     location.href = '/provider';
                 } else {
                     location.href = '/client/dashboard';

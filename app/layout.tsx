@@ -8,6 +8,7 @@ import Footer from '@/components/Footer';
 import SplashScreen from '@/components/SplashScreen'; // Import your splash screen component
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
+import { SessionProvider } from 'next-auth/react';
 
 
 const inter = Inter({ subsets: ['latin'] });
@@ -33,7 +34,7 @@ export default function RootLayout({
   }, []);
 
   return (
-
+    <SessionProvider>
     <html lang="en">
       <body className={`${lexend.className} max-w-[1724px] relative mx-auto`}>
         {loading ? (
@@ -52,5 +53,6 @@ export default function RootLayout({
 
       </body>
     </html>
+    </SessionProvider>
   );
 }
