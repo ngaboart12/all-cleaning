@@ -1,16 +1,31 @@
 "use client"
 import NavbarHome from '@/components/Home/NavbarHome'
-import React from 'react'
+import React, { useState } from 'react'
 import Skeleton from 'react-loading-skeleton';
 import Image from 'next/image';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import { useFetchProviderWithServiceQuery } from '@/app/hooks/services.hook';
+import { useSession } from 'next-auth/react';
+import { Dialog } from 'primereact/dialog';
+import "primereact/resources/themes/lara-light-cyan/theme.css";
+
 
 const Home = () => {
     const params: any = useParams<{ id: string }>();
+    const [isNotLoggedIn,setIsNotLoggedIn] = useState<boolean>(false)
+    const {data: session} = useSession()
+    const router = useRouter()
     const id: string = params.id
 
     const { isLoading, data: providers, isError, error } = useFetchProviderWithServiceQuery(id);
+
+    const handleNavigate = async(id:string,company:any)=>{
+        if(session && session.user.token){
+            router.push(`/serve/book-service?serviceId=${id}&onserviceId=${company.id}&providerId=${company?.provider.id}`)
+        }else{
+            setIsNotLoggedIn(true)
+        }
+    }
     return (
         <div className="flex flex-col bg-[#FFFFFF]">
             <NavbarHome />
@@ -58,7 +73,7 @@ const Home = () => {
 
                             {providers && providers.map((company: any, index: number) => {
                                 return (
-                                    <a href={`/serve/book-service?serviceId=${id}&onserviceId=${company.id}&providerId=${company?.provider.id}`} className='flex flex-row gap-[10px] '>
+                                    <div  className='flex flex-row gap-[10px] '>
                                         <div className='z-10  w-1/3 h-full'>
                                             <Image src={`/image/company.png`} width={1000} height={1000} alt='images' className='w-full rounded-[22px]' />
                                         </div>
@@ -90,7 +105,7 @@ const Home = () => {
                                                 </div>
                                             </div>
                                             <div className='flex flex-row gap-[10px] justify-between items-center'>
-                                                <a  href={`/serve/book-service?serviceId=${id}&onserviceId=${company.id}&providerId=${company?.provider.id}`} className='px-[20px] text-[12px] py-[10px] rounded-[22px] text-white bg-[#13829F]'>Book Service</a>
+                                                <div  onClick={()=> handleNavigate(id,company)} className=' cursor-pointer px-[20px] text-[12px] py-[10px] rounded-[22px] text-white bg-[#13829F]'>Book Service</div>
                                                 <a href="/company" className='px-[24px] text-[12px] py-[10px] rounded-[22px] text-black flex flex-row items-center gap-[4px]'>
                                                     View Profile
                                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -100,7 +115,7 @@ const Home = () => {
                                                 </a>
                                             </div>
                                         </div>
-                                    </a>
+                                    </div>
                                 )
                             })}
                             {/* <a href='./book-service/1234' className='flex flex-row gap-[10px] '>
@@ -193,6 +208,20 @@ const Home = () => {
                     )}
                 </div>
             </div>
+            <Dialog header={`Loggin Alert`} className='w-1/2 h-1/3' visible={isNotLoggedIn} onHide={()=> setIsNotLoggedIn(false)}>
+                <div className="flex flex-col items-center justify-center gap-[10px]">
+                   <span>Your not logged in please login and then procced to book</span>
+                   <div className='flex flex-row items-center gap-[10px]'>
+                    <a href='/auth' className='px-10 py-2 bg-primary  text-white'>
+                        Sign In
+                    </a>
+                    <a href='/auth/singup' className='px-10 py-2 border boder-primary  text-primary'>
+                        Sign Up
+                    </a>
+                   </div>
+                </div>
+
+            </Dialog>
         </div>
     )
 }

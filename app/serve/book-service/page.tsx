@@ -8,9 +8,9 @@ import NavbarHome from '@/components/Home/NavbarHome'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 
-const BookService = () => {
+const BookServiceContent = () => {
     const [steps, setSteps] = useState<number>(1)
     const [confirmed, setConfirmed] = useState<boolean>(false)
     const [token, setToken] = useState<string | null>(null);
@@ -165,5 +165,14 @@ const BookService = () => {
         </div>
     )
 }
+
+const BookService = () => {
+    return (
+      <Suspense fallback={<div>Loading...</div>}>
+        <BookServiceContent/>
+      </Suspense>
+    );
+  };
+  
 
 export default BookService
