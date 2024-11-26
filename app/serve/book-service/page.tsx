@@ -1,21 +1,40 @@
 "use client"
+import { userFetchUserPropertyQuery } from '@/app/hooks/order.hook'
+import { useFetchProviderWithOnService } from '@/app/hooks/services.hook'
 import BookingReview from '@/components/booking/BookingReview'
 import PaymentMethod from '@/components/booking/PaymentMethod'
-import SelectProvider from '@/components/booking/SelectProvider'
-import SelectType from '@/components/booking/SelectType'
 import ServiceDetailsForm from '@/components/booking/ServiceDetailsForm'
 import NavbarHome from '@/components/Home/NavbarHome'
+import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
-import { useParams } from 'next/navigation'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 const BookService = () => {
     const [steps, setSteps] = useState<number>(1)
     const [confirmed, setConfirmed] = useState<boolean>(false)
+    const [token, setToken] = useState<string | null>(null);
     const searchParams = useSearchParams();
-    const serviceId = searchParams?.get("serviceId");
-    const onerviceId = searchParams?.get("onerviceId");
+    const serviceId = searchParams?.get("serviceId") as string;
+    const onserviceId = searchParams?.get("onserviceId") as string;
+    const providerId = searchParams?.get("providerId") as string;
+
+    const { data: session } = useSession();
+    useEffect(() => {
+        if (session?.user?.token) {
+            (async () => {
+                const resolvedToken = session.user.token;
+                setToken(resolvedToken);
+            })();
+        }
+    }, [session]);
+
+    const { isLoading, data: provider, isError, error } = useFetchProviderWithOnService(serviceId, providerId!, token!);
+    const { isLoading:loadingProperty, data: properties, isError:propertyError } = userFetchUserPropertyQuery(session?.user.id!, token!);
+
+    console.log("properties", properties)
+
+
 
     return (
         <div className='flex flex-col'>
@@ -120,16 +139,23 @@ const BookService = () => {
                         <>
 
                             <div className='w-full md:w-1/4  bg-white rounded-[12px] p-6 flex flex-col gap-[20px]'>
-                               
-
-
 
                             </div>
-                            {/* {steps === 1 && (<SelectType setSteps={setSteps} />)} */}
-                            {steps === 1 && (<ServiceDetailsForm setSteps={setSteps} />)}
-                            {/* {steps === 2 && (<SelectProvider setSteps={setSteps} />)} */}
-                            {steps === 2 && (<BookingReview setConfirmed={setConfirmed} setSteps={setSteps} />)}
-                            {steps === 3 && (<PaymentMethod setConfirmed={setConfirmed} setSteps={setSteps} />)}
+                            <div className='w-full flex bg-white rounded-[20px] flex-col'>
+                                <div className='flex p-4 flex-row gap-[20px]'>
+                                    <div className='flex felx-row gap-[10px] items-center'>
+                                        <h1 className='text-[14px] font-[700]'>Service Id:</h1>
+                                        <span className='text-[14px] font-[500] text-primary'>{provider?.service?.title}</span>
+                                    </div>
+                                    <div className='flex felx-row gap-[10px] items-center'>
+                                        <h1 className='text-[14px] font-[700]'>Company:</h1>
+                                        <span className='text-[14px] font-[500] text-primary'>{provider?.provider?.companyName}</span>
+                                    </div>
+                                </div>
+                                {steps === 1 && (<ServiceDetailsForm properties={properties} setSteps={setSteps} />)}
+                                {steps === 2 && (<BookingReview setConfirmed={setConfirmed} setSteps={setSteps} />)}
+                                {steps === 3 && (<PaymentMethod setConfirmed={setConfirmed} setSteps={setSteps} />)}
+                            </div>
                         </>
                     )}
 

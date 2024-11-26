@@ -25,8 +25,8 @@ export const useFetchServiceWithCategoryQuery = () => {
   return useQuery({
     queryKey: ["service-category"],
     queryFn: () => fetchServiceWithCategory(),
-    staleTime: 0, // No caching, always refetch
-    refetchOnWindowFocus: true, // Refetch when window is focused
-    refetchOnReconnect: true, // Refetch when the connection is reestablished
+    staleTime: 0,
+    refetchOnWindowFocus: true, 
+    refetchOnReconnect: true,
   });
 };

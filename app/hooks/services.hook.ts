@@ -83,3 +83,24 @@ export const useCompleteServiceMutation = () => {
     mutationFn: completeService
   });
 };
+
+
+const gettingProviderWithOnservice = async ( id: string, providerId: string, token: string ) => {
+  const response = await axios.get(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/services/service-provided/${id}?providerId=${providerId}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+  return response.data;
+};
+
+export const useFetchProviderWithOnService= ( id: string, providerId: string, token: string ) => {
+  return useQuery({
+    queryKey: ["providerWithOnService"],
+    queryFn: () => gettingProviderWithOnservice(id,providerId,token),
+    enabled: !!token, 
+  });
+};

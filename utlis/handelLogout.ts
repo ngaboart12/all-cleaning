@@ -8,7 +8,7 @@ const handleLogout = async (token: string) => {
 
   try {
     // Call your API to log out
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/user/logout`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/logout`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

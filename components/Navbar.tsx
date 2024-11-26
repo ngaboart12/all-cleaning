@@ -23,7 +23,7 @@ const Navbar = () => {
 
     return (
         <div className='px-[20px] top-0 max-w-[1724px] lg:px-20 p-3 bg-primary flex flex-row items-center justify-between fixed w-full z-[300]'>
-            <a href="" className='rounded-[8px]  text-white font-[700]'>
+            <a href="/" className='rounded-[8px]  text-white font-[700]'>
                 <Image src={`/image/logo.svg`} width={1000} height={1000} className='w-[80px]' alt='logo' />
             </a>
             <div className=' flex-row gap-[50px] items-center hidden md:flex'>

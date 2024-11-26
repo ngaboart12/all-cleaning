@@ -35,24 +35,20 @@ export default function RootLayout({
 
   return (
     <SessionProvider>
-    <html lang="en">
-      <body className={`${lexend.className} max-w-[1724px] relative mx-auto`}>
-        {loading ? (
-          <SplashScreen />
-        ) : (
-          <>
+      <html lang="en">
+        <body className={`${lexend.className} max-w-[1724px] relative mx-auto`}>
+         <div>
             <QueryClientProvider client={queryClient}>
               <main className="relative overflow-hidden">
                 {children}
                 <ReactQueryDevtools initialIsOpen={false} />
               </main>
             </QueryClientProvider>
-          </>
-        )}
-       
+          </div>
 
-      </body>
-    </html>
+
+        </body>
+      </html>
     </SessionProvider>
   );
 }

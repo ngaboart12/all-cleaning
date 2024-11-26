@@ -21,10 +21,13 @@ const Services = () => {
             <div className='px-[20px] md:px-10 lg:px-20 items-center justify-center  w-full bg-white flex flex-col gap-[40px]'>
                 {isLoading ? (
                     <>
-                        <h1>Loading........</h1>
+                    <div  className='h-[100vh] w-full flex items-center justify-center'>
+                        <div className=' w-[200px] h-[200px] rounded-full bg-balck'></div>
+
+                    </div>
                     </>
                 ) : (<>
-                    {services.map((item: any, index: number) => {
+                    {services?.map((item: any, index: number) => {
                         return (
                             <div key={index} id={``} className={`flex flex-col ${index % 2 !== 0 ? "lg:flex-row-reverse" : "lg:flex-row"} lg:flex-row w-full gap-[20px] items-center py-20`}>
                                 <div className='w-full lg:w-1/2 flex flex-col gap-[10px]'>

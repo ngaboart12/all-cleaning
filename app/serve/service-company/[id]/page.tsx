@@ -11,7 +11,6 @@ const Home = () => {
     const id: string = params.id
 
     const { isLoading, data: providers, isError, error } = useFetchProviderWithServiceQuery(id);
-    console.log(providers)
     return (
         <div className="flex flex-col bg-[#FFFFFF]">
             <NavbarHome />
@@ -59,7 +58,7 @@ const Home = () => {
 
                             {providers && providers.map((company: any, index: number) => {
                                 return (
-                                    <a href={`/serve/book-service?serviceId=${id}&onserviceId=${company.id}`} className='flex flex-row gap-[10px] '>
+                                    <a href={`/serve/book-service?serviceId=${id}&onserviceId=${company.id}&providerId=${company?.provider.id}`} className='flex flex-row gap-[10px] '>
                                         <div className='z-10  w-1/3 h-full'>
                                             <Image src={`/image/company.png`} width={1000} height={1000} alt='images' className='w-full rounded-[22px]' />
                                         </div>
@@ -91,7 +90,7 @@ const Home = () => {
                                                 </div>
                                             </div>
                                             <div className='flex flex-row gap-[10px] justify-between items-center'>
-                                                <a href={`/serve/book-service?serviceId=${id}&onserviceId=${company.id}`} className='px-[20px] text-[12px] py-[10px] rounded-[22px] text-white bg-[#13829F]'>Book Service</a>
+                                                <a  href={`/serve/book-service?serviceId=${id}&onserviceId=${company.id}&providerId=${company?.provider.id}`} className='px-[20px] text-[12px] py-[10px] rounded-[22px] text-white bg-[#13829F]'>Book Service</a>
                                                 <a href="/company" className='px-[24px] text-[12px] py-[10px] rounded-[22px] text-black flex flex-row items-center gap-[4px]'>
                                                     View Profile
                                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">

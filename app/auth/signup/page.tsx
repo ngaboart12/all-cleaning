@@ -64,6 +64,8 @@ const SignUp = () => {
       country: '',
       street: '',
       postCode: '',
+      longitude: '',
+      latitude: ''
     },
     validationSchema: locationValidationSchema,
     onSubmit: () => {
@@ -160,6 +162,8 @@ const SignUp = () => {
           country: LocationFormik.values.country,
           street: LocationFormik.values.street,
           postCode: LocationFormik.values.postCode,
+          latitude: LocationFormik.values.latitude,
+          longitude: LocationFormik.values.longitude,
           role: TypeFormik.values.type
         }
         await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/signup`, data).then((res) => {

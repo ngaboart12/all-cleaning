@@ -32,7 +32,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
 
     if (status === "loading") {
-        return <p>Loading...</p>;
+        return <div className=' w-full h-screen flex items-center justify-center'></div>;
     }
 
     if (status === "authenticated" && session?.user?.role === "CLIENT") {

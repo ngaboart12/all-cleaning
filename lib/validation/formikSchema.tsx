@@ -51,3 +51,28 @@ export const CompleteServiceValidation = Yup.object({
     estimatedPrice: Yup.number().required("Please enter estimates price"),
     media: Yup.string().required("Plesae upload media")
 })
+
+export const HouseRegisterSchema = Yup.object().shape({
+    name: Yup.string()
+        .max(100, 'Property name must be 100 characters or less').required("Propert name is required"),
+    type: Yup.string()
+        .required('Property type is required'),
+    numberOfRooms: Yup.number()
+        .positive('Number of rooms must be a positive number')
+        .integer('Number of rooms must be a whole number')
+        .required('Number of rooms is required'),
+    size: Yup.number()
+        .positive('Square footage must be a positive number')
+        .required('Square footage is required'),
+    numberOfWindows: Yup.number()
+        .positive('Number of windows must be a positive number')
+        .integer('Number of windows must be a whole number')
+        .required('Number of windows is required'),
+    address: Yup.object().shape({
+        street: Yup.string().required('Street address is required'),
+        city: Yup.string().required('City is required'),
+        state: Yup.string().required('State is required'),
+        longitude: Yup.number().required('longitude is required'),
+        latitude: Yup.number().required('latitude is required'),
+    })
+});
