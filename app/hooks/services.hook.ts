@@ -1,10 +1,10 @@
+import API from "@/lib/api/apiCall";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import axios from "axios";
 
 // fetch base serivice to register
 const fetchBaseService = async () => {
-  const response = await axios.get(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/services/base-services`
+  const response = await API.get(
+    `/api/v1/services/base-services`
   );
   return response.data;
 };
@@ -18,8 +18,8 @@ export const fetchBaseServiceQuery = () => {
 
 // fetch all provider service
 const fetchProviderServices = async (token: string) => {
-  const response = await axios.get(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/services/provider-services`,
+  const response = await API.get(
+    `/api/v1/services/provider-services`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -37,8 +37,8 @@ export const useFetchProviderServicesQuery = (token: string) => {
   });
 };
 const fetchProviderWithService = async (serviceId: string) => {
-  const response = await axios.get(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/services/service-providers/${serviceId}`,
+  const response = await API.get(
+    `/api/v1/services/service-providers/${serviceId}`,
   );
   return response.data;
 };
@@ -67,8 +67,8 @@ interface CompleteServiceParams {
 
 // Complete service function
 const completeService = async ({ id, serviceData, token }: CompleteServiceParams) => {
-  const response = await axios.post(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/provider/complete-service/${id}?providerId=${serviceData.providerId}`,
+  const response = await API.post(
+    `/api/v1/provider/complete-service/${id}?providerId=${serviceData.providerId}`,
     serviceData,
     {
       headers: {
@@ -86,8 +86,8 @@ export const useCompleteServiceMutation = () => {
 
 
 const gettingProviderWithOnservice = async ( id: string, providerId: string, token: string ) => {
-  const response = await axios.get(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/services/service-provided/${id}?providerId=${providerId}`,
+  const response = await API.get(
+    `/api/v1/services/service-provided/${id}?providerId=${providerId}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,

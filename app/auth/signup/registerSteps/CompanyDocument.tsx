@@ -1,3 +1,4 @@
+import API from '@/lib/api/apiCall';
 import React, { useState } from 'react';
 import ReactLoading from 'react-loading';
 
@@ -56,16 +57,14 @@ const CompanyDocument = ({ CompanyDocumentFormik, loading }: Props) => {
         formData.append('upload_preset', 'all-cleaning');
 
         try {
-            const response = await fetch('https://api.cloudinary.com/v1_1/dbajwnjyd/image/upload', {
-                method: 'POST',
-                body: formData,
-            });
-            const data = await response.json();
-            CompanyDocumentFormik.setFieldValue('companyDocument', data.secure_url);
-            setUploadSuccess(true);
+            const response = await API.post(`https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_SECRET}/image/upload`, formData);
+            if (response.data && response.data.secure_url) {
+                CompanyDocumentFormik.setFieldValue('companyDocument', response.data.secure_url);
+                setUploadSuccess(true);
+            }
         } catch (error) {
             setError("Image upload failed");
-            setUploadSuccess(false); 
+            setUploadSuccess(false);
         } finally {
             setUploading(false);
         }
@@ -91,30 +90,30 @@ const CompanyDocument = ({ CompanyDocumentFormik, loading }: Props) => {
                     <div className='flex flex-col'>
                         <div className='flex flex-row items-center gap-[4px]'>
                             <span className='text-[14px] text-primary cursor-pointer'>Click to upload</span>
-                            <span className='text-[14px] text-[#828282] cursor-pointer'>Or Drag and Drop</span>                        
+                            <span className='text-[14px] text-[#828282] cursor-pointer'>Or Drag and Drop</span>
                         </div>
                         <div className='flex flex-row items-center gap-[4px]'>
                             <span className='text-[12px] text-[#828282] cursor-pointer'>Maximum file size</span>
-                            <span className='text-[12px] text-black cursor-pointer'>12mb</span>                        
+                            <span className='text-[12px] text-black cursor-pointer'>12mb</span>
                         </div>
                     </div>
                 </label>
                 {CompanyDocumentFormik.touched.companyDocument && CompanyDocumentFormik.errors.companyDocument ? (
-                        <div className='text-red-500 text-[12px] px-4'>{CompanyDocumentFormik.errors.companyDocument}</div>
-                    ) : null}
+                    <div className='text-red-500 text-[12px] px-4'>{CompanyDocumentFormik.errors.companyDocument}</div>
+                ) : null}
 
                 <div className='w-full flex flex-row items-center justify-between px-4'>
-                    <input 
-                        type="file" 
-                        id='companyDocument' 
-                        className='hidden' 
+                    <input
+                        type="file"
+                        id='companyDocument'
+                        className='hidden'
                         onChange={handleFileChange}
                         accept=".pdf,.docx,.png,.jpg,.jpeg" // Accept only PDF, DOCX, PNG, JPG/JPEG
                     />
                 </div>
 
                 {error && <div className='text-red-500 text-sm'>{error}</div>} {/* Display error message */}
-                
+
                 {uploadSuccess && <div className='text-green-500 text-sm'>File uploaded successfully!</div>} {/* Display success message */}
 
                 <div className='flex flex-col gap-[4px]'>

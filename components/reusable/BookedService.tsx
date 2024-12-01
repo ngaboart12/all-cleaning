@@ -1,50 +1,130 @@
-import React from 'react'
+"use client";
+import React, { useEffect, useState } from "react";
+import { useFetchUserOrdersQuery } from "@/app/hooks/order.hook";
+import { useSession } from "next-auth/react";
+import { Order } from "@/lib/types/types.type";
+import ServiceLoading from "@/lib/loading/ServiceLoading";
+import { Dialog } from "primereact/dialog";
+import "primereact/resources/themes/lara-light-cyan/theme.css";
+
 
 const BookedService = () => {
+    const { data: session } = useSession();
+    const [newestOrder, setNewestOrder] = useState<Order[]>([]);
+    const [isOpened, setIsOpened] = useState<boolean>(false)
+    const [selectedService, setSelectedService] = useState<Order>()
+    const token = session?.user.token;
+    const { data: orders, isLoading, isFetching, isError } = useFetchUserOrdersQuery(token!);
+
+
+    useEffect(() => {
+        if (!isLoading && orders) {
+            const pendingOrders = orders.filter((item: any) => item.status === "PENDING");
+
+            if (pendingOrders.length > 0) {
+                const [newest] = pendingOrders.sort(
+                    (a: any, b: any) => new Date(a.updatedAt).getTime() - new Date(b.updatedAt).getTime()
+                );
+                const newOne = [
+                    newest
+                ]
+                setNewestOrder(newOne);
+            } else {
+                setNewestOrder([]);
+            }
+        }
+    }, [orders, isLoading]);
+
+    if (isLoading) return <ServiceLoading />;
+
+    if (isError) return <div>Error loading orders</div>;
+
     return (
-        <div className='p-4 flex flex-col gap-[4px] bg-white rounded-[12px] w-full'>
-            <div className='w-full flex flex-row items-center justify-between'>
-                <div className='flex flex-row items gap-[4px]'>
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M15 1.66666V3.33332M5 1.66666V3.33332" stroke="#141B34" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                        <path d="M9.99658 10.8333H10.0041M9.99658 14.1667H10.0041M13.3262 10.8333H13.3337M6.66699 10.8333H6.67447M6.66699 14.1667H6.67447" stroke="#141B34" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                        <path d="M2.91699 6.66666H17.0837" stroke="#141B34" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                        <path d="M2.08301 10.2027C2.08301 6.57162 2.08301 4.75607 3.12644 3.62803C4.16987 2.5 5.84925 2.5 9.20801 2.5H10.7913C14.1501 2.5 15.8295 2.5 16.8729 3.62803C17.9163 4.75607 17.9163 6.57162 17.9163 10.2027V10.6307C17.9163 14.2617 17.9163 16.0773 16.8729 17.2053C15.8295 18.3333 14.1501 18.3333 10.7913 18.3333H9.20801C5.84925 18.3333 4.16987 18.3333 3.12644 17.2053C2.08301 16.0773 2.08301 14.2617 2.08301 10.6307V10.2027Z" stroke="#141B34" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                        <path d="M2.5 6.66666H17.5" stroke="#141B34" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                    <span className='font-[600] text-black text-[13px]'>June 17 ,</span>
-                    <span className='font-[600] text-black text-[13px]'>2024</span>
-                    <span className='font-[600] text-black text-[13px]'>10:00 AM</span>
-
+        <>
+            <div className="flex flex-col gap-[4px]">
+                <div className="w-full flex flex-row justify-between items-center">
+                    <div className="flex flex-row items-center gap-[10px]">
+                        <h1 className="font-[600] text-[14px]">On going service</h1>
+                        <div className="p-1 bg-primary rounded-[6px] text-[12px] text-white font-[600]">
+                            {orders.filter((item: any) => item.status === "PENDING").length}
+                        </div>
+                    </div>
+                    <a href="#" className="uppercase text-[13px] font-[600] text-primary">
+                        View All
+                    </a>
                 </div>
-                <div className='p-2 rounded-full bg-secondary'></div>
-            </div>
-            <div className='flex flex-row justify-between items-center w-full'>
-                <span className='text-[14px] font-[600] text-black'>Deep cleaning</span>
-                <span className='text-[12px] font-[500] text-[#6D6D6D] text-start'>Price</span>
-            </div>
-            <div className='flex flex-row justify-between items-center w-full'>
-                <span className='text-[12px] font-[400] text-[#C1C1C1]'>los angeles califonia</span>
-                <div className='flex flex-row gap-[4px] items-center'>
-                    <span className='text-[14px] font-[700] text-[#13829F]'>140 </span>
-                    <span className='text-[14px] font-[700] text-[#13829F]'>Rwf </span>
+                {newestOrder && newestOrder.map((order: Order) => {
+                    return (
 
-                </div>
-            </div>
-            <div className='flex flex-col gap-[4px]'>
-                <h1 className='text-[13px] font-[400] text-[#6D6D6D]'>Property</h1>
-                <div className=' flex flex-row gap-[10px] items-center'>
-                    <span className='font-[400] text-[#000] text-[14px]'>Apartment</span>
-                    <span className='font-[400] text-[#000] text-[14px]'>-</span>
-                    <span className='font-[400] text-[#000] text-[14px]'>2 Bedrooms, 2 Bathrooms</span>
-                </div>
-            </div>
-            <div className='flex flex-row gap-[10px] w-full items-center'>
-                <button className=' hover:scale-105 duration-300 text-[14px] font-[400] text-primary p-3 rounded-[8px] bg-[#F7FDFF] w-full'>More details</button>
-                <button className='  hover:scale-105 duration-300 text-[14px] font-[400] text-white p-3 rounded-[8px] bg-primary w-full'>Mark as  served</button>
-            </div>
-        </div>
-    )
-}
+                        <div className="p-4 flex flex-col gap-[4px] bg-white rounded-[12px] w-full">
+                            <div className="w-full flex flex-row items-center justify-between">
+                                <div className="flex flex-row items gap-[4px]">
+                                    <span className="font-[600] text-black text-[13px]">
+                                        {new Date(order?.updatedAt).toLocaleDateString()}
+                                    </span>
+                                    <span className="font-[600] text-black text-[13px]">
+                                        {new Date(order.updatedAt).toLocaleTimeString()}
+                                    </span>
+                                </div>
+                                <div className="p-2 rounded-full bg-secondary"></div>
+                            </div>
+                            <div className="flex flex-row justify-between items-center w-full">
+                                <span className="text-[14px] font-[600] text-black">{order.service.title}</span>
+                                <span className="text-[12px] font-[500] text-[#6D6D6D] text-start">Price</span>
+                            </div>
+                            <div className="flex flex-row justify-between items-center w-full">
+                                <span className="text-[12px] font-[400] text-[#C1C1C1]">
+                                    {"Location not available"}
+                                </span>
+                                <div className="flex flex-row gap-[4px] items-center">
+                                    <span className="text-[14px] font-[700] text-[#13829F]">
+                                        {order.providerOnService.estimatedPrice || "N/A"}
+                                    </span>
+                                    <span className="text-[14px] font-[700] text-[#13829F]">$</span>
+                                </div>
+                            </div>
+                            <div onClick={() => { setSelectedService(order); setIsOpened(true) }} className="flex cursor-pointer flex-row gap-[10px] w-full items-center">
+                                <button className="hover:scale-105 duration-300 text-[14px] font-[400] text-primary p-3 rounded-[8px] bg-[#F7FDFF] w-full">
+                                    More details
+                                </button>
+                                <button className="hover:scale-105 duration-300 text-[14px] font-[400] text-white p-3 rounded-[8px] bg-primary w-full">
+                                    Mark as served
+                                </button>
+                            </div>
+                        </div>
+                    )
 
-export default BookedService
+
+
+                })}
+
+            </div>
+            <Dialog header={`Service details`} headerClassName="text-[12px]" className="w-[90%] lg:w-1/2" visible={isOpened} onHide={() => setIsOpened(false)} >
+                <div className="w-full flex flex-col gap-[10px]">
+                    <div className="flex flex-col  gap-[10px] items-start  w-full">
+                        <div className=" flex flex-row items-center gap-[10px]">
+                            <span className="text-[14px] text-black font-[600]">SERVICE NAME</span>
+                            <span>{selectedService?.service.title}</span>
+                            <div className={`px-2 py-[2px] text-[12px] rounded-[3px] ${selectedService?.status == "PENDING" ? "bg-primary/80 text-white" : ""}`}>
+                                {selectedService?.status}
+                            </div>
+                        </div>
+                       
+                    </div>
+                
+                    <div className=" flex flex-row items-center gap-[10px]">
+                        <div className=" p-3 bg-primary w-full flex items-center justify-center"> 
+                            <span className="text-[12px] text-white">View Reply</span>
+                        </div>
+                        <div className=" p-3 bg-primary w-full flex items-center justify-center"> 
+                            <span className="text-[12px] text-white">View Reply</span>
+                        </div>
+                    </div>
+                </div>
+
+            </Dialog>
+        </>
+    );
+};
+
+export default BookedService;

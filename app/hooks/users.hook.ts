@@ -1,10 +1,10 @@
+import API from "@/lib/api/apiCall";
 import { createPropertyInterface } from "@/lib/types/types.type";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import axios from "axios";
 
 const fetchAllUsers = async () => {
-  const response = await axios.get(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/user/users`
+  const response = await API.get(
+    `/api/v1/user/users/all-emails`
   );
   return response.data;
 };
@@ -16,8 +16,8 @@ export const fetchAllUsersQuery = () => {
   });
 };
 const fetchProfile = async (id: string, token: string) => {
-  const response = await axios.get(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/users/${id}`,
+  const response = await API.get(
+    `/api/v1/users/${id}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -43,8 +43,8 @@ interface CreatePropertyArgs {
 }
 
 const createProperty = async ({ propertyType, token }: CreatePropertyArgs) => {
-  const response = await axios.post(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/user-properties`,
+  const response = await API.post(
+    `/api/v1/user-properties`,
     propertyType,
     {
       headers: {
@@ -63,8 +63,8 @@ export const useCreatePropertyMutation = () => {
 };
 
 const fetchProperties = async (id: string, token: string) => {
-  const response = await axios.get(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/users/${id}`,
+  const response = await API.get(
+    `/api/v1/users/${id}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,

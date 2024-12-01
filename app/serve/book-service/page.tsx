@@ -1,10 +1,12 @@
 "use client"
-import { userFetchUserPropertyQuery } from '@/app/hooks/order.hook'
+import { useCreateOrderMutation, userFetchUserPropertyQuery } from '@/app/hooks/order.hook'
 import { useFetchProviderWithOnService } from '@/app/hooks/services.hook'
 import BookingReview from '@/components/booking/BookingReview'
 import PaymentMethod from '@/components/booking/PaymentMethod'
 import ServiceDetailsForm from '@/components/booking/ServiceDetailsForm'
 import NavbarHome from '@/components/Home/NavbarHome'
+import { HouseRegisterSchema } from '@/lib/validation/formikSchema'
+import { useFormik } from 'formik'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
@@ -32,7 +34,60 @@ const BookServiceContent = () => {
     const { isLoading, data: provider, isError, error } = useFetchProviderWithOnService(serviceId, providerId!, token!);
     const { isLoading:loadingProperty, data: properties, isError:propertyError } = userFetchUserPropertyQuery(session?.user.id!, token!);
 
-    console.log("properties", properties)
+  const { mutate: createOrdder, isPending } = useCreateOrderMutation();
+
+    const orderFormik = useFormik({
+        initialValues: {
+            propertyId: '',
+            propertyName: '',
+            carType: '',
+            poolType: '',
+            carColor: '',
+            timeServiceRequired: '',
+            propertyType: 'HOUSE',
+            numberOfRooms: Number(),
+            numberOfBathrooms: Number(),
+            numberOfBedrooms: Number(),
+            parkingInstructions: '',
+            size: Number(),
+            numberOfWindows: Number(),
+            photos: [],
+            additionalInfo: {
+                comment: ''
+            },
+            propertyAddress: {
+                street: '',
+                city: '',
+                state: '',
+                country: '',
+                longitude: Number(''),
+                latitude: Number(''),
+                postalCode: ''
+            }
+
+        },
+        onSubmit: async () => {
+            try {
+                const data = {
+                    orderData: orderFormik.values,
+                    token: token || '',
+                    serviceId,
+                    serviceProviderId: provider?.id!,
+                };
+                // Fix the invocation of the createOrdder function
+                createOrdder(data, {
+                    onSuccess: () => {
+                        console.log('Order created successfully');
+                    },
+                    onError: (error) => {
+                        console.error('Error creating order:', error);
+                    }
+                });
+            } catch (error) {
+                console.error("Error in form submission:", error);
+            }
+        }
+    })
 
 
 
@@ -152,7 +207,7 @@ const BookServiceContent = () => {
                                         <span className='text-[14px] font-[500] text-primary'>{provider?.provider?.companyName}</span>
                                     </div>
                                 </div>
-                                {steps === 1 && (<ServiceDetailsForm properties={properties} setSteps={setSteps} />)}
+                                {steps === 1 && (<ServiceDetailsForm orderFormik={orderFormik} properties={properties} setSteps={setSteps} />)}
                                 {steps === 2 && (<BookingReview setConfirmed={setConfirmed} setSteps={setSteps} />)}
                                 {steps === 3 && (<PaymentMethod setConfirmed={setConfirmed} setSteps={setSteps} />)}
                             </div>

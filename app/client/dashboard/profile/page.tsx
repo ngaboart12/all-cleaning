@@ -64,7 +64,7 @@ const UserProfile = () => {
                                     <div className='flex flex-col gap-[10px]'>
                                         <h1>Porperties</h1>
                                         <div className='grid grid-cols-2 gap-[20px]'>
-                                            {profile?.Property?.map((por:any,index:number)=>{
+                                            {profile?.property?.map((por:any,index:number)=>{
                                                 return(
                                                     <div className='border p-4 rounded-[12px] flex col gap-[10px]'>
                                                     <div className='w-full flex flex-row justify-between gap-[10px] items-center'>

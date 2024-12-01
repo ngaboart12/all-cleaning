@@ -1,3 +1,4 @@
+import API from '@/lib/api/apiCall';
 import React, { useState } from 'react';
 import ReactLoading from 'react-loading';
 
@@ -56,12 +57,8 @@ const CompanyBioMedia = ({ CompanyBioMediaFormik, loading }: Props) => {
         formData.append('upload_preset', 'all-cleaning');
 
         try {
-            const response = await fetch('https://api.cloudinary.com/v1_1/dbajwnjyd/image/upload', {
-                method: 'POST',
-                body: formData,
-            });
-            const data = await response.json();
-            CompanyBioMediaFormik.setFieldValue('companyLogo', data.secure_url);
+            const response = await API.post(`https://api.cloudinary.com/v1_1/dbajwnjyd/image/upload`, formData);
+            CompanyBioMediaFormik.setFieldValue('companyLogo', response.data.secure_url);
             setUploadSuccess(true); 
         } catch (error) {
             setError("Image upload failed");

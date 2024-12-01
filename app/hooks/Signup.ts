@@ -1,3 +1,4 @@
+import API from "@/lib/api/apiCall";
 import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 
@@ -17,7 +18,7 @@ const signupUser = async (userData: {
   files: string; 
   servicesData?: any[];
 }) => {
-  const response = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/signup`, JSON.stringify(userData), {
+  const response = await API.post(`/api/v1/auth/signup`, JSON.stringify(userData), {
     headers: {
       'Content-Type': 'application/json', 
     },

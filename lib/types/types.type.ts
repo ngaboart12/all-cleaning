@@ -52,3 +52,17 @@ export interface  createPropertyInterface {
     
     
 }
+export interface Order {
+    id: string;
+    status: string;
+    updatedAt: string; 
+    service: {
+        title: string;
+    };
+    providerOnService:{
+        estimatedPrice: number
+        provider:{
+            companyName: string
+        }
+    }
+}
