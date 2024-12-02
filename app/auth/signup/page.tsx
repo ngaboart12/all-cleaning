@@ -21,6 +21,7 @@ import CompanyDocument from './registerSteps/CompanyDocument'
 import CompanyBioMedia from './registerSteps/CompnayBioMedia'
 import { useSignupMutation } from '@/app/hooks/Signup'
 import ChooseCompanyType from './registerSteps/chooseCompanyType'
+import API from '@/lib/api/apiCall'
 
 
 const SignUp = () => {
@@ -77,24 +78,39 @@ const SignUp = () => {
       fullName: '',
       email: '',
       phoneNumber: '',
+      password: ''
     },
     validationSchema: PersonalDetailsValidationSchema,
     onSubmit: async () => {
       setLoading(true)
       const data = {
         email: PersonalDetailsFormik.values.email,
+        password: PersonalDetailsFormik.values.password,
+        telephone: PersonalDetailsFormik.values.phoneNumber,
+        name: PersonalDetailsFormik.values.fullName
       }
-      await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/sendotp`, data).then((res) => {
-        if (res.status == 200) {
+      signUp(data, {
+        onSuccess: (response) => {
           setLoading(false)
-          setSteps(4)
+          setErrorMessage("")
+          if (response.message && response.data.status) {
+            setIsCusess(true)
+            setTimeout(() => {
+              setIsCusess(false)
+              location.href = "/auth"
+            }, 3000)
+          }
+        },
+        onError: (error:any) => {
+          setLoading(false)
+          if(error.message){
+            setErrorMessage(error.response.data.error)
+          }else{
+            setErrorMessage("Error in registering please try again later")
+          }
         }
-
-      }).catch((error) => {
-        setLoading(false)
-        console.log(error)
-
       })
+      
 
     }
   })
@@ -117,7 +133,7 @@ const SignUp = () => {
         email: PersonalDetailsFormik.values.email,
         otp: OtpFormik.values.otp
       }
-      await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/verifyotp`, data).then((res) => {
+      await API.post(`/api/v1/auth/verifyotp`, data).then((res) => {
         console.log(res)
         if (res.status == 200) {
           setLoading(false)
@@ -166,7 +182,7 @@ const SignUp = () => {
           longitude: LocationFormik.values.longitude,
           role: TypeFormik.values.type
         }
-        await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/signup`, data).then((res) => {
+        await API.post(`/api/v1/auth/signup`, data).then((res) => {
           console.log(res)
           if (res.status == 201) {
             setIsCusess(true)
@@ -217,65 +233,66 @@ const SignUp = () => {
       setSteps(9)
     }
   })
-  const CompanyBioMediaFormik = useFormik({
-    initialValues: {
-      companyBio: "",
-      companyLogo: ""
-    },
-    validationSchema: CompanyBioMediaValidationSchema,
-    onSubmit: async () => {
-      try {
-        setLoading(true)
-        const data = {
-          email: PersonalDetailsFormik.values.email,
-          password: PasswordFormik.values.password,
-          phone_number: PersonalDetailsFormik.values.phoneNumber as string,
-          name: PersonalDetailsFormik.values.fullName,
-          city: LocationFormik.values.city,
-          state: LocationFormik.values.state,
-          country: LocationFormik.values.country,
-          street: LocationFormik.values.street,
-          postCode: LocationFormik.values.postCode,
-          role: YourTypeFormik.values.type == "FREELANCER" ? YourTypeFormik.values.type : TypeFormik.values.type,
-          companyName: CompanyProfileFormik.values.companyName,
-          companyEmail: CompanyProfileFormik.values.companyEmail,
-          companyLogo: CompanyBioMediaFormik.values.companyLogo,
-          companyBio: CompanyBioMediaFormik.values.companyBio,
-          files: CompanyDocumentFormik.values.companyDocument,
-          servicesData: ServicesFormik.values.services
-        }
-        signUp(data, {
-          onSuccess: (response) => {
-            setLoading(false)
-            if (response.token) {
-              setIsCusess(true)
-              setTimeout(() => {
-                setIsCusess(false)
-                location.href = "/auth"
-              }, 3000)
-            }
-          },
-          onError: (error) => {
-            setLoading(false)
-            setErrorMessage("Error in registering please try again later")
-          }
-        })
+  
+  // const CompanyBioMediaFormik = useFormik({
+  //   initialValues: {
+  //     companyBio: "",
+  //     companyLogo: ""
+  //   },
+  //   validationSchema: CompanyBioMediaValidationSchema,
+  //   onSubmit: async () => {
+  //     try {
+  //       setLoading(true)
+  //       const data = {
+  //         email: PersonalDetailsFormik.values.email,
+  //         password: PasswordFormik.values.password,
+  //         phone_number: PersonalDetailsFormik.values.phoneNumber as string,
+  //         name: PersonalDetailsFormik.values.fullName,
+  //         city: LocationFormik.values.city,
+  //         state: LocationFormik.values.state,
+  //         country: LocationFormik.values.country,
+  //         street: LocationFormik.values.street,
+  //         postCode: LocationFormik.values.postCode,
+  //         role: YourTypeFormik.values.type == "FREELANCER" ? YourTypeFormik.values.type : TypeFormik.values.type,
+  //         companyName: CompanyProfileFormik.values.companyName,
+  //         companyEmail: CompanyProfileFormik.values.companyEmail,
+  //         companyLogo: CompanyBioMediaFormik.values.companyLogo,
+  //         companyBio: CompanyBioMediaFormik.values.companyBio,
+  //         files: CompanyDocumentFormik.values.companyDocument,
+  //         servicesData: ServicesFormik.values.services
+  //       }
+  //       signUp(data, {
+  //         onSuccess: (response) => {
+  //           setLoading(false)
+  //           if (response.token) {
+  //             setIsCusess(true)
+  //             setTimeout(() => {
+  //               setIsCusess(false)
+  //               location.href = "/auth"
+  //             }, 3000)
+  //           }
+  //         },
+  //         onError: (error) => {
+  //           setLoading(false)
+  //           setErrorMessage("Error in registering please try again later")
+  //         }
+  //       })
 
-      } catch (error) {
-        setLoading(false)
-        setErrorMessage("Error in registering please try again later")
+  //     } catch (error) {
+  //       setLoading(false)
+  //       setErrorMessage("Error in registering please try again later")
 
-      }
+  //     }
 
-    }
-  })
+  //   }
+  // })
 
 
   const resendOtp = async () => {
     const data = {
       email: PersonalDetailsFormik.values.email
     }
-    axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/sendotp`, data).then((res) => {
+    API.post(`/api/v1/auth/sendotp`, data).then((res) => {
       setSteps(7)
     }).catch((error) => {
       console.log(error)
@@ -292,17 +309,18 @@ const SignUp = () => {
             <div className='w-[60px]'>
               <Image src={`/image/swifti.svg`} width={1000} height={1000} className='w-full' alt='loho swifit' />
             </div>
+            <PersonalDetails loading={loading} PersonalDetailsFormik={PersonalDetailsFormik} />
 
-            {steps === 1 && (<ChooseType TypeFormik={TypeFormik} />)}
-            {steps === 2 && (<ChooseLocation LocationFormik={LocationFormik} />)}
-            {steps === 3 && (<PersonalDetails loading={loading} PersonalDetailsFormik={PersonalDetailsFormik} />)}
-            {steps === 4 && (<VerfiyOtp isOtpExpired={isOtpExpired} isVerfied={isVerfied} resendOtp={resendOtp} OtpFormik={OtpFormik} PersonalDetailsFormik={PersonalDetailsFormik} />)}
-            {steps === 5 && (<CreatePassword loading={loading} PasswordFormik={PasswordFormik} />)}
-            {steps === 6 && (<CompanyProfile CompnayProfileFormik={CompanyProfileFormik} />)}
-            {steps === 7 && (<ChooseService ServicesFormik={ServicesFormik} />)}
-            {steps === 8 && (<CompanyDocument loading={loading} CompanyDocumentFormik={CompanyDocumentFormik} />)}
-            {steps === 9 && (<CompanyBioMedia loading={loading} CompanyBioMediaFormik={CompanyBioMediaFormik} />)}
-            {steps === 10 && (<ChooseCompanyType YourTypeFormik={YourTypeFormik} />)}
+            {/* {steps === 1 && (<ChooseType TypeFormik={TypeFormik} />)} */}
+            {/* {steps === 2 && (<ChooseLocation LocationFormik={LocationFormik} />)} */}
+            {/* {steps === 3 && (<PersonalDetails loading={loading} PersonalDetailsFormik={PersonalDetailsFormik} />)} */}
+            {/* {steps === 4 && (<VerfiyOtp isOtpExpired={isOtpExpired} isVerfied={isVerfied} resendOtp={resendOtp} OtpFormik={OtpFormik} PersonalDetailsFormik={PersonalDetailsFormik} />)} */}
+            {/* {steps === 5 && (<CreatePassword loading={loading} PasswordFormik={PasswordFormik} />)} */}
+            {/* {steps === 6 && (<CompanyProfile CompnayProfileFormik={CompanyProfileFormik} />)} */}
+            {/* {steps === 7 && (<ChooseService ServicesFormik={ServicesFormik} />)} */}
+            {/* {steps === 8 && (<CompanyDocument loading={loading} CompanyDocumentFormik={CompanyDocumentFormik} />)} */}
+            {/* {steps === 9 && (<CompanyBioMedia loading={loading} CompanyBioMediaFormik={CompanyBioMediaFormik} />)} */}
+            {/* {steps === 10 && (<ChooseCompanyType YourTypeFormik={YourTypeFormik} />)} */}
             <span className='text-[12px] text-[#ee5c5c] font-[500]'>{errorMessage}</span>
 
           </div>

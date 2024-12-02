@@ -3,7 +3,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 
 const fetchUserProperty = async (userId: string, token: string) => {
   const response = await API.get(
-    `/api/v1/user-properties`,
+    `/user-properties`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -28,7 +28,7 @@ const createOrder = async (createData: {
   serviceProviderId: string;
 }) => {
   const response = await API.post(
-    `/api/v1/orders?serviceId=${createData.serviceId}&serviceProviderId=${createData.serviceProviderId}`,
+    `/orders?serviceId=${createData.serviceId}&serviceProviderId=${createData.serviceProviderId}`,
     createData.orderData,
     {
       headers: {
@@ -47,7 +47,7 @@ export const useCreateOrderMutation = () => {
 };
 
 const fetchUserOrders = async (token: string)=>{
-  const response = await API.get(`/api/v1/orders/order/client`, {
+  const response = await API.get(`/orders/order/client`, {
     headers:{
       Authorization: `Bearer ${token}`
     }

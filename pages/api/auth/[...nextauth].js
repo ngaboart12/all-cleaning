@@ -1,6 +1,5 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import axios from "axios";
 import API from "@/lib/api/apiCall";
 
 const options = {
@@ -17,28 +16,30 @@ const options = {
         }
 
         try {
-          const response = await API.post(
-            `/api/v1/auth/signin`,
-            {
-              email: credentials.email,
-              password: credentials.password,
-            }
-          );
+          const response = await API.post(`/users/login`, {
+            email: credentials.email,
+            password: credentials.password,
+          });
 
-          if (response.data.user && response.data.token) {
-            // Ensure the token is received
+          console.log("Response login:", response.data);
+
+          // Check if the response contains the expected data
+          if (response.data.status && response.data.data?.token) {
+            const { userId, userType, profile, token } = response.data.data;
+
             return {
-              id: response.data.user.id,
-              name: response.data.user.name,
-              email: response.data.user.email,
-              role: response.data.user.role,
-              token: response.data.token, // Store the token here
+              id: userId,
+              role: userType,
+              name: profile.names,
+              email: profile.email_address,
+              token: token, // Store the token here
             };
           } else {
+            console.error("Invalid login response format:", response.data);
             return null;
           }
         } catch (error) {
-          console.error("Error during authentication:", error);
+          console.error("Error during authentication:", error.response?.data || error.message);
           return null;
         }
       },
@@ -51,7 +52,7 @@ const options = {
         token.name = user.name;
         token.email = user.email;
         token.role = user.role;
-        token.token = user.token; // Store the token in the JWT
+        token.token = user.token;
       }
       return token;
     },
@@ -61,7 +62,7 @@ const options = {
         session.user.role = token.role;
         session.user.name = token.name;
         session.user.email = token.email;
-        session.user.token = token.token; 
+        session.user.token = token.token;
       }
       return session;
     },

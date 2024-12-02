@@ -8,7 +8,11 @@ interface CustomSession {
 }
 
 const API = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
+  baseURL: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1`,
+  timeout: 10000,
+  headers:{
+    "Content-Type": "application/json"
+  }
 });
 
 API.interceptors.request.use(

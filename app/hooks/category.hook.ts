@@ -3,7 +3,7 @@ import {useQuery } from "@tanstack/react-query";
 
 const fetchCategory = async () => {
   const response = await API.get(
-    `/api/v1/service/category`
+    `/service/category`
   );
   return response.data;
 };
@@ -16,7 +16,7 @@ export const fetchCategoryQuery = () => {
 
 const fetchServiceWithCategory = async () => {
   const response = await API.get(
-    `/api/v1/service/service-category`
+    `/service/service-category`
   );
   return response.data;
 };

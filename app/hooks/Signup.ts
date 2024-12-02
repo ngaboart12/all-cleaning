@@ -6,24 +6,11 @@ import axios from "axios";
 const signupUser = async (userData: {
   name: string;
   email: string;
-  phone_number: string;
-  password: string;
-  role: string;
-  state: string;
-  city: string;
-  companyName?: string;
-  companyBio?: string;
-  companyLogo?: string; 
-  companyEmail?: string;
-  files: string; 
-  servicesData?: any[];
+  telephone: string;
+  password: string
+
 }) => {
-  const response = await API.post(`/api/v1/auth/signup`, JSON.stringify(userData), {
-    headers: {
-      'Content-Type': 'application/json', 
-    },
-  });
-  
+  const response = await API.post(`/users/register`, userData);
   return response.data;
 };
 

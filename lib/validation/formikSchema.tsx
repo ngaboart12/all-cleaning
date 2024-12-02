@@ -15,7 +15,8 @@ export const locationValidationSchema = Yup.object({
 export const PersonalDetailsValidationSchema = Yup.object({
     fullName: Yup.string().required("Please fill your Name"),
     email: Yup.string().required("Please fill your email").email("Enter valid email"),
-    phoneNumber: Yup.number().required("Please fill your phone number").min(10,"Enter valid phone number")
+    phoneNumber: Yup.number().required("Please fill your phone number").min(10,"Enter valid phone number"),
+    password: Yup.string().required("Please fill your passwordd").min(4, "at least 4 charaters")
 })
 
 export const passwordvalidateSchema = Yup.object({

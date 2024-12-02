@@ -4,7 +4,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 
 const fetchAllUsers = async () => {
   const response = await API.get(
-    `/api/v1/user/users/all-emails`
+    `/user/users/all-emails`
   );
   return response.data;
 };
@@ -17,7 +17,7 @@ export const fetchAllUsersQuery = () => {
 };
 const fetchProfile = async (id: string, token: string) => {
   const response = await API.get(
-    `/api/v1/users/${id}`,
+    `/users/${id}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -44,7 +44,7 @@ interface CreatePropertyArgs {
 
 const createProperty = async ({ propertyType, token }: CreatePropertyArgs) => {
   const response = await API.post(
-    `/api/v1/user-properties`,
+    `/user-properties`,
     propertyType,
     {
       headers: {
@@ -64,7 +64,7 @@ export const useCreatePropertyMutation = () => {
 
 const fetchProperties = async (id: string, token: string) => {
   const response = await API.get(
-    `/api/v1/users/${id}`,
+    `/users/${id}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,

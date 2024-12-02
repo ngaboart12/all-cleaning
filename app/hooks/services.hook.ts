@@ -4,7 +4,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 // fetch base serivice to register
 const fetchBaseService = async () => {
   const response = await API.get(
-    `/api/v1/services/base-services`
+    `/services/base-services`
   );
   return response.data;
 };
@@ -19,7 +19,7 @@ export const fetchBaseServiceQuery = () => {
 // fetch all provider service
 const fetchProviderServices = async (token: string) => {
   const response = await API.get(
-    `/api/v1/services/provider-services`,
+    `/services/provider-services`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -38,7 +38,7 @@ export const useFetchProviderServicesQuery = (token: string) => {
 };
 const fetchProviderWithService = async (serviceId: string) => {
   const response = await API.get(
-    `/api/v1/services/service-providers/${serviceId}`,
+    `/services/service-providers/${serviceId}`,
   );
   return response.data;
 };
@@ -68,7 +68,7 @@ interface CompleteServiceParams {
 // Complete service function
 const completeService = async ({ id, serviceData, token }: CompleteServiceParams) => {
   const response = await API.post(
-    `/api/v1/provider/complete-service/${id}?providerId=${serviceData.providerId}`,
+    `/provider/complete-service/${id}?providerId=${serviceData.providerId}`,
     serviceData,
     {
       headers: {
@@ -87,7 +87,7 @@ export const useCompleteServiceMutation = () => {
 
 const gettingProviderWithOnservice = async ( id: string, providerId: string, token: string ) => {
   const response = await API.get(
-    `/api/v1/services/service-provided/${id}?providerId=${providerId}`,
+    `/services/service-provided/${id}?providerId=${providerId}`,
     {
       headers: {
         Authorization: `Bearer ${token}`,

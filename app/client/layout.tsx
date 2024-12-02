@@ -25,7 +25,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
         if (status === "unauthenticated") {
             router.push("/auth");
-        } else if (session?.user?.role !== "CLIENT") {
+        } else if (session?.user?.role !== "user") {
             router.push("/unauthorized");
         }
     }, [session, status, router]);
@@ -35,7 +35,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
         return <div className=' w-full h-screen flex items-center justify-center'></div>;
     }
 
-    if (status === "authenticated" && session?.user?.role === "CLIENT") {
+    if (status === "authenticated" && session?.user?.role === "user") {
         return (
             <html lang="en">
                 <body className={`${lexend.className} relative mx-auto`}>
