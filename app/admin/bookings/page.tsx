@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react'
+import React, { Suspense, useState } from 'react'
 import InfoPopUp from '@/components/reusable/tables/InfoPopUp';
 import Table from '@/components/reusable/tables/Table';
 import { Dialog } from 'primereact/dialog';
@@ -7,7 +7,7 @@ import "primereact/resources/themes/lara-light-cyan/theme.css";
 import { useRouter, useSearchParams } from 'next/navigation';
 import SingleBook from '@/components/admin/SingleBook';
 
-const Bookings = () => {
+const BookingContent = () => {
     const [isEditing, setIsEditing] = useState<boolean>(false)
     const router = useRouter()
     const [newVisible, setNewVisible] = useState<boolean>(false)
@@ -102,7 +102,7 @@ const Bookings = () => {
 
                         <div className='w-full bg-white p-4 rounded-[6px] flex flex-row items-center justify-between gap-[40px]'>
                             <div className='flex flex-row items-center gap-[10px]'>
-                                <h1 className='text-[16px] font-[600] text-black'>Bookings</h1>
+                                <h1 className='text-[16px] font-[600] text-black'>Content</h1>
                                 <div className='p-2 bg-gray-100 rounded-[4px]'>
                                     <span>10</span>
                                 </div>
@@ -206,6 +206,12 @@ const Bookings = () => {
             </div>
         </>
     )
+}
+
+const Bookings =  ()=>{
+    <Suspense>
+        <BookingContent/>
+    </Suspense>
 }
 
 export default Bookings
