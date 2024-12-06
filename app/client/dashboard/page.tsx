@@ -206,10 +206,261 @@ const Dashboard = () => {
                     </div>
                 </div>
             </div>
+          </div>
+          <div className="w-full pb-4  bg-white rounded-[12px]">
+            <div className="flex flex-row gap-[4px] sm:gap-[20px] items-center">
+              <div
+                onClick={() => setCurrentOpen(1)}
+                className={` cursor-pointer flex flex-row items-center  p-2 sm:p-4 ${
+                  currentOpen == 1 ? " border-b-[2px] border-primary" : ""
+                } gap-[10px]`}
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M8.10638 1.66667C5.38872 1.66667 4.02988 1.66667 3.08622 2.33154C2.81584 2.52203 2.57581 2.74794 2.37341 3.00241C1.66699 3.89056 1.66699 5.16947 1.66699 7.72728V9.8485C1.66699 12.3178 1.66699 13.5524 2.05778 14.5385C2.686 16.1238 4.01461 17.3743 5.69896 17.9655C6.74668 18.3333 8.0585 18.3333 10.6822 18.3333C12.1814 18.3333 12.931 18.3333 13.5297 18.1232C14.4922 17.7853 15.2513 17.0708 15.6103 16.1649C15.8337 15.6014 15.8337 14.8959 15.8337 13.4848V12.9167"
+                    stroke={` ${currentOpen == 1 ? "#13829F" : "#8D8D8D"}`}
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M12.5 6.24999C12.5 6.24999 12.9167 6.24999 13.3333 7.08333C13.3333 7.08333 14.6568 4.99999 15.8333 4.58333"
+                    stroke={` ${currentOpen == 1 ? "#13829F" : "#8D8D8D"}`}
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M18.3333 5.83334C18.3333 8.13452 16.4678 10 14.1667 10C11.8655 10 10 8.13452 10 5.83334C10 3.53216 11.8655 1.66667 14.1667 1.66667C16.4678 1.66667 18.3333 3.53216 18.3333 5.83334Z"
+                    stroke={` ${currentOpen == 1 ? "#13829F" : "#8D8D8D"}`}
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M1.66699 10C1.66699 11.5341 2.91064 12.7777 4.44477 12.7777C4.99959 12.7777 5.65369 12.6806 6.19313 12.8251C6.67243 12.9535 7.04679 13.3279 7.17523 13.8072C7.31977 14.3467 7.22255 15.0008 7.22255 15.5556C7.22255 17.0897 8.46624 18.3333 10.0003 18.3333"
+                    stroke={` ${currentOpen == 1 ? "#13829F" : "#8D8D8D"}`}
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                <span
+                  className={`text-[12px] sm:text-[14px] font-[600] ${
+                    currentOpen == 1 ? "text-primary" : "text-[#8D8D8D]"
+                  }`}
+                >
+                  Ongoing Services
+                </span>
+              </div>
+              <div
+                onClick={() => setCurrentOpen(2)}
+                className={` cursor-pointer flex flex-row items-center  p-2 sm:p-4 ${
+                  currentOpen == 2 ? " border-b-[2px] border-primary" : ""
+                } gap-[10px]`}
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M10.0003 18.3333V15M6.66699 16.6667V15M13.3337 16.6667V15"
+                    stroke={` ${currentOpen == 2 ? "#13829F" : "#8D8D8D"}`}
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M15.8337 14.5833C16.4791 14.4451 16.966 14.2143 17.3573 13.8291C18.3337 12.8682 18.3337 11.3216 18.3337 8.22836C18.3337 5.13515 18.3337 3.58855 17.3573 2.62761C16.3811 1.66667 14.8097 1.66667 11.667 1.66667H8.33366C5.19096 1.66667 3.61962 1.66667 2.6433 2.62761C1.66699 3.58855 1.66699 5.13515 1.66699 8.22836C1.66699 11.3216 1.66699 12.8682 2.6433 13.8291C3.03464 14.2143 3.52158 14.4451 4.16699 14.5833"
+                    stroke={` ${currentOpen == 2 ? "#13829F" : "#8D8D8D"}`}
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M15.4167 8.33333H15.4092"
+                    stroke={` ${currentOpen == 2 ? "#13829F" : "#8D8D8D"}`}
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M4.59147 8.33333H4.58398"
+                    stroke={` ${currentOpen == 2 ? "#13829F" : "#8D8D8D"}`}
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M12.0837 8.33333C12.0837 7.18274 11.1509 6.25 10.0003 6.25C8.84974 6.25 7.91699 7.18274 7.91699 8.33333C7.91699 9.48392 8.84974 10.4167 10.0003 10.4167C11.1509 10.4167 12.0837 9.48392 12.0837 8.33333Z"
+                    stroke={` ${currentOpen == 2 ? "#13829F" : "#8D8D8D"}`}
+                    stroke-width="1.5"
+                  />
+                </svg>
 
+                <span
+                  className={`text-[12px] sm:text-[14px] font-[600] ${
+                    currentOpen == 2 ? "text-primary" : "text-[#8D8D8D]"
+                  }`}
+                >
+                  Payments
+                </span>
+              </div>
+              <div
+                onClick={() => setCurrentOpen(3)}
+                className={` cursor-pointer flex flex-row items-center  p-2 sm:p-4 ${
+                  currentOpen == 3 ? " border-b-[2px] border-primary" : ""
+                } gap-[10px]`}
+              >
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M15.5137 16.6667H15.9222C16.8804 16.6667 17.6426 16.2301 18.3269 15.6197C20.0653 14.0688 15.9787 12.5 14.5837 12.5M12.917 4.22398C13.1062 4.18645 13.3027 4.16667 13.5043 4.16667C15.0209 4.16667 16.2503 5.28596 16.2503 6.66667C16.2503 8.04738 15.0209 9.16667 13.5043 9.16667C13.3027 9.16667 13.1062 9.14692 12.917 9.10934"
+                    stroke={` ${currentOpen == 3 ? "#13829F" : "#8D8D8D"}`}
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M3.73443 13.426C2.75195 13.9525 0.175949 15.0276 1.7449 16.3728C2.51133 17.03 3.36493 17.5 4.4381 17.5H10.5619C11.6351 17.5 12.4887 17.03 13.2551 16.3728C14.8241 15.0276 12.2481 13.9525 11.2656 13.426C8.96167 12.1913 6.03833 12.1913 3.73443 13.426Z"
+                    stroke={` ${currentOpen == 3 ? "#13829F" : "#8D8D8D"}`}
+                    stroke-width="1.5"
+                  />
+                  <path
+                    d="M10.8337 6.25001C10.8337 8.09096 9.34124 9.58334 7.50033 9.58334C5.65938 9.58334 4.16699 8.09096 4.16699 6.25001C4.16699 4.40905 5.65938 2.91667 7.50033 2.91667C9.34124 2.91667 10.8337 4.40905 10.8337 6.25001Z"
+                    stroke={` ${currentOpen == 3 ? "#13829F" : "#8D8D8D"}`}
+                    stroke-width="1.5"
+                  />
+                </svg>
 
+                <span
+                  className={`text-[12px] sm:text-[14px] font-[600] ${
+                    currentOpen == 3 ? "text-primary" : "text-[#8D8D8D]"
+                  }`}
+                >
+                  Providers
+                </span>
+              </div>
+            </div>
+            <div className="p-4">
+              {currentOpen == 1 && <h1>Ongoing services</h1>}
+              {currentOpen == 2 && <Payments />}
+            </div>
+          </div>
         </div>
-    )
-}
+        <div className="flex w-full lg:w-[30%] flex-col md:flex-row lg:flex-col  gap-[10px] ">
+          <div className=" flex flex-col gap-[10px] w-full">
+            <BookedService />
+          </div>
+          <div className="flex flex-row gap-[10px] w-full p-4 bg-white rounded-[12px]">
+            <div className="w-1/2 h-full bg-[#F2F2F2] p-4"></div>
+            <div className="flex flex-col gap-[4px]">
+              <span className="text-[14px] font-[700] text-[#13829F]">
+                Support
+              </span>
+              <span className="text-[14px] text-[#696969]">
+                Make your next service booking easier by registering your
+                properties{" "}
+              </span>
+              <a
+                href="/client/dashboard/profile"
+                className="w-full px-4 py-2 bg-primary text-white text-[14px] text-center "
+              >
+                Register Now
+              </a>
+            </div>
+          </div>
+          <div className=" w-full flex flex-col gap-[10px]">
+            <div className="w-full flex flex-row justify-between  items-center">
+              <div className="flex flex-row items-center gap-[10px]">
+                <h1 className="font-[600] text-[14px]">Help and support</h1>
+              </div>
+            </div>
+            <a
+              href="#"
+              className=" p-4 duration-200 transition-all hover:bg-[#f8f8f8] bg-white rounded-[12px] flex flex-row gap-[10px] items-center"
+            >
+              <div className="w-[60px]">
+                <Image
+                  src={`/image/Wallet.svg`}
+                  width={1000}
+                  height={1000}
+                  alt="wallet svg"
+                  className="w-full"
+                />
+              </div>
+              <div className="flex flex-col gap-[4px]">
+                <h1 className="text-[14px] text-[#13829F] font-[600]">
+                  PAYMENTS
+                </h1>
+                <span className="text-[12px] font-[600] text-[#000000]">
+                  Anything you want to know a about payment
+                </span>
+              </div>
+            </a>
+            <a
+              href="#"
+              className=" p-4 duration-200 transition-all hover:bg-[#f8f8f8] bg-white rounded-[12px] flex flex-row gap-[10px] items-center"
+            >
+              <div className="w-[60px]">
+                <Image
+                  src={`/image/Wallet.svg`}
+                  width={1000}
+                  height={1000}
+                  alt="wallet svg"
+                  className="w-full"
+                />
+              </div>
+              <div className="flex flex-col gap-[4px]">
+                <h1 className="text-[14px] text-[#13829F] font-[600]">
+                  PAYMENTS
+                </h1>
+                <span className="text-[12px] font-[600] text-[#000000]">
+                  Anything you want to know a about payment
+                </span>
+              </div>
+            </a>
+            <div className=" bg-white  p-4 rounded-[12px] flex flex-row gap-[10px] justify-between items-center">
+              <a
+                href="#"
+                className="text-[13px] text-[#606060] hover:text-[#000000]"
+              >
+                About
+              </a>
+              <a
+                href="#"
+                className="text-[13px] text-[#606060] hover:text-[#000000]"
+              >
+                Help
+              </a>
+              <a
+                href="#"
+                className="text-[13px] text-[#606060] hover:text-[#000000]"
+              >
+                Terms
+              </a>
+              <a
+                href="#"
+                className="text-[13px] text-[#606060] hover:text-[#000000]"
+              >
+                Language
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
-export default Dashboard
+export default Dashboard;

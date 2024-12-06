@@ -1,5 +1,6 @@
 // next-auth.d.ts
 import NextAuth from "next-auth";
+import { UserRole } from ".";
 
 // Extend the default session and user types
 declare module "next-auth" {
@@ -15,7 +16,8 @@ declare module "next-auth" {
       name?: string | null;
       email?: string | null;
       image?: string | null;
-      token : string
+      token: string;
+      accessType: UserRole;
     };
   }
 }
