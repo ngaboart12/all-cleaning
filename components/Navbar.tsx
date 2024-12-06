@@ -14,12 +14,12 @@ const Navbar = () => {
     console.log(session)
     const [dashLink, setDashLink] = useState<string>("")
     useEffect(() => {
-        if (session?.user.role == "CLIENT") {
+        if (session?.user.accessType == "customer") {
             setDashLink("/client/dashboard")
-        } else if (session?.user.role == "PROVIDER") {
+        } else if (session?.user.accessType == "employer") {
             setDashLink("/provider")
-        } else if (session?.user.role == "ADMIN") {
-            setDashLink("/admin")
+        } else if (session?.user.accessType == "system") {
+            setDashLink("/profile-setup")
         }
 
     }, [session])
