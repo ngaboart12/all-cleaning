@@ -1,11 +1,11 @@
 "use client"
 import React, { Suspense, useState } from 'react'
-import InfoPopUp from '@/components/reusable/tables/InfoPopUp';
-import Table from '@/components/reusable/tables/Table';
-import { Dialog } from 'primereact/dialog';
+import SingleBook from '@/components/admin/SingleBook'
+import Table from '@/components/reusable/tables/Table'
+import { useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
+import { Dialog } from 'primereact/dialog'
 import "primereact/resources/themes/lara-light-cyan/theme.css";
-import { useRouter, useSearchParams } from 'next/navigation';
-import SingleBook from '@/components/admin/SingleBook';
 
 const BookingContent = () => {
     const [isEditing, setIsEditing] = useState<boolean>(false)
@@ -13,6 +13,7 @@ const BookingContent = () => {
     const [newVisible, setNewVisible] = useState<boolean>(false)
     const searchQuery = useSearchParams()
     const id = searchQuery?.get('id')
+
 
     const bookings = [
         {
@@ -73,6 +74,8 @@ const BookingContent = () => {
     ];
 
 
+
+
     const columns = [
         { field: '#', header: '#' },
         { field: 'name', header: 'Customer Name' },
@@ -82,6 +85,7 @@ const BookingContent = () => {
         { field: 'actions', header: 'Actions' },
     ];
 
+
     const actionTemplate = (rowData: any) => {
         return (
             <div className="flex items-center space-x-4">
@@ -89,6 +93,7 @@ const BookingContent = () => {
             </div>
         );
     };
+
     return (
         <>
             <div className='w-full min-h-screen flex flex-col gap-[10px] px-[30px] py-4 bg-gray-100'>
@@ -96,9 +101,11 @@ const BookingContent = () => {
                     <div className='w-full flex flex-col gap-[10px]'>
                         <SingleBook />
 
+
                     </div>
                 ) : (
                     <>
+
 
                         <div className='w-full bg-white p-4 rounded-[6px] flex flex-row items-center justify-between gap-[40px]'>
                             <div className='flex flex-row items-center gap-[10px]'>
@@ -116,6 +123,7 @@ const BookingContent = () => {
                                             <path d="M8.33333 14.1667H11.6667" stroke="#292D32" stroke-linecap="round" />
                                         </svg>
                                         <span className='text-[14px]'>Filter</span>
+
 
                                     </div>
                                 </div>
@@ -135,83 +143,91 @@ const BookingContent = () => {
                 )}
             </div>
             <div>
-                {isEditing && (
-                    <Dialog className='w-1/2' header="New Service" visible={newVisible} onHide={() => setNewVisible(false)}>
-                        <form className='flex flex-col gap-[10px]' method="post">
-                            <div className='grid grid-cols-2 gap-[5px]'>
-                                <div className='flex flex-col gap-[5px]'>
-                                    <span className='text-[14px] font-[500] text-black'>Service Name</span>
-                                    <div className='w-full  rounded-[12px] bg-[#F9F9F9]'>
-                                        <input
-                                            type="text"
-                                            name='companyName'
-                                            className='w-full py-3 text-black border bg-transparent h-full px-4 text-[14px] font-[400] rounded-[12px] outline-none focus:outline-[#1990AF]/40 focus:outline-[1.8px]'
-                                            placeholder='Type your employer name'
-                                        />
-                                    </div>
-                                </div>
-                                <div className='flex flex-col gap-[5px]'>
-                                    <span className='text-[14px] font-[500] text-black'>Service Category</span>
-                                    <div className='w-full  rounded-[12px] bg-[#F9F9F9]'>
-                                        <select
-                                            name='companyName'
-                                            className='w-full py-3 text-black border bg-transparent h-full px-4 text-[14px] font-[400] rounded-[12px] outline-none focus:outline-[#1990AF]/40 focus:outline-[1.8px]'
-                                        >
-                                            <option value="">Residential</option>
-                                            <option value="">Window cleaning</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div className='flex flex-col gap-[5px]'>
-                                    <span className='text-[14px] font-[500] text-black'>Price per hour</span>
-                                    <div className='w-full  rounded-[12px] bg-[#F9F9F9]'>
-                                        <input
-                                            type="number"
-                                            name='companyName'
-                                            className='w-full py-3 text-black border bg-transparent h-full px-4 text-[14px] font-[400] rounded-[12px] outline-none focus:outline-[#1990AF]/40 focus:outline-[1.8px]'
-                                            placeholder='Enter date per hour'
-                                        />
-                                    </div>
-                                </div>
-                                <div className='flex flex-col gap-[5px]'>
-                                    <span className='text-[14px] font-[500] text-black'>Duration</span>
-                                    <div className='w-full  rounded-[12px] bg-[#F9F9F9]'>
-                                        <input
-                                            type="text"
-                                            name='duration'
-                                            className='w-full py-3 text-black border bg-transparent h-full px-4 text-[14px] font-[400] rounded-[12px] outline-none focus:outline-[#1990AF]/40 focus:outline-[1.8px]'
-                                            placeholder='Enter Duration'
-                                        />
-                                    </div>
+
+            </div>
+            {isEditing && (
+                <Dialog className='w-1/2' header="New Service" visible={newVisible} onHide={() => setNewVisible(false)}>
+                    <form className='flex flex-col gap-[10px]' method="post">
+                        <div className='grid grid-cols-2 gap-[5px]'>
+                            <div className='flex flex-col gap-[5px]'>
+                                <span className='text-[14px] font-[500] text-black'>Service Name</span>
+                                <div className='w-full  rounded-[12px] bg-[#F9F9F9]'>
+                                    <input
+                                        type="text"
+                                        name='companyName'
+                                        className='w-full py-3 text-black border bg-transparent h-full px-4 text-[14px] font-[400] rounded-[12px] outline-none focus:outline-[#1990AF]/40 focus:outline-[1.8px]'
+                                        placeholder='Type your employer name'
+                                    />
                                 </div>
                             </div>
                             <div className='flex flex-col gap-[5px]'>
-                                <span className='text-[14px] font-[500] text-black'>Description</span>
-                                <div className='w-full  rounded-[12px] '>
-                                    <textarea
-                                        rows={3}
+                                <span className='text-[14px] font-[500] text-black'>Service Category</span>
+                                <div className='w-full  rounded-[12px] bg-[#F9F9F9]'>
+                                    <select
+                                        name='companyName'
+                                        className='w-full py-3 text-black border bg-transparent h-full px-4 text-[14px] font-[400] rounded-[12px] outline-none focus:outline-[#1990AF]/40 focus:outline-[1.8px]'
+                                    >
+                                        <option value="">Residential</option>
+                                        <option value="">Window cleaning</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div className='flex flex-col gap-[5px]'>
+                                <span className='text-[14px] font-[500] text-black'>Price per hour</span>
+                                <div className='w-full  rounded-[12px] bg-[#F9F9F9]'>
+                                    <input
+                                        type="number"
+                                        name='companyName'
+                                        className='w-full py-3 text-black border bg-transparent h-full px-4 text-[14px] font-[400] rounded-[12px] outline-none focus:outline-[#1990AF]/40 focus:outline-[1.8px]'
+                                        placeholder='Enter date per hour'
+                                    />
+                                </div>
+                            </div>
+                            <div className='flex flex-col gap-[5px]'>
+                                <span className='text-[14px] font-[500] text-black'>Duration</span>
+                                <div className='w-full  rounded-[12px] bg-[#F9F9F9]'>
+                                    <input
+                                        type="text"
                                         name='duration'
-                                        className='w-full py-3 text-black bg-[#F9F9F9] border bg-transparent h-full px-4 text-[14px] font-[400] rounded-[12px] outline-none focus:outline-[#1990AF]/40 focus:outline-[1.8px]'
+                                        className='w-full py-3 text-black border bg-transparent h-full px-4 text-[14px] font-[400] rounded-[12px] outline-none focus:outline-[#1990AF]/40 focus:outline-[1.8px]'
                                         placeholder='Enter Duration'
                                     />
                                 </div>
                             </div>
-                            <button className='p-3 rounded-[12px] bg-primary text-white '>Save</button>
+                        </div>
+                        <div className='flex flex-col gap-[5px]'>
+                            <span className='text-[14px] font-[500] text-black'>Description</span>
+                            <div className='w-full  rounded-[12px] '>
+                                <textarea
+                                    rows={3}
+                                    name='duration'
+                                    className='w-full py-3 text-black bg-[#F9F9F9] border bg-transparent h-full px-4 text-[14px] font-[400] rounded-[12px] outline-none focus:outline-[#1990AF]/40 focus:outline-[1.8px]'
+                                    placeholder='Enter Duration'
+                                />
+                            </div>
+                        </div>
+                        <button className='p-3 rounded-[12px] bg-primary text-white '>Save</button>
 
-                        </form>
 
-                    </Dialog>
+                    </form>
 
-                )}
-            </div>
+
+                </Dialog>
+
+
+            )}
+
         </>
     )
 }
 
-const Bookings =  ()=>{
-    <Suspense>
-        <BookingContent/>
-    </Suspense>
+const Bookings = () => {
+    return (
+        <Suspense fallback={<p>Loading Bookings....</p>}>
+            <BookingContent />
+        </Suspense>
+    )
 }
+
 
 export default Bookings

@@ -38,7 +38,7 @@ const FrequentlyQuestion = () => {
                 </div>
 
             </div>
-            <div className='flex flex-row gap-[30px] w-full'>
+            <div className='flex flex-col lg:flex-row gap-[30px] w-full'>
                 <div className='w-full lg:w-1/2 flex flex-col gap-[20px]'>
                     {faquestion.map((item: any, index: number) => {
                         return (

@@ -27,7 +27,7 @@ const NavbarHome = () => {
             <div className='flex flex-row items-center justify-between gap-[20px] w-full'>
                 <div className='flex flex-row gap-[20px] items-center'>
 
-                    <a href="" className='rounded-[8px]  text-white font-[700]'>
+                    <a href="/" className='rounded-[8px]  text-white font-[700]'>
                         <Image src={`/image/logo2.png`} width={1000} height={1000} className='w-[80px]' alt='logo' />
                     </a>
                     <div className='flex flex-row gap-[20px] items-center'>

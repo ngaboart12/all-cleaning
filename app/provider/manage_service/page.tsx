@@ -37,6 +37,7 @@ type Service = {
 };
 
 const ManageServiceDetails = () => {
+    const [isComplete, setIsComplete] = useState(true)
     const [selectedServiceId, setSelectedServiceId] = useState("");
     const [selectedService, setSelectedService] = useState<Service>();
     const [document, setDocument] = useState<File | null>(null);
@@ -202,7 +203,8 @@ const ManageServiceDetails = () => {
                         {loadingService ? (
                             <Skeleton height={30} className='w-full' />
                         ) : fetchError ? (
-                            <div className='text-red-500'>Error fetching services: {fetchError.message}</div>
+                            <div></div>
+                            // <div className='text-red-500'>Error fetching services: {fetchError.message}</div>
                         ) : (
                             services.length > 0 ? (
                                 services.map((service: any, index: number) => (
@@ -222,6 +224,17 @@ const ManageServiceDetails = () => {
                                 <div>No services available.</div>
                             )
                         )}
+                        <div key={``} className={`flex cursor-pointer hover:bg-[#e4e4e4] duration-300 flex-row p-4 w-full justify-between ${selectedServiceId === "" ? "bg-primary/20" : "bg-white"} rounded-[12px] items-center`}>
+                            <span className='text-[12px]'>{`Car cleaning`}</span>
+                            <div className='flex flex-row items-center gap-[4px]'>
+                                <span className={`text-[12px] ${isComplete ? "text-green-500" : "text-[#767676]"}`}>
+                                    {isComplete ? "Completed" : "Pending"}
+                                </span>
+                                <h1 className='text-[13px] font-[600] text-primary'>
+                                    {isComplete ? "5/5" : "2/5"}
+                                </h1>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div className='w-full lg:w-[60%] bg-white p-4 rounded-[12px] flex justify-center'>
