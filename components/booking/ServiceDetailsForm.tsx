@@ -21,7 +21,11 @@ const ServiceDetailsForm = ({ setSteps, properties, orderFormik }: props) => {
                             value={orderFormik.values.propertyId}
                             className='text-[14px] w-full text-[#686868] border p-3 rounded-[12px]' id="">
                             {!properties || properties.length < 1 ? (
-                                <option value="" disabled>No property found</option>
+                                <>
+                                    <option value="" disabled>Select property</option>
+                                    <option value="car Loas" >Car Loas</option>
+                                    <option value="Car" >Car Loas</option>
+                                </>
                             ) : (
                                 <option value="" disabled>Select property</option>
                             )}

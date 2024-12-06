@@ -1,7 +1,10 @@
+"use client"
 import ServiceCard from '@/components/reusable/ServiceCard'
-import React from 'react'
+import RequestedService from '@/components/reusable/tables/RequestedService'
+import React, { useState } from 'react'
 
 const Bookings = () => {
+    const [type, setType] = useState<string>("all")
     return (
         <div className='py-24 bg-[#FAFAFA] min-h-screen px-[10px] md:px-[50px] lg:px-[100px] flex flex-col gap-[10px]'>
             <div className='w-full bg-white p-4 rounded-[12px] flex flex-row justify-between gap-[10px] items-center'>
@@ -17,8 +20,11 @@ const Bookings = () => {
                     <input type="text" className='p-3 text-[13px] bg-transparent outline-none' placeholder='Search Booking' />
                 </div>
                 <div className='flex flex-row gap-[10px]'>
-                    <div className='p-2 cursor-pointer  px-4 rounded-[12px] border-[1.4px] border-primary'>
-                        <span className='text-[14px] font-[600] text-primary'>ALL</span>
+                    <div onClick={() => setType("all")} className={`p-2 cursor-pointer  px-4 rounded-[12px] border-[1.4px] ${type == "all" ? "border-primary" : "border-[#F3F3F3]"} `}>
+                        <span className={`text-[14px] font-[600] ${type == "all" ? "text-primary" : "text-black"} `}>ALL</span>
+                    </div>
+                    <div onClick={() => setType("pending")} className={`p-2 cursor-pointer px-4 rounded-[12px] border-[1.4px] ${type == "pending" ? "border-primary" : "border-[#F3F3F3]"} `}>
+                        <span className={`text-[14px] font-[600] ${type == "pending" ? "text-primary" : "text-[#000000]"} `}>Requested</span>
                     </div>
                     <div className='p-2 cursor-pointer px-4 rounded-[12px] border-[1.4px] border-[#F3F3F3]'>
                         <span className='text-[14px] font-[600] text-[#000000]'>Ongoing</span>
@@ -31,12 +37,23 @@ const Bookings = () => {
                     </div>
                 </div>
             </div>
-            <div className='grid grid-cols-2 gap-[10px]'>
-                <ServiceCard/>
-                <ServiceCard/>
-                <ServiceCard/>
-                <ServiceCard/>
-            </div>
+            {type == "all" && (
+                <div className='grid grid-cols-2 gap-[10px]'>
+                    <ServiceCard />
+                    <ServiceCard />
+                    <ServiceCard />
+                    <ServiceCard />
+                </div>
+            )}
+            {type == "pending" && (
+                <div className='grid grid-cols-2 gap-[10px]'>
+                    <RequestedService />
+                    <RequestedService />
+                    <RequestedService />
+                </div>
+
+
+            )}
         </div>
     )
 }

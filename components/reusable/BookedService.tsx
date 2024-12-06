@@ -35,9 +35,6 @@ const BookedService = () => {
         }
     }, [orders, isLoading]);
 
-    if (isLoading) return <ServiceLoading />;
-
-    if (isError) return <div>Error loading orders</div>;
 
     return (
         <>
@@ -46,57 +43,50 @@ const BookedService = () => {
                     <div className="flex flex-row items-center gap-[10px]">
                         <h1 className="font-[600] text-[14px]">On going service</h1>
                         <div className="p-1 bg-primary rounded-[6px] text-[12px] text-white font-[600]">
-                            {orders.filter((item: any) => item.status === "PENDING").length}
+                            2
                         </div>
                     </div>
-                    <a href="#" className="uppercase text-[13px] font-[600] text-primary">
+                    <a href="/client/dashboard/bookings" className="uppercase text-[13px] font-[600] text-primary">
                         View All
                     </a>
                 </div>
-                {newestOrder && newestOrder.map((order: Order) => {
-                    return (
 
-                        <div className="p-4 flex flex-col gap-[4px] bg-white rounded-[12px] w-full">
-                            <div className="w-full flex flex-row items-center justify-between">
-                                <div className="flex flex-row items gap-[4px]">
-                                    <span className="font-[600] text-black text-[13px]">
-                                        {new Date(order?.updatedAt).toLocaleDateString()}
-                                    </span>
-                                    <span className="font-[600] text-black text-[13px]">
-                                        {new Date(order.updatedAt).toLocaleTimeString()}
-                                    </span>
-                                </div>
-                                <div className="p-2 rounded-full bg-secondary"></div>
-                            </div>
-                            <div className="flex flex-row justify-between items-center w-full">
-                                <span className="text-[14px] font-[600] text-black">{order.service.title}</span>
-                                <span className="text-[12px] font-[500] text-[#6D6D6D] text-start">Price</span>
-                            </div>
-                            <div className="flex flex-row justify-between items-center w-full">
-                                <span className="text-[12px] font-[400] text-[#C1C1C1]">
-                                    {"Location not available"}
-                                </span>
-                                <div className="flex flex-row gap-[4px] items-center">
-                                    <span className="text-[14px] font-[700] text-[#13829F]">
-                                        {order.providerOnService.estimatedPrice || "N/A"}
-                                    </span>
-                                    <span className="text-[14px] font-[700] text-[#13829F]">$</span>
-                                </div>
-                            </div>
-                            <div onClick={() => { setSelectedService(order); setIsOpened(true) }} className="flex cursor-pointer flex-row gap-[10px] w-full items-center">
-                                <button className="hover:scale-105 duration-300 text-[14px] font-[400] text-primary p-3 rounded-[8px] bg-[#F7FDFF] w-full">
-                                    More details
-                                </button>
-                                <button className="hover:scale-105 duration-300 text-[14px] font-[400] text-white p-3 rounded-[8px] bg-primary w-full">
-                                    Mark as served
-                                </button>
-                            </div>
+                <div className="p-4 flex flex-col gap-[4px] bg-white rounded-[12px] w-full">
+                    <div className="w-full flex flex-row items-center justify-between">
+                        <div className="flex flex-row items gap-[4px]">
+                            <span className="font-[600] text-black text-[13px]">
+
+                            </span>
+                            <span className="font-[600] text-black text-[13px]">
+
+                            </span>
                         </div>
-                    )
-
-
-
-                })}
+                        <div className="p-2 rounded-full bg-secondary"></div>
+                    </div>
+                    <div className="flex flex-row justify-between items-center w-full">
+                        <span className="text-[14px] font-[600] text-black">{`Deep cleaning`}</span>
+                        <span className="text-[12px] font-[500] text-[#6D6D6D] text-start">Price</span>
+                    </div>
+                    <div className="flex flex-row justify-between items-center w-full">
+                        <span className="text-[12px] font-[400] text-[#C1C1C1]">
+                            {"Location not available"}
+                        </span>
+                        <div className="flex flex-row gap-[4px] items-center">
+                            <span className="text-[14px] font-[700] text-[#13829F]">
+                                {200.56 || "N/A"}
+                            </span>
+                            <span className="text-[14px] font-[700] text-[#13829F]">$</span>
+                        </div>
+                    </div>
+                    <div className="flex cursor-pointer flex-row gap-[10px] w-full items-center">
+                        <button className="hover:scale-105 duration-300 text-[14px] font-[400] text-primary p-3 rounded-[8px] bg-[#F7FDFF] w-full">
+                            More details
+                        </button>
+                        <button className="hover:scale-105 duration-300 text-[14px] font-[400] text-white p-3 rounded-[8px] bg-primary w-full">
+                            Mark as served
+                        </button>
+                    </div>
+                </div>
 
             </div>
             <Dialog header={`Service details`} headerClassName="text-[12px]" className="w-[90%] lg:w-1/2" visible={isOpened} onHide={() => setIsOpened(false)} >
@@ -109,14 +99,14 @@ const BookedService = () => {
                                 {selectedService?.status}
                             </div>
                         </div>
-                       
+
                     </div>
-                
+
                     <div className=" flex flex-row items-center gap-[10px]">
-                        <div className=" p-3 bg-primary w-full flex items-center justify-center"> 
+                        <div className=" p-3 bg-primary w-full flex items-center justify-center">
                             <span className="text-[12px] text-white">View Reply</span>
                         </div>
-                        <div className=" p-3 bg-primary w-full flex items-center justify-center"> 
+                        <div className=" p-3 bg-primary w-full flex items-center justify-center">
                             <span className="text-[12px] text-white">View Reply</span>
                         </div>
                     </div>

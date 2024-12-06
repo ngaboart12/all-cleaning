@@ -5,7 +5,7 @@ import BookingReview from '@/components/booking/BookingReview'
 import PaymentMethod from '@/components/booking/PaymentMethod'
 import ServiceDetailsForm from '@/components/booking/ServiceDetailsForm'
 import NavbarHome from '@/components/Home/NavbarHome'
-import { HouseRegisterSchema } from '@/lib/validation/formikSchema'
+// import { HouseRegisterSchema } from '@/lib/validation/formikSchema'
 import { useFormik } from 'formik'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
@@ -32,9 +32,9 @@ const BookServiceContent = () => {
     }, [session]);
 
     const { isLoading, data: provider, isError, error } = useFetchProviderWithOnService(serviceId, providerId!, token!);
-    const { isLoading:loadingProperty, data: properties, isError:propertyError } = userFetchUserPropertyQuery(session?.user.id!, token!);
+    const { isLoading: loadingProperty, data: properties, isError: propertyError } = userFetchUserPropertyQuery(session?.user.id!, token!);
 
-  const { mutate: createOrdder, isPending } = useCreateOrderMutation();
+    const { mutate: createOrdder, isPending } = useCreateOrderMutation();
 
     const orderFormik = useFormik({
         initialValues: {
@@ -107,7 +107,6 @@ const BookServiceContent = () => {
                 <div className='flex flex-col md:flex-row  gap-[10px] w-full'>
                     {confirmed ? (
                         <>
-
                             <div className='w-full md:w-1/3  bg-white rounded-[12px] p-4 flex flex-col gap-[20px]'>
                                 <h1 className='text-[16px] font-[600] text-[#13829F]'>Service Summary</h1>
                                 <div className='w-full flex flex-row items-center gap-[20px]'>
@@ -192,20 +191,19 @@ const BookServiceContent = () => {
                         </>
                     ) : (
                         <>
-
                             <div className='w-full md:w-1/4  bg-white rounded-[12px] p-6 flex flex-col gap-[20px]'>
 
                             </div>
                             <div className='w-full flex bg-white rounded-[20px] flex-col'>
                                 <div className='flex p-4 flex-row gap-[20px]'>
                                     <div className='flex felx-row gap-[10px] items-center'>
-                                        <h1 className='text-[14px] font-[700]'>Service Id:</h1>
-                                        <span className='text-[14px] font-[500] text-primary'>{provider?.service?.title}</span>
+                                        <h1 className='text-[14px] font-[700]'>Service:</h1>
+                                        <span className='text-[14px] font-[500] text-primary'>{`Deep cleaning`}</span>
                                     </div>
-                                    <div className='flex felx-row gap-[10px] items-center'>
+                                    {/* <div className='flex felx-row gap-[10px] items-center'>
                                         <h1 className='text-[14px] font-[700]'>Company:</h1>
-                                        <span className='text-[14px] font-[500] text-primary'>{provider?.provider?.companyName}</span>
-                                    </div>
+                                        <span className='text-[14px] font-[500] text-primary'>{`Supreme `}</span>
+                                    </div> */}
                                 </div>
                                 {steps === 1 && (<ServiceDetailsForm orderFormik={orderFormik} properties={properties} setSteps={setSteps} />)}
                                 {steps === 2 && (<BookingReview setConfirmed={setConfirmed} setSteps={setSteps} />)}
@@ -223,11 +221,11 @@ const BookServiceContent = () => {
 
 const BookService = () => {
     return (
-      <Suspense fallback={<div>Loading...</div>}>
-        <BookServiceContent/>
-      </Suspense>
+        <Suspense fallback={<div>Loading...</div>}>
+            <BookServiceContent />
+        </Suspense>
     );
-  };
-  
+};
+
 
 export default BookService

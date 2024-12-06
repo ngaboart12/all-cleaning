@@ -6,6 +6,7 @@ import { Dialog } from 'primereact/dialog';
 import "primereact/resources/themes/lara-light-cyan/theme.css";
 import { useRouter, useSearchParams } from 'next/navigation';
 import SingleBook from '@/components/admin/SingleBook';
+import { bookedServices } from '@/lib/data/dummy';
 
 const BookingContent = () => {
     const [isEditing, setIsEditing] = useState<boolean>(false)
@@ -13,64 +14,6 @@ const BookingContent = () => {
     const [newVisible, setNewVisible] = useState<boolean>(false)
     const searchQuery = useSearchParams()
     const id = searchQuery?.get('id')
-
-    const bookings = [
-        {
-            "#": 1,
-            id: 1,
-            name: "Ethan Roberts",
-            service: "Deep Cleaning",
-            date: "17 June 2024",
-            status: "Active",
-            duration: "2 hours",
-            description: "A comprehensive cleaning service focusing on every corner of your home for a spotless result.",
-            actions: "Edit/Delete",
-        },
-        {
-            "#": 2,
-            id: 2,
-            name: "Olivia Martinez",
-            service: "Office Cleaning",
-            date: "17 December 2024",
-            status: "Active",
-            duration: "4 hours",
-            description: "Tailored cleaning solutions for offices, ensuring a clean and professional environment.",
-            actions: "Edit/Delete",
-        },
-        {
-            "#": 3,
-            id: 3,
-            name: "Mason Johnson",
-            service: "Carpet Cleaning",
-            date: "24 January 2025",
-            status: "Inactive",
-            duration: "1.5 hours",
-            description: "Specialized cleaning for carpets to remove dirt, stains, and allergens effectively.",
-            actions: "Edit/Delete",
-        },
-        {
-            "#": 4,
-            id: 4,
-            name: "Isabella Thompson",
-            service: "Window Cleaning",
-            date: "17 June 2024",
-            status: "Active",
-            duration: "1 hour",
-            description: "Crystal-clear window clebookingsfor homes and offices using streak-free techniques.",
-            actions: "Edit/Delete",
-        },
-        {
-            "#": 5,
-            id: 5,
-            name: "Liam Clark",
-            service: "Post-Construction Cleaning",
-            date: "17 June 2024",
-            status: "Active",
-            duration: "8 hours",
-            description: "A thorough cleaning service to remove debris and dust after construction or renovation work.",
-            actions: "Edit/Delete",
-        },
-    ];
 
 
     const columns = [
@@ -129,7 +72,7 @@ const BookingContent = () => {
                             </div>
                         </div>
                         <div className=' p-4 bg-white rounded-[6px]'>
-                            <Table columns={columns} data={bookings} actionTemplate={actionTemplate} />
+                            <Table columns={columns} data={bookedServices} actionTemplate={actionTemplate} />
                         </div>
                     </>
                 )}

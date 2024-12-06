@@ -77,9 +77,9 @@ const PopularService = () => {
                         <div className='w-full h-full overflow-hidden'>
                             <Image src={item.image} alt={item.name} width={1000} height={1000} className='w-full h-full object-cover hover:scale-125 duration-500' />
                         </div>
-                        <div className='p-3 bg-primary hover:bg-secondary duration-300 left-2 absolute bottom-4 w-[90%] rounded-[12px]'>
+                        <a href='/serve/book-service' className='p-3 bg-primary hover:bg-secondary duration-300 left-2 absolute bottom-4 w-[90%] rounded-[12px]'>
                             <h1 className='text-white font-[400] text-[12px] text-center'>{item.name}</h1>
-                        </div>
+                        </a>
                     </motion.div>
                 ))}
             </motion.div>

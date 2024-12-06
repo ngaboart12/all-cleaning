@@ -24,7 +24,7 @@ const ServiceRequested = () => {
 
                 </div>
                 <a href='' className='flex flex-row gap-[4px] items-center'>
-                    <span className='text-[14px] font-[500]  text-primary'>View All</span>
+                    <span className='text-[12px]  font-[500]  text-primary'>View All</span>
                     <div><svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M7.50004 5C7.50004 5 12.5 8.68242 12.5 10C12.5 11.3177 7.5 15 7.5 15" stroke="#13829F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                     </svg>
@@ -155,11 +155,11 @@ const ServiceRequested = () => {
                                     <div className='flex flex-row gap-[10px] justify-between items-center'>
                                         <h1 className='tet-[16px] font-[700]'>{request.serviceName}</h1>
                                         <div className='flex flex-row gap-[4px] items-center'>
-                                            <span className='text-[12px] font-[400] text-[black]'>07/12 2024</span>
-                                            <span className='text-[12px] font-[400] text-[black ]'>10:00 AM</span>
+                                            <span className='text-[12px] font-[500] text-[black]'>07/12 2024</span>
+                                            <span className='text-[12px] font-[500] text-[black ]'>10:00 AM</span>
                                         </div>
                                     </div>
-                                    <span className='text-[13px] text-[#777777] font-[400]'>{request.location}</span>
+                                    <span className='text-[13px] text-[#777777] font-[500]'>{request.location}</span>
                                 </div>
                             )
                         })}
@@ -181,22 +181,28 @@ const ServiceRequested = () => {
                                     </div>
                                     <div className='flex flex-col'>
                                         <span className='text-[18px] text-black font-[700]'>{request.name}</span>
-                                        <span className='text-[14px]'>{request.date}</span>
+                                        <span className='text-[12px] font-[700]'>{request.date}</span>
                                     </div>
                                 </div>
                                 <div className='flex flex-row gap-[10px] items-center'>
                                     <div className='flex flex-col'>
                                         <span>Service</span>
-                                        <p className='text-primary text-[14px] font-[700]'>{request.serviceName}</p>
+                                        <p className='text-primary text-[12px] font-[700]'>{request.serviceName}</p>
                                     </div>
                                 </div>
                             </div>
-                            <div className=' grid grid-cols-2 gap-[10px] py-4'>
+                            <div className=' grid grid-cols-3 gap-[10px] py-4'>
                                 <div className='flex flex-row gap-[10px] items-center'>
                                     <CiLocationOn size={30} />
                                     <div className='flex flex-col'>
                                         <span>{request.location}</span>
-                                        <a href="" className='text-primary text-[14px] font-[700]'>View location</a>
+                                        <a href="" className='text-primary text-[12px]  font-[700]'>View location</a>
+                                    </div>
+                                </div>
+                                <div className='flex flex-row gap-[10px] items-center'>
+                                    <div className='flex flex-col'>
+                                        <span>Property Images</span>
+                                        <a href="" className='text-primary text-[12px]  font-[700]'>View Images</a>
                                     </div>
                                 </div>
                                 <div className='flex flex-row gap-[10px] items-center'>
@@ -212,20 +218,20 @@ const ServiceRequested = () => {
                                 <h1 className='text-[16px] font-[500] text-black'>Property Details</h1>
                                 <div className='grid grid-cols-4 gap-[10px]'>
                                     <div className='flex flex-col items-center'>
-                                        <span className='text-[15px] font-[400] text-black/60'>Property Type</span>
-                                        <span className='text-black text-[14px]'>{`Appartment`}</span>
+                                        <span className='text-[12px] font-[500] text-black/60'>Property Type</span>
+                                        <span className='text-black text-[12px] font-[700]'>{`Appartment`}</span>
                                     </div>
                                     <div className='flex flex-col items-center'>
-                                        <span className='text-[15px] font-[400] text-black/60'>N<sup>0</sup> of Rooms</span>
-                                        <span className='text-black text-[14px]'>{12}</span>
+                                        <span className='text-[12px] font-[500] text-black/60'>N<sup>0</sup> of Rooms</span>
+                                        <span className='text-black text-[12px] font-[700]'>{12}</span>
                                     </div>
                                     <div className='flex flex-col items-center'>
-                                        <span className='text-[15px] font-[400] text-black/60'>N<sup>0</sup> of Bathrooms</span>
-                                        <span className='text-black text-[14px]'>{2}</span>
+                                        <span className='text-[12px] font-[500] text-black/60'>N<sup>0</sup> of Bathrooms</span>
+                                        <span className='text-black text-[12px] font-[700]'>{2}</span>
                                     </div>
                                     <div className='flex flex-col items-center'>
-                                        <span className='text-[15px] font-[400] text-black/60'>Square Footage</span>
-                                        <span className='text-black text-[14px]'>{100} m<sup>2</sup></span>
+                                        <span className='text-[12px] font-[500] text-black/60'>Square Footage</span>
+                                        <span className='text-black text-[12px] font-[700]'>{100} m<sup>2</sup></span>
                                     </div>
                                 </div>
 
@@ -234,7 +240,10 @@ const ServiceRequested = () => {
                                 <h1 className='text-[16px] font-[600] text-black'>Reply With Comment And Price</h1>
                                 <form action="" method="post" className='flex flex-col gap-[4px]'>
                                     <textarea rows={3} name="" id="" placeholder='Add comment' className='border rounded-[12px] p-2'></textarea>
-                                    <button className='p-3 bg-primary text-white rounded-[10px]'>Request</button>
+                                    <div className='flex flex-row items-center mx-auto gap-[10px] py-2'>
+                                        <button className='p-3 px-10 bg-red-500 text-white rounded-[10px]'>Decline</button>
+                                        <button className='p-3 px-10 bg-primary text-white rounded-[10px]'>Accept</button>
+                                    </div>
                                 </form>
                             </div>
                         </div>

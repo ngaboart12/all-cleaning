@@ -7,6 +7,38 @@ import { fetchBaseServiceQuery } from '@/app/hooks/services.hook';
 
 const Services = () => {
     const { isLoading, data: services, isError, error } = fetchBaseServiceQuery();
+    const dummyServices = [
+        {
+            id: 1,
+            title: "home cleaning",
+            description: "Keep your home looking fresh and clean with regular maintenance. The standard cleaning service includes dusting all surfaces, vacuuming carpets, sweeping and mopping floors, wiping down countertops, cleaning bathrooms, and tidying up living spaces.",
+            price: 230.89
+        },
+        {
+            id: 2,
+            title: "Move-In/Move-Out Cleaning",
+            description: "Moving can be stressful, so let us handle the cleaning. This service ensures your old home is spotless for the next occupant and your new home is ready for you. It includes thorough cleaning of all rooms, appliances, cabinets, and fixtures.",
+            price: 400.89
+        },
+        {
+            id: 3,
+            title: "Car Cleaning",
+            description: " Keep your vehicle looking its best with our comprehensive car cleaning services. We offer interior and exterior cleaning, including washing, waxing, vacuuming, and detailing.",
+            price: 200.00
+        },
+        {
+            id: 4,
+            title: "Office Cleaning",
+            description: "A clean office is crucial for a productive work environment. This service includes daily or weekly cleaning of workspaces, restrooms, kitchens, and common areas. Customizable plans fit the specific needs of your business.",
+            price: 156.53
+        },
+        {
+            id: 5,
+            title: "Retail Cleaning",
+            description: "Moving can be stressful, so let us handle the cleaning. This service ensures your old home is spotless for the next occupant and your new home is ready for you. It includes thorough cleaning of all rooms, appliances, cabinets, and fixtures..",
+            price: 50
+        },
+    ]
     return (
         <div className='w-full flex flex-col relative bg-[#FAFAFA] '>
             <div className='py-10 bg-primary flex items-center overflow-y-hidden relative  justify-center '>
@@ -19,15 +51,7 @@ const Services = () => {
                 </div>
             </div>
             <div className='px-[20px] md:px-10 lg:px-20 items-center justify-center  w-full bg-white flex flex-col gap-[40px]'>
-                {isLoading ? (
-                    <>
-                    <div  className='h-[100vh] w-full flex items-center justify-center'>
-                        <div className=' w-[200px] h-[200px] rounded-full bg-balck'></div>
-
-                    </div>
-                    </>
-                ) : (<>
-                    {services?.map((item: any, index: number) => {
+                    {dummyServices?.map((item: any, index: number) => {
                         return (
                             <div key={index} id={``} className={`flex flex-col ${index % 2 !== 0 ? "lg:flex-row-reverse" : "lg:flex-row"} lg:flex-row w-full gap-[20px] items-center py-20`}>
                                 <div className='w-full lg:w-1/2 flex flex-col gap-[10px]'>
@@ -55,7 +79,7 @@ const Services = () => {
                                         </div>
                                     </div>
                                     <div className='grid grid-cols-2  gap-[20px] md:pr-10'>
-                                        <a href={`/serve/service-company/${item.id}`} className=' flex flex-row items-center justify-center rounded-[30px] p-[15px] bg-[#13829F]'>
+                                        <a href={`/serve/book-service`} className=' flex flex-row items-center justify-center rounded-[30px] p-[15px] bg-[#13829F]'>
                                             <span className='text-center text-white'>Book Now</span>
                                             <div><svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M9.00005 6C9.00005 6 15 10.4189 15 12C15 13.5812 9 18 9 18" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -73,7 +97,7 @@ const Services = () => {
                                     </div>
                                 </div>
                                 <div className='w-full lg:w-1/2 flex flex-col'>
-                                    <div className='flex w-full items-center justify-center flex-row gap-[10px]'>
+                                    <div className='flex w-full items-center justify-center flex-col sm:flex-row gap-[10px]'>
                                         <div className='relative'>
                                             <div className='absolute z-20 p-3 bg-white rounded-[20px] w-[90%] mx-auto flex left-1/2 bottom-3  transform -translate-x-1/2 '>
                                                 <div className='p-3 bg-[#F8F8F8] w-full rounded-[20px] flex flex-row gap-[4px]'>
@@ -89,7 +113,7 @@ const Services = () => {
                                                     </div>
                                                     <div className='flex flex-col gap-[3px]'>
                                                         <h1 className='text-[14px] font-[400] text-primary'>Start From</h1>
-                                                        <h1 className='text-[18px] font-[800]'>40 000 $</h1>
+                                                        <h1 className='text-[18px] font-[800]'>{item.price} $</h1>
                                                     </div>
                                                 </div>
                                             </div>
@@ -104,7 +128,7 @@ const Services = () => {
                             </div>
                         )
                     })}
-                </>)}
+               
 
             </div>
         </div>
