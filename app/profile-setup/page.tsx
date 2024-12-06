@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ChooseType from "./setup-components/ChooseType";
 import CompanyInfo from "./setup-components/CompanyInfo";
 import CompanyDocument from "./setup-components/CompanyDocument";
@@ -9,10 +9,21 @@ import { Toaster, toast } from "sonner";
 import Button from "@/components/ui/button/Button";
 import { useFormik } from "formik";
 import { companyProfileValidationSchema } from "@/lib/validation/formikSchema";
-import { useEnableCompanyMutation } from "@/app/hooks/users.hook";
+import { useRouter } from "next/navigation";
+import {
+  useEnableCompanyMutation,
+  useEnableCustomerMutation,
+} from "@/app/hooks/users.hook";
 
 const ProfileSetup = () => {
+  const router = useRouter();
   const mutation = useEnableCompanyMutation();
+  const {
+    mutate: enableCustomer,
+    isPending: isEnableCustomerPending,
+    isSuccess: isEnableCustomerSuccess,
+    isError: isEnableCustomerError,
+  } = useEnableCustomerMutation();
   const [steps, setSteps] = useState<number>(1);
   const companyInfo = {
     company_name: "",
@@ -24,6 +35,23 @@ const ProfileSetup = () => {
       latitude: 0,
       longitude: 0,
     },
+  };
+  const handleEnableCustomer = async () => {
+    if (registerType === "client") {
+      try {
+        await enableCustomer();
+
+        if (isEnableCustomerSuccess) {
+          toast.success("Customer Profile Enabled Successfully");
+          router.push("/client/dashboard");
+        } else if (isEnableCustomerError) {
+          toast.error("Failed to enable customer profile");
+        }
+      } catch (error) {
+        toast.error("Something went wrong, try again");
+        console.log(error);
+      }
+    }
   };
   const formik = useFormik({
     initialValues: companyInfo,
@@ -61,11 +89,14 @@ const ProfileSetup = () => {
     if (steps < 2) {
       if (steps === 1) {
         if (registerType !== undefined) {
-          setSteps((steps) => steps + 1);
+          if (registerType === "company") {
+            setSteps((steps) => steps + 1);
+          }
         } else {
           toast.error("Please select Registration Type");
           setSteps(1);
         }
+        handleEnableCustomer();
       } else {
         setSteps(steps + 1);
       }
@@ -93,18 +124,21 @@ const ProfileSetup = () => {
     >
       <Toaster position="top-right" richColors closeButton />
       {steps == 1 && <ChooseType onSelectType={onSelectType} />}
-      {steps == 2 &&
-        (registerType === "company" ? (
-          <CompanyInfo formik={formik} />
-        ) : registerType === "client" ? (
-          <ClientInfo />
-        ) : null)}
+      {steps == 2 && registerType === "company" && (
+        <CompanyInfo formik={formik} />
+      )}
       {/* {steps == 3 && <CompanyDocument />} */}
       <div className="flex flex-row mx-auto gap-[10px] items-center">
         <Button text="Back" disabled={steps <= 1} onClick={handelPrev} />
 
         <Button
-          text={`${steps < 2 ? "Continue" : "Finish"}`}
+          text={`${
+            registerType === "client"
+              ? "Enable Account"
+              : steps < 2
+              ? "Continue"
+              : "Finish"
+          }`}
           onClick={handelNext}
           className="hover:opacity-80 duration-300 transition-all bg-primary text-white"
         />
