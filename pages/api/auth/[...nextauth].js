@@ -1,7 +1,7 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import API from "@/lib/api/apiCall";
-
+import { useLoginStore } from "@/app/hooks/store";
 const options = {
   providers: [
     CredentialsProvider({
@@ -20,9 +20,11 @@ const options = {
             email: credentials.email,
             password: credentials.password,
           });
+          // const setUserAccessType = useLoginStore(
+          //   (state) => state.setUserAccessType
+          // );
 
           console.log("Response login:", response.data);
-
           // Check if the response contains the expected data
           if (response.data.status && response.data.data?.token) {
             const { userId, userType, profile, token } = response.data.data;
@@ -32,14 +34,18 @@ const options = {
               role: userType,
               name: profile.names,
               email: profile.email_address,
-              token: token, // Store the token here
+              token: token,
+              accessType: profile.accessType,
             };
           } else {
             console.error("Invalid login response format:", response.data);
             return null;
           }
         } catch (error) {
-          console.error("Error during authentication:", error.response?.data || error.message);
+          console.error(
+            "Error during authentication:",
+            error.response?.data || error.message
+          );
           return null;
         }
       },
@@ -47,12 +53,14 @@ const options = {
   ],
   callbacks: {
     async jwt({ token, user }) {
+      console.log("JWT token:", user);
       if (user) {
         token.id = user.id;
         token.name = user.name;
         token.email = user.email;
         token.role = user.role;
         token.token = user.token;
+        token.accessType = user?.accessType;
       }
       return token;
     },
@@ -63,6 +71,7 @@ const options = {
         session.user.name = token.name;
         session.user.email = token.email;
         session.user.token = token.token;
+        session.user.accessType = token.accessType;
       }
       return session;
     },
