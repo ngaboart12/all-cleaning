@@ -73,7 +73,7 @@ const BookedService = () => {
                         </span>
                         <div className="flex flex-row gap-[4px] items-center">
                             <span className="text-[14px] font-[700] text-[#13829F]">
-                                {200.56 || "N/A"}
+                                200.56
                             </span>
                             <span className="text-[14px] font-[700] text-[#13829F]">$</span>
                         </div>
