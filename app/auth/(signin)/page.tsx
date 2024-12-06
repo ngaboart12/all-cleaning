@@ -37,9 +37,12 @@ const SignIn = () => {
           session?.user?.accessType === "employer"
         ) {
           location.href = "/provider";
-        } else {
-          //   location.href = "/client/dashboard";
+        } else if (session?.user?.accessType === "customer") {
+          location.href = "/client/dashboard";
           console.log("Client Dashboard");
+        } else {
+          console.log("No Access Type");
+          location.href = "/auth";
         }
       }
       setLoading(false);

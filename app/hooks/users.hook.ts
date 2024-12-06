@@ -93,3 +93,16 @@ export const useEnableCompanyMutation = () => {
     mutationFn: enableCompany,
   });
 };
+
+export const useEnableCustomerMutation = () => {
+  return useMutation<void, Error>({
+    mutationFn: async () => {
+      const response = await API.post("users/account/customer/individual");
+      return response.data;
+    },
+    onSuccess: () => {
+      console.log("Customer enabled successfully");
+      location.href = "/client/dashboard";
+    },
+  });
+};
