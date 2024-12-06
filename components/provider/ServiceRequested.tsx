@@ -17,7 +17,7 @@ const ServiceRequested = () => {
         <div className='w-full flex flex-col bg-white rounded-[12px] gap-[10px] p-4'>
             <div className='w-full flex flex-row items-center gap-[10px] justify-between'>
                 <div className='flex flex-row gap-[4px] items-center'>
-                    <h1 className='text-[16px] font-[700]'>Service requests</h1>
+                    <h1 className='text-[16px] font-[700]'>Active Jobs</h1>
                     <div className='p-2 rounded-[4px] bg-primary'>
                         <span className='text-[13px] text-white'>12</span>
                     </div>
@@ -241,8 +241,8 @@ const ServiceRequested = () => {
                                 <form action="" method="post" className='flex flex-col gap-[4px]'>
                                     <textarea rows={3} name="" id="" placeholder='Add comment' className='border rounded-[12px] p-2'></textarea>
                                     <div className='flex flex-row items-center mx-auto gap-[10px] py-2'>
-                                        <button className='p-3 px-10 bg-red-500 text-white rounded-[10px]'>Decline</button>
-                                        <button className='p-3 px-10 bg-primary text-white rounded-[10px]'>Accept</button>
+                                      
+                                        <button className='p-3 px-20 bg-primary text-white rounded-[10px]'>Apply</button>
                                     </div>
                                 </form>
                             </div>

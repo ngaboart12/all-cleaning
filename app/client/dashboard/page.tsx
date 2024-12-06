@@ -6,6 +6,7 @@ import Table from '@/components/reusable/tables/Table'
 import { bookedServices } from '@/lib/data/dummy'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
+import { Dialog } from 'primereact/dialog'
 import React, { useState } from 'react'
 
 const Dashboard = () => {
@@ -13,19 +14,21 @@ const Dashboard = () => {
     const [currentOpen, setCurrentOpen] = useState<number>(1)
     const { data: baseService, isLoading: baseLoading, isError: basError } = fetchBaseServiceQuery()
     const currentDate = new Date()
+    const  [isOpened,setIsOpened] = useState<boolean>()
 
     const columns = [
         { field: '#', header: '#' },
         { field: 'name', header: 'Customer Name' },
         { field: 'service', header: 'Service Name' },
         { field: 'date', header: 'Estimated Date' },
-        { field: 'duration', header: 'Duration' },
+        { field: 'duration', header: 'Providers' },
         { field: 'actions', header: 'Actions' },
     ];
     const actionTemplate = (rowData: any) => {
         return (
             <div className="flex items-center space-x-4">
-                <button onClick={() => router.push(`/admin/bookings?id=${rowData.id}`)} className="text-primary flex flex-row items-center">View</button>
+                <button onClick={()=> setIsOpened(true)} className="text-primary flex flex-row items-center">View</button>
+                <button onClick={() => router.push(`/admin/bookings?id=${rowData.id}`)} className="text-red-500 flex flex-row items-center">Delete</button>
             </div>
         );
     };
@@ -148,7 +151,7 @@ const Dashboard = () => {
                             </div>
                             <div className='p-4'>
                                 {currentOpen == 1 && (
-                                    <Table columns={columns} data={bookedServices.slice(0, 3)} />
+                                    <Table actionTemplate={actionTemplate} columns={columns} data={bookedServices.slice(0, 3)} />
                                 )}
                                 {currentOpen == 2 && (
                                     <Payments />
@@ -208,6 +211,50 @@ const Dashboard = () => {
                     </div>
                 </div>
             </div>
+            <Dialog header={`Applied companies`} className='w-1/2' visible={isOpened} onHide={()=> setIsOpened(false)} >
+                <div className='flex flex-col gap-[20px]'>
+                    <div className='flex flex-row items-center gap-[10px] justify-between '>
+                        <div className='flex flex-row items-center gap-[10px] cursor-pointer '>
+                            <div className='w-[50px] h-[50px] bg-gray-100 rounded-[6px]'>
+                                <Image src={`/image/cleanlogo1.jpg`} width={1000} height={1000} className='w-full h-full object-cover rounded-[6px]' alt='' />
+                            </div>
+                            <div className='flex flex-col'>
+                                <span className='text-[14px] font-[700] text-black'>ServiceMaster Clean</span>
+                                <span className='text-[12px] font-[400]'> New York City , Manhattan (borough), </span>
+                            </div>
+                        </div>
+                        <button className='px-4 py-2 bg-primary text-white rounded-[4px] text-[12px]'>Accept</button>
+                        
+                    </div>
+                    <div className='flex flex-row items-center gap-[10px] justify-between '>
+                        <div className='flex flex-row items-center gap-[10px] cursor-pointer  '>
+                            <div className='w-[50px] h-[50px] bg-gray-100 rounded-[6px]'>
+                                <Image src={`/image/cleanlogo2.jpg`} width={1000} height={1000} className='w-full h-full object-cover rounded-[6px]' alt='' />
+                            </div>
+                            <div className='flex flex-col'>
+                                <span className='text-[14px] font-[700] text-black'>Clean Signal</span>
+                                <span className='text-[12px] font-[400]'>California ,Los Angeles ,  Hollywood, </span>
+                            </div>
+                        </div>
+                        <button className='px-4 py-2 bg-primary text-white rounded-[4px] text-[12px]'>Accept</button>
+                        
+                    </div>
+                    <div className='flex flex-row items-center gap-[10px] justify-between '>
+                        <div className='flex flex-row items-center gap-[10px] cursor-pointer '>
+                            <div className='w-[50px] h-[50px] bg-gray-100 rounded-[6px]'>
+                                <Image src={`/image/company.png`} width={1000} height={1000} className='w-full h-full object-cover rounded-[6px]' alt='' />
+                            </div>
+                            <div className='flex flex-col'>
+                                <span className='text-[14px] font-[700] text-black'>Chem-Dry</span>
+                                <span className='text-[12px] font-[400]'> Florida, Miami , South Beach </span>
+                            </div>
+                        </div>
+                        <button className='px-4 py-2 bg-primary text-white rounded-[4px] text-[12px]'>Accept</button>
+                        
+                    </div>
+                </div>
+
+            </Dialog>
 
         </>
     );

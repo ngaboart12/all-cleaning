@@ -23,8 +23,8 @@ const ServiceDetailsForm = ({ setSteps, properties, orderFormik }: props) => {
                             {!properties || properties.length < 1 ? (
                                 <>
                                     <option value="" disabled>Select property</option>
-                                    <option value="car Loas" >Car Loas</option>
-                                    <option value="Car" >Car Loas</option>
+                                    <option value="car Loas" >Oakwood Cottage</option>
+                                    <option value="Car" >Aspen Retreat</option>
                                 </>
                             ) : (
                                 <option value="" disabled>Select property</option>
@@ -37,12 +37,35 @@ const ServiceDetailsForm = ({ setSteps, properties, orderFormik }: props) => {
                         </select>
                     </div>
                 </div>
+                <div className='grid grid-cols-1 sm:grid-cols-2 gap-[20px]'>
+                    <div className='flex flex-col gap-[10px]'>
+                        <h1 className='text-[14px]'>Duration of Cleaning</h1>
+                        <input
+                            type="number"
+                            name='duratiom'
+                            className='w-full p-3 border outline-none rounded-[12px] text-[12px]'
+                            placeholder='Enter Duration of Cleaning'
+                        />
+
+                    </div>
+                    <div className='flex flex-col gap-[10px]'>
+                        <h1 className='text-[14px]'>Cleaning Price</h1>
+                        <input
+                            type="text"
+                            name='duratiom'
+                            className='w-full p-3 border outline-none rounded-[12px] text-[12px]'
+                            placeholder='Enter Cleaning Price'
+                        />
+
+                    </div>
+
+                </div>
                 <div className='flex flex-row items-center gap-[10px]'>
                     <span className='text-[14px] text-primary'>Prefer to fill property details</span>
                     <input type="checkbox" onChange={() => setIsToFill(!isToFill)} />
                 </div>
                 {isToFill && (
-                    <div className='grid grid-cols-3 gap-[10px]'>
+                    <div className='grid grid-cols-2 md:grid-cols-3 gap-[10px]'>
                         <div className='flex flex-col gap-[10px]'>
                             <h1 className='text-[14px]'>Property Type</h1>
                             <select
