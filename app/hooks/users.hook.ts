@@ -1,11 +1,9 @@
 import API from "@/lib/api/apiCall";
-import { createPropertyInterface } from "@/lib/types/types.type";
+import { createPropertyInterface, CompanyType } from "@/lib/types/types.type";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 const fetchAllUsers = async () => {
-  const response = await API.get(
-    `/user/users/all-emails`
-  );
+  const response = await API.get(`/user/users/all-emails`);
   return response.data;
 };
 
@@ -16,14 +14,11 @@ export const fetchAllUsersQuery = () => {
   });
 };
 const fetchProfile = async (id: string, token: string) => {
-  const response = await API.get(
-    `/users/${id}`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const response = await API.get(`/users/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
   return response.data;
 };
 
@@ -33,7 +28,6 @@ export const fetchProfileQuery = (id: string, token: string) => {
     queryFn: () => fetchProfile(id, token),
     staleTime: 1000 * 60 * 5,
     enabled: !!id && !!token,
-    
   });
 };
 
@@ -43,16 +37,12 @@ interface CreatePropertyArgs {
 }
 
 const createProperty = async ({ propertyType, token }: CreatePropertyArgs) => {
-  const response = await API.post(
-    `/user-properties`,
-    propertyType,
-    {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const response = await API.post(`/user-properties`, propertyType, {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
   return response.data;
 };
 
@@ -63,14 +53,11 @@ export const useCreatePropertyMutation = () => {
 };
 
 const fetchProperties = async (id: string, token: string) => {
-  const response = await API.get(
-    `/users/${id}`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const response = await API.get(`/users/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
   return response.data;
 };
 
@@ -78,5 +65,31 @@ export const fetchfetchPropertiesQuery = (id: string, token: string) => {
   return useQuery({
     queryKey: ["users_properties", id],
     queryFn: () => fetchProperties(id, token),
+  });
+};
+
+const enableCompany = async (enableCompany: CompanyType) => {
+  try {
+    const res = await API.post(
+      "/users/account/employer/company",
+      enableCompany
+    );
+    return res.data;
+  } catch (error) {
+    console.log("Error Enabling employer ", error);
+  }
+};
+export const usefetchBusinessFieldsQuery = () => {
+  return useQuery<{ id: number; name: string }[] | undefined>({
+    queryKey: ["business-fields"],
+    queryFn: async () => {
+      const response = await API.get("/account/employment/domains/all");
+      return response.data.data;
+    },
+  });
+};
+export const useEnableCompanyMutation = () => {
+  return useMutation<void, Error, CompanyType>({
+    mutationFn: enableCompany,
   });
 };
