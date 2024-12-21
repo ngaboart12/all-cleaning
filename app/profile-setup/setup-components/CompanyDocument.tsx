@@ -1,9 +1,9 @@
 import React from "react";
 import { FaLocationDot } from "react-icons/fa6";
-import { useCompanyStore } from "@/app/hooks/store";
+// import { useCompanyStore } from "@/app/hooks/store";
 const CompanyDocuments = () => {
-  const cName = useCompanyStore((state) => state.company_name);
-  console.log(cName);
+  // // const cName = useCompanyStore((state) => state.company_name);
+  // console.log(cName);
   return (
     <div className="w-full md:w-1/3 flex flex-col gap-[20px] mx-auto">
       <div className="flex flex-col gap-[5px]">
