@@ -45,6 +45,11 @@ export const companyProfileValidationSchema = Yup.object({
     .max(15)
     .required("Please fill your company phone number"),
   business_field: Yup.string().required("Please select business field"),
+  dob: Yup.date().required("Date of birth is required"),
+  ssn: Yup.string().required("ssn is required"),
+  location: Yup.string().required("location is required"),
+  gender: Yup.string().required("Gender is required"),
+  routing_number: Yup.string().required("Routing number is required"),
   address: Yup.object().shape({
     longitude: Yup.number().required("Please fill your longitude"),
     latitude: Yup.number().required("Please fill your latitude"),
@@ -104,3 +109,22 @@ export const HouseRegisterSchema = Yup.object().shape({
     latitude: Yup.number().required("latitude is required"),
   }),
 });
+
+export const jobFormikValiationSchema = Yup.object().shape({
+  start_time: Yup.string().required("Start Time is Required"),
+  shift_date: Yup.date().required("shift date is Required"),
+  end_time: Yup.string().required("End Time is Required"),
+  description: Yup.string().required("description is required").min(30, "minimun character is equal 30"),
+})
+
+export const enableFreelancerSchema = Yup.object().shape({
+  dob: Yup.date().required("Date of birth is required"),
+  location: Yup.string().required("Location is required"),
+  routing_number: Yup.string().required("Routing number is required"),
+  gender: Yup.string().required("Gender is required"),
+  address: Yup.object().shape({
+    longitude: Yup.number().required("Please fill your longitude"),
+    latitude: Yup.number().required("Please fill your latitude"),
+  }),
+
+})

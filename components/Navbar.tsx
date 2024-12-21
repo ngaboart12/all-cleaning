@@ -16,9 +16,14 @@ const Navbar = () => {
     useEffect(() => {
         if (session?.user.accessType == "customer") {
             setDashLink("/client/dashboard")
-        } else if (session?.user.accessType == "employer") {
+        } else if (session?.user.accessType == "employee") {
             setDashLink("/provider")
-        } else if (session?.user.accessType == "system") {
+        } else if (session?.user.accessType == "administrator") {
+            setDashLink("/admin")
+        }else if(session?.user.accessType == "employer"){
+            setDashLink("/client/dashboard")
+        }
+        else {
             setDashLink("/profile-setup")
         }
 
@@ -63,6 +68,7 @@ const Navbar = () => {
                         {isActive && <IoClose />}
 
                     </span>
+            
                 </div>
 
             </div>

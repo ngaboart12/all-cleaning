@@ -36,7 +36,7 @@ const Table = ({
     numberOfrows
 }: TableProps) => {
     const [first, setFirst] = useState(0);
-    const rows = numberOfrows || 5;
+    const rows = numberOfrows || 10;
 
     const [filteredData, setFilteredData] = useState(data)
 
@@ -90,7 +90,7 @@ const Table = ({
                         header={col.header}
                        body={
                             col.field === '#'
-                                ? (_, { rowIndex }: any) => formatIndexId(rowIndex) // Format index as ID
+                                ? (_, { rowIndex }: any) => formatIndexId(rowIndex)
                                 : col.field === 'status'
                                 ? statusTemplate
                                 : col.field === 'actions'
@@ -101,6 +101,7 @@ const Table = ({
                                 ? (rowData: any) => formatDate(rowData.createdAt)
                                 : undefined
                         }
+                        className=''
                         bodyClassName={`p-4 border-b text-[12px] font-[500] leading-[24px] ${col?.field === 'actions' && 'flex'}`}
                         headerClassName={`bg-blue-100 text-[12px] p-4 text-gray-700 font-semibold ${col?.field === 'actions' && 'flex'}`}
                         style={{ justifyContent: 'center' }}

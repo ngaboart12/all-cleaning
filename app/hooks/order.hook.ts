@@ -1,15 +1,13 @@
 import API from "@/lib/api/apiCall";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { Result } from "postcss";
 
 const fetchUserProperty = async (userId: string, token: string) => {
-  const response = await API.get(
-    `/user-properties`,
-    {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }
-  );
+  const response = await API.get(`/user-properties`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
   return response.data;
 };
 
@@ -17,7 +15,7 @@ export const userFetchUserPropertyQuery = (userId: string, token: string) => {
   return useQuery({
     queryKey: ["user-properties"],
     queryFn: () => fetchUserProperty(userId, token),
-    enabled: !!token, 
+    enabled: !!token,
   });
 };
 
@@ -46,20 +44,29 @@ export const useCreateOrderMutation = () => {
   });
 };
 
-const fetchUserOrders = async (token: string)=>{
+const fetchUserOrders = async (token: string) => {
   const response = await API.get(`/orders/order/client`, {
-    headers:{
-      Authorization: `Bearer ${token}`
-    }
-  })
-  return response.data
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response.data;
+};
 
-}
-
-export const useFetchUserOrdersQuery = (token: string)=>{
+export const useFetchUserOrdersQuery = (token: string) => {
   return useQuery({
     queryKey: ["user-orders"],
     queryFn: () => fetchUserOrders(token),
     enabled: !!token,
-  })
-}
+  });
+};
+
+export const userCreateJobMutation = () => {
+  return useMutation({
+    mutationKey: ["create_job"],
+    mutationFn: async (data: any) => {
+      const response = await API.post(`/shifts`, data);
+      return response.data
+    },
+  });
+};

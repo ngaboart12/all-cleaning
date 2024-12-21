@@ -93,24 +93,22 @@ const SignUp = () => {
         onSuccess: (response) => {
           setLoading(false)
           setErrorMessage("")
-          if (response.message && response.data.status) {
-            setIsCusess(true)
-            setTimeout(() => {
-              setIsCusess(false)
-              location.href = "/auth"
-            }, 3000)
-          }
+          setIsCusess(true)
+          setTimeout(() => {
+            setIsCusess(false)
+            location.href = "/auth"
+          }, 3000)
         },
-        onError: (error:any) => {
+        onError: (error: any) => {
           setLoading(false)
-          if(error.message){
+          if (error.message) {
             setErrorMessage(error.response.data.error)
-          }else{
+          } else {
             setErrorMessage("Error in registering please try again later")
           }
         }
       })
-      
+
 
     }
   })
@@ -233,7 +231,7 @@ const SignUp = () => {
       setSteps(9)
     }
   })
-  
+
   // const CompanyBioMediaFormik = useFormik({
   //   initialValues: {
   //     companyBio: "",
@@ -306,9 +304,9 @@ const SignUp = () => {
       <div className=' w-full h-screen flex re justify-center items-center bg-[#FAFAFA]'>
         <div className=' bg-white flex flex-row rounded-[30px] max-h-[90%] w-[95%] sm:w-[70%]  md:w-[95%]  lg:w-[70%] overflow-hidden'>
           <div className=' w-full md:w-1/2 h-full flex flex-col gap-[4px] p-5 py-10 lg:p-10'>
-            <div className='w-[60px]'>
+            <a href='/' className='w-[60px]'>
               <Image src={`/image/swifti.svg`} width={1000} height={1000} className='w-full' alt='loho swifit' />
-            </div>
+            </a>
             <PersonalDetails loading={loading} PersonalDetailsFormik={PersonalDetailsFormik} />
 
             {/* {steps === 1 && (<ChooseType TypeFormik={TypeFormik} />)} */}
