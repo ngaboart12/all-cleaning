@@ -41,7 +41,7 @@ const BookedService = () => {
             <div className="flex flex-col gap-[4px]">
                 <div className="w-full flex flex-row justify-between items-center">
                     <div className="flex flex-row items-center gap-[10px]">
-                        <h1 className="font-[600] text-[14px]">On going service</h1>
+                        <h1 className="font-[600] text-[14px]">Ongoing Job</h1>
                         <div className="p-1 bg-primary rounded-[6px] text-[12px] text-white font-[600]">
                             2
                         </div>

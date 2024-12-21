@@ -1,7 +1,47 @@
 import API from "@/lib/api/apiCall";
 import { useMutation, useQuery } from "@tanstack/react-query";
+import { headers } from "next/headers";
 
-// fetch base serivice to register
+
+const fetchPostions = async()=>{
+  const response = await API.get(`/positions`)
+  return response.data
+}
+
+export const useFetchPostionsQuery =()=>{
+  return useQuery({
+    queryKey: ["postions"],
+    queryFn: fetchPostions,
+  })
+}
+export const useFetchSinglePostionsQuery =(id:number)=>{
+  return useQuery({
+    queryKey: ["postions"],
+    queryFn: async()=>{
+      const response = await API.get(`/positions/${id}`)
+      return response.data
+    },
+  })
+}
+
+interface positionType {
+  title: string,
+  price: number
+}
+
+const createPosition = async(data: positionType)=>{
+  const response = await API.post(`/positions`,data)
+  return response
+}
+
+export const useCreatePostionMutation = ()=>{
+  return useMutation({
+    mutationKey: ["create-postions"],
+    mutationFn:  createPosition
+  })
+}
+
+
 const fetchBaseService = async () => {
   const response = await API.get(
     `/services/base-services`

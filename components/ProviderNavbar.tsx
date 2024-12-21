@@ -3,10 +3,12 @@ import handleLogout from '@/utlis/handelLogout'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import React from 'react'
+import React, { useState } from 'react'
 import { RiLogoutCircleLine } from 'react-icons/ri'
+import ProfileDropDown from './ui/dropdown/ProfileDropDown'
 
 const ProviderNavbar = () => {
+    const [isDropDown,setIsDropDown] = useState<boolean>(false)
     const params = usePathname()
     const { data: session, status } = useSession()
     const token: any = session?.user.token
@@ -15,7 +17,6 @@ const ProviderNavbar = () => {
             <a href="/" className='rounded-[8px]  text-white font-[700]'>
                 <Image src={`/image/logo2.png`} width={1000} height={1000} className='w-[80px]' alt='logo' />
             </a>
-
 
             <div className=' flex-row gap-[50px] items-center hidden md:flex'>
                 <a href="./" className={` text-[12px] font-[400] hover:scale-110 duration-300  rounded-[8px] ${params == "/provider" ? " bg-[#F7F7F7] px-6 p-2 text-black" : " text-black"}`}>Home</a>
@@ -32,20 +33,19 @@ const ProviderNavbar = () => {
                             <path d="M27 31.5C27 33.1569 25.6569 34.5 24 34.5C22.3431 34.5 21 33.1569 21 31.5" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                     </div>
-                    {/* <span onClick={() => handleLogout(token)} className='text-black cursor-pointer'>{session?.user.name}</span> */}
-                    <div className='flex cursor-pointer flex-row items-center gap-[4px]'>
-                        <div className='p-2 rounded-full bg-primary text-white'>
-                            <h1 className='text-white font-[600]'>
+                    <div onClick={()=> setIsDropDown(!isDropDown)} className='flex cursor-pointer flex-row items-center gap-[4px]'>
+                        <div className='p-2 rounded-full bg-primary w-[30px] h-[30px] flex items-center justify-center text-white'>
+                            <h1 className='text-white font-[600] text-[12px]'>
                                 {session?.user.name?.split(" ")[0].slice(0, 1).toLocaleUpperCase()}
                                 {session?.user.name?.split(" ")[1]?.slice(0, 1).toLocaleUpperCase()}
                             </h1>
                         </div>
-                        <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <svg className={`${isDropDown ? " rotate-180" : ""} duration-300 transition-all`} width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M18 9.50005C18 9.50005 13.5811 15.5 12 15.5C10.4188 15.5 6 9.5 6 9.5" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                     </div>
-                    <div onClick={() => handleLogout(token)} className='px-3 py-1 cursor-pointer hover:scale-110 duration-300 rounded-[4px]'>
-                        <RiLogoutCircleLine size={20} className=' text-orange-600' />
+                    <div className={`w-[250px] ${isDropDown ? " h-auto" : "h-0"} transition-all duration-500  overflow-hidden fixed  top-14 right-[16vh]`}>
+                        <ProfileDropDown />
                     </div>
                 </div>
 
@@ -53,7 +53,6 @@ const ProviderNavbar = () => {
             <div className='flex md:hidden'>
                 <span className='text-white text-[30px] cursor-pointer'>=</span>
             </div>
-
         </div>
     )
 }

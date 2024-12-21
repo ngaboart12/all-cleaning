@@ -70,6 +70,11 @@ export type CompanyType = {
   company_email: string;
   company_office: string;
   company_telephone: string;
+  dob?: string,
+  ssn?: string,
+  location?: string,
+  gender: string,
+  routing_number: string,
   //   country: string;
   //   city: string;
   //   state: string;

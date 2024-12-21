@@ -8,6 +8,7 @@ import ReactLoading from "react-loading";
 
 const SignIn = () => {
   const [loading, setLoading] = useState<boolean>(false);
+  const [errorMessage, setErroMessage] = useState<string>("")
   const CredentialsFormik = useFormik({
     initialValues: {
       email: "",
@@ -15,8 +16,8 @@ const SignIn = () => {
     },
     validationSchema: CredentialsValidationSchema,
     onSubmit: async (values, { setSubmitting, setErrors }) => {
+      setErroMessage("")
       setLoading(true);
-      // Handle sign-in with NextAuth
       const res = await signIn("credentials", {
         redirect: false,
         email: CredentialsFormik.values.email,
@@ -24,7 +25,7 @@ const SignIn = () => {
       });
 
       if (res?.error) {
-        setErrors({ email: res.error });
+        setErroMessage("Invalid email or password")
         setLoading(false);
       } else {
         const session = await getSession();
@@ -40,7 +41,10 @@ const SignIn = () => {
         } else if (session?.user?.accessType === "customer") {
           location.href = "/client/dashboard";
           console.log("Client Dashboard");
-        } else {
+        }else if(session?.user?.accessType === "administrator"){
+          location.href = "/admin";
+        } 
+        else {
           console.log("No Access Type");
           location.href = "/auth";
         }
@@ -54,7 +58,7 @@ const SignIn = () => {
     <div className="w-full h-screen flex justify-center items-center bg-[#FAFAFA]">
       <div className="bg-white flex flex-row rounded-[30px] max-h-[90%] w-[95%] sm:w-[70%] md:w-[95%] lg:w-[70%] overflow-hidden">
         <div className="w-full md:w-1/2 h-full flex flex-col gap-[4px] p-5 py-10 lg:p-10">
-          <div className="w-[60px]">
+          <a href="/" className="w-[60px]">
             <Image
               src={`/image/swifti.svg`}
               width={1000}
@@ -62,7 +66,7 @@ const SignIn = () => {
               className="w-full"
               alt="logo swifti"
             />
-          </div>
+          </a>
           <h1 className="text-[16px] text-[#E2B659] font-[500]">
             Log In to Your Account
           </h1>
@@ -84,7 +88,7 @@ const SignIn = () => {
               />
             </div>
             {CredentialsFormik.touched.email &&
-            CredentialsFormik.errors.email ? (
+              CredentialsFormik.errors.email ? (
               <div className="text-red-500 text-[12px] px-4">
                 {CredentialsFormik.errors.email}
               </div>
@@ -101,11 +105,15 @@ const SignIn = () => {
               />
             </div>
             {CredentialsFormik.touched.password &&
-            CredentialsFormik.errors.password ? (
+              CredentialsFormik.errors.password ? (
               <div className="text-red-500 text-[12px] px-4">
                 {CredentialsFormik.errors.password}
               </div>
             ) : null}
+            <span className="text-[13px] text-red-500 px-4 py-2">
+              {errorMessage}
+
+            </span>
 
             <div className="w-full flex flex-row items-center justify-between px-4">
               <a href="#" className="text-[12px] sm:text-[14px] text-[#13829F]">

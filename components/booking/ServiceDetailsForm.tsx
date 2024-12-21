@@ -1,195 +1,146 @@
+import { Button } from 'primereact/button';
 import React, { useState } from 'react'
+import { IoWarningOutline } from "react-icons/io5";
+import { MdTimeline } from "react-icons/md";
 type props = {
     setSteps: React.Dispatch<React.SetStateAction<number>>
     properties?: any
-    orderFormik: any
+    jobFormik: any
+    loading?: boolean
 }
 
-const ServiceDetailsForm = ({ setSteps, properties, orderFormik }: props) => {
+const ServiceDetailsForm = ({ loading, jobFormik }: props) => {
     const [isToFill, setIsToFill] = useState<boolean>(false)
-
     return (
-        <div className='w-full bg-white px-6 rounded-[6px] flex flex-col gap-[10px]'>
-            <div className='flex flex-col gap-[20px] w-full'>
+        <div className='w-full bg-white md:px-6 rounded-[6px] flex flex-col gap-[10px]'>
+            <div className='flex flex-col gap-[10px] w-full'>
                 <h1 className='font-[700]'>Fill all Necessary information</h1>
-                <div className='flex flex-row gap-[10px] w-full'>
-                    <div className='flex w-full flex-col gap-[10px]'>
-                        <h1 className='text-[14px]'>Select one of your Property</h1>
-                        <select name="propertyId"
-                            onChange={orderFormik.handleChange}
-                            onBlur={orderFormik.handleBlur}
-                            value={orderFormik.values.propertyId}
-                            className='text-[14px] w-full text-[#686868] border p-3 rounded-[12px]' id="">
-                            {!properties || properties.length < 1 ? (
-                                <>
-                                    <option value="" disabled>Select property</option>
-                                    <option value="car Loas" >Oakwood Cottage</option>
-                                    <option value="Car" >Aspen Retreat</option>
-                                </>
-                            ) : (
-                                <option value="" disabled>Select property</option>
-                            )}
-                            {properties?.map((item: any, index: number) => {
-                                return (
-                                    <option className='text-black' key={index} value={item.id} >{item.name}</option>
-                                )
-                            })}
-                        </select>
-                    </div>
-                </div>
-                <div className='grid grid-cols-1 sm:grid-cols-2 gap-[20px]'>
+    
+                <div className='grid grid-cols-1 sm:grid-cols-2 w-full gap-y-[10px] gap-x-[20px]'>
                     <div className='flex flex-col gap-[10px]'>
                         <h1 className='text-[14px]'>Duration of Cleaning</h1>
                         <input
                             type="number"
-                            name='duratiom'
+                            name='hours'
+                            onChange={jobFormik.handleChange}
+                            value={jobFormik.values.hours}
                             className='w-full p-3 border outline-none rounded-[12px] text-[12px]'
                             placeholder='Enter Duration of Cleaning'
                         />
+                        <span className='text-[13px] text-red-400'>
+                            {jobFormik.touched.hours && jobFormik.errors.hours ? (
+                                jobFormik.errors.hours
+
+                            ) : ""}
+
+                        </span>
 
                     </div>
                     <div className='flex flex-col gap-[10px]'>
-                        <h1 className='text-[14px]'>Cleaning Price</h1>
+                        <h1 className='text-[14px]'>Cleaning date*</h1>
                         <input
-                            type="text"
-                            name='duratiom'
+                            type="date"
+                            name='shift_date'
                             className='w-full p-3 border outline-none rounded-[12px] text-[12px]'
                             placeholder='Enter Cleaning Price'
+                            onChange={jobFormik.handleChange}
+                            value={jobFormik.values.shift_date}
+
                         />
+                        <span className='text-[13px] text-red-400'>
+                            {jobFormik.touched.shift_date && jobFormik.errors.shift_date ? (
+                                jobFormik.errors.shift_date
 
+                            ) : ""}
+
+                        </span>
+
+                    </div>
+                </div>
+                <div className='flex flex-row gap-[30px] py-4 items-center justify-center'>
+                    <div className='flex flex-col gap-[5px]'>
+                        <span className='text-[13px] font-[400]'>Start time</span>
+
+                        <input onChange={jobFormik.handleChange}
+                            value={jobFormik.values.start_time} name='start_time' type="time" className='border p-2 rounded-[12px]' />
+                        <span className='text-[13px] text-red-400'>
+                            {jobFormik.touched.start_time && jobFormik.errors.start_time ? (
+                                jobFormik.errors.start_time
+
+                            ) : ""}
+
+                        </span>
+                    </div>
+                    <MdTimeline className='mt-6' />
+                    <div className='flex flex-col gap-[5px]'>
+                        <span className='text-[13px] font-[400]'>End time</span>
+
+                        <input onChange={jobFormik.handleChange}
+                            value={jobFormik.values.end_time} name='end_time' type="time" className='border p-2 rounded-[12px]' />
+                        <span className='text-[13px] text-red-400'>
+                            {jobFormik.touched.end_time && jobFormik.errors.end_time ? (
+                                jobFormik.errors.end_time
+
+                            ) : ""}
+
+                        </span>
                     </div>
 
                 </div>
-                <div className='flex flex-row items-center gap-[10px]'>
-                    <span className='text-[14px] text-primary'>Prefer to fill property details</span>
-                    <input type="checkbox" onChange={() => setIsToFill(!isToFill)} />
-                </div>
-                {isToFill && (
-                    <div className='grid grid-cols-2 md:grid-cols-3 gap-[10px]'>
-                        <div className='flex flex-col gap-[10px]'>
-                            <h1 className='text-[14px]'>Property Type</h1>
-                            <select
-                                name="propertyType"
-                                onChange={orderFormik.handleChange}
-                                onBlur={orderFormik.handleBlur}
-                                value={orderFormik.values.propertyType}
-                                className='w-full p-3 border outline-none rounded-[12px] text-[12px]'
-                            >
-                                <option value="" disabled>
-                                    Select property type
-                                </option>
-                                <option value={`HOUSE`}>{`HOUSE`}</option>
-                                <option value={`APARTMENT`}>{`APARTMENT`}</option>
-                                <option value={`OFFICE`}>{`OFFICE`}</option>
-                            </select>
-                            {orderFormik.touched.propertyType && orderFormik.errors.propertyType && (
-                                <div className="text-red-500 text-[10px]">{orderFormik.errors.propertyType}</div>
-                            )}
-                        </div>
-                        <div className='flex flex-col gap-[10px]'>
-                            <h1 className='text-[14px]'>Property Name</h1>
-                            <input
-                                type="text"
-                                name='propertyName'
-                                onChange={orderFormik.handleChange}
-                                onBlur={orderFormik.handleBlur}
-                                value={orderFormik.values.propertyName}
-                                className='w-full p-3 border outline-none rounded-[12px] text-[12px]'
-                                placeholder='Enter Property Name'
-                            />
-                            {orderFormik.touched.propertyName && orderFormik.errors.propertyName && (
-                                <div className="text-red-500 text-[10px]">{orderFormik.errors.propertyName}</div>
-                            )}
-                        </div>
-                        <div className='flex flex-col gap-[10px]'>
-                            <h1 className='text-[14px]'>Number Of Rooms</h1>
-                            <input
-                                type="number"
-                                name='numberOfRooms'
-                                onChange={orderFormik.handleChange}
-                                onBlur={orderFormik.handleBlur}
-                                value={orderFormik.values.numberOfRooms}
-                                className='w-full p-3 border outline-none rounded-[12px] text-[12px]'
-                                placeholder='Enter Number of Rooms'
-                            />
-                            {orderFormik.touched.numberOfRooms && orderFormik.errors.numberOfRooms && (
-                                <div className="text-red-500 text-[10px]">{orderFormik.errors.numberOfRooms}</div>
-                            )}
-                        </div>
-                        <div className='flex flex-col gap-[10px]'>
-                            <h1 className='text-[14px]'>Number Of Bathrooms</h1>
-                            <input
-                                type="number"
-                                name='numberOfBathrooms'
-                                onChange={orderFormik.handleChange}
-                                onBlur={orderFormik.handleBlur}
-                                value={orderFormik.values.numberOfBathrooms}
-                                className='w-full p-3 border outline-none rounded-[12px] text-[12px]'
-                                placeholder='Enter Number of bath rooms'
-                            />
-                            {orderFormik.touched.numberOfRooms && orderFormik.errors.numberOfBathrooms && (
-                                <div className="text-red-500 text-[10px]">{orderFormik.errors.numberOfBathrooms}</div>
-                            )}
-                        </div>
-                        <div className='flex flex-col gap-[10px]'>
-                            <h1 className='text-[14px]'>Number Of Windows</h1>
-                            <input
-                                type="number"
-                                name='numberOfWindows'
-                                onChange={orderFormik.handleChange}
-                                onBlur={orderFormik.handleBlur}
-                                value={orderFormik.values.numberOfWindows}
-                                className='w-full p-3 border outline-none rounded-[12px] text-[12px]'
-                                placeholder='Enter Number of windows'
-                            />
-                            {orderFormik.touched.numberOfWindows && orderFormik.errors.numberOfWindows && (
-                                <div className="text-red-500 text-[10px]">{orderFormik.errors.numberOfWindows}</div>
-                            )}
-                        </div>
-                        <div className='flex flex-col gap-[10px]'>
-                            <h1 className='text-[14px]'>Size of property ()m<sup>2</sup></h1>
-                            <input
-                                type="number"
-                                name='size'
-                                onChange={orderFormik.handleChange}
-                                onBlur={orderFormik.handleBlur}
-                                value={orderFormik.values.size}
-                                className='w-full p-3 border outline-none rounded-[12px] text-[12px]'
-                                placeholder='Enter Size of property (m2)'
-                            />
-                            {orderFormik.touched.size && orderFormik.errors.size && (
-                                <div className="text-red-500 text-[10px]">{orderFormik.errors.size}</div>
-                            )}
-                        </div>
-                        <div className='flex flex-col gap-[10px]'>
-                            <h1 className='text-[14px]'>Parking Instructions</h1>
-                            <input
-                                type="text"
-                                name='parkingInstructions'
-                                onChange={orderFormik.handleChange}
-                                onBlur={orderFormik.handleBlur}
-                                value={orderFormik.values.parkingInstructions}
-                                className='w-full p-3 border outline-none rounded-[12px] text-[12px]'
-                                placeholder='Enter Parking Instruction'
-                            />
-                            {orderFormik.touched.parkingInstructions && orderFormik.errors.parkingInstructions && (
-                                <div className="text-red-500 text-[10px]">{orderFormik.errors.parkingInstructions}</div>
-                            )}
-                        </div>
+                <div className='flex flex-row gap-[10px] items-center w-full'>
+                    <div className='flex flex-row gap-[10px] w-full'>
+                        <h1 className='text-[16px] font-[600]'>Overtime paid</h1>
+                        <input
+                            type="checkbox"
+                            name='overtime_paid'
+                            className='p-2 w-[20px] border outline-none rounded-[12px] text-[12px]'
+                            placeholder='Enter overtime Price'
+                            onChange={jobFormik.handleChange}
+                            value={jobFormik.values.overtime_paid}
+                        />
                     </div>
-                )}
+                    <div className='flex flex-row gap-[10px] w-full'>
+                        <h1 className='text-[16px] font-[600]'>Mileage paid</h1>
+                        <input
+                            type="checkbox"
+                            name='mileage_paid'
+                            className='p-2 w-[20px] border outline-none rounded-[12px] text-[12px]'
+                            placeholder='Enter overtime Price'
+                            onChange={jobFormik.handleChange}
+                            value={jobFormik.values.overtime_paid}
+                        />
+                    </div>
+                </div>
+
                 <div className='flex flex-col gap-[10px]'>
-                    <h1 className='text-[14px] font-[600] text-black'>Do you have any notes you'd like to leave for the company?</h1>
-                    <textarea placeholder='Write messages' className='p-3 bg-[#FBFBFB] rounded-[6px] text-[13px]' rows={4} name="" id=""></textarea>
+                    <h1 className='text-[14px] font-[400] text-black'>Add description of your job*</h1>
+                    <textarea
+                        onChange={jobFormik.handleChange}
+                        value={jobFormik.values.description} placeholder='Write messages' name="description" className='p-3 bg-[#FBFBFB] rounded-[6px] text-[13px]' rows={4} id=""></textarea>
+                    <span className='text-[13px] text-red-400'>
+                        {jobFormik.touched.description && jobFormik.errors.description ? (
+                            jobFormik.errors.description
+
+                        ) : ""}
+
+                    </span>
+                </div>
+                <div className='flex flex-row gap-[10px] '>
+                    <div>
+                        <IoWarningOutline size={20} color='red' />
+                    </div>
+                    <span className='text-[12px]'>
+                        Please provide a detailed description of the job, including specific information about the property you want cleaned. This helps ensure the best service for your needs and makes it easier for the company to respond to your request accurately.
+                    </span>
                 </div>
 
                 <div className='flex flex-row gap-[20px] items-center w-full justify-end'>
-                    <div onClick={() => setSteps(1)} className='cursor-pointer w-[200px] px-[10px] py-[10px] rounded-[6px] bg-[#EFEFEF] flex items-center justify-center'>
+                    <div onClick={() => jobFormik.handleSubmit()} className='cursor-pointer w-[200px] px-[10px] py-[10px] rounded-[6px] bg-[#EFEFEF] flex items-center justify-center'>
                         <span>Back</span>
                     </div>
-                    <button onClick={orderFormik.handleSubmit} type='submit' className='w-[200px] px-[10px] py-[10px] rounded-[6px] bg-[#13829F] text-white flex items-center justify-center'>
+                    <Button loading={loading} onClick={jobFormik.handleSubmit} type='submit' className='w-[200px] px-[10px] py-[10px] gap-[10px] rounded-[6px] bg-[#13829F] text-white flex items-center justify-center'>
                         <span>Continue</span>
-                    </button>
+                    </Button>
                 </div>
             </div>
         </div>

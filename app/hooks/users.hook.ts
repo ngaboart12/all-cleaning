@@ -71,7 +71,7 @@ export const fetchfetchPropertiesQuery = (id: string, token: string) => {
 const enableCompany = async (enableCompany: CompanyType) => {
   try {
     const res = await API.post(
-      "/users/account/employer/company",
+      "/users/account/employee/company",
       enableCompany
     );
     return res.data;
@@ -106,3 +106,22 @@ export const useEnableCustomerMutation = () => {
     },
   });
 };
+
+const enableFreelancer = async (data:any) => {
+  try {
+    const res = await API.post(
+      "/users/account/employee/individual",
+      data
+    );
+    return res.data;
+  } catch (error) {
+    console.log("Error Enabling employer ", error);
+  }
+};
+
+export const useEnableFreelancerMutation = ()=>{
+  return useMutation({
+    mutationKey: ["enable_freelancdr"],
+    mutationFn: enableFreelancer,
+  })
+}

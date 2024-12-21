@@ -9,6 +9,7 @@ export const bookedServices = [
         duration: "2",
         description: "A comprehensive cleaning service focusing on every corner of your home for a spotless result.",
         actions: "Edit/Delete",
+        paid: true
     },
     {
         "#": 2,
@@ -20,6 +21,7 @@ export const bookedServices = [
         duration: "4",
         description: "Tailored cleaning solutions for offices, ensuring a clean and professional environment.",
         actions: "Edit/Delete",
+        paid: false
     },
     {
         "#": 3,
@@ -31,6 +33,7 @@ export const bookedServices = [
         duration: "1",
         description: "Specialized cleaning for carpets to remove dirt, stains, and allergens effectively.",
         actions: "Edit/Delete",
+        paid: false
     },
     {
         "#": 4,
@@ -42,6 +45,7 @@ export const bookedServices = [
         duration: "3",
         description: "Crystal-clear window clebookingsfor homes and offices using streak-free techniques.",
         actions: "Edit/Delete",
+        paid: true
     },
     {
         "#": 5,
@@ -53,6 +57,7 @@ export const bookedServices = [
         duration: "8",
         description: "A thorough cleaning service to remove debris and dust after construction or renovation work.",
         actions: "Edit/Delete",
+        paid: true
     },
 ];
 

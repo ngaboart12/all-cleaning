@@ -15,48 +15,48 @@ type ExtendedCompanyType = CompanyType & {
   setAddress: ({ lt, ln }: { lt: number; ln: number }) => void;
 };
 
-export const useCompanyStore = create<ExtendedCompanyType>((set) => ({
-  company_name: "",
-  company_office: "",
-  company_email: "",
-  business_field: "",
-  company_telephone: "",
+// export const useCompanyStore = create<ExtendedCompanyType>((set) => ({
+//   company_name: "",
+//   company_office: "",
+//   company_email: "",
+//   business_field: "",
+//   company_telephone: "",
 
-  latitude: 0,
-  longitude: 0,
+//   latitude: 0,
+//   longitude: 0,
 
-  company_bio: "",
-  media: "",
-  file: "",
-  setCompanyField: (e) => {
-    set((state) => ({
-      company_office: e.target.value,
-    }));
-  },
-  setCompanyEmail: (e) => {
-    set((state) => ({
-      company_email: e.target.value,
-    }));
-  },
-  setCompanyPhone: (e) => {
-    set((state) => ({
-      company_telephone: e.target.value,
-    }));
-  },
-  setCompanyName(e) {
-    set((state) => ({
-      company_name: e.target.value,
-    }));
-  },
-  setCompanyOffice(e) {
-    set((state) => ({
-      company_office: e.target.value,
-    }));
-  },
-  setAddress(address) {
-    set((state) => ({
-      latitude: address.lt,
-      longitude: address.ln,
-    }));
-  },
-}));
+//   company_bio: "",
+//   media: "",
+//   file: "",
+//   setCompanyField: (e) => {
+//     set((state) => ({
+//       company_office: e.target.value,
+//     }));
+//   },
+//   setCompanyEmail: (e) => {
+//     set((state) => ({
+//       company_email: e.target.value,
+//     }));
+//   },
+//   setCompanyPhone: (e) => {
+//     set((state) => ({
+//       company_telephone: e.target.value,
+//     }));
+//   },
+//   setCompanyName(e) {
+//     set((state) => ({
+//       company_name: e.target.value,
+//     }));
+//   },
+//   setCompanyOffice(e) {
+//     set((state) => ({
+//       company_office: e.target.value,
+//     }));
+//   },
+//   setAddress(address) {
+//     set((state) => ({
+//       latitude: address.lt,
+//       longitude: address.ln,
+//     }));
+//   },
+// }));

@@ -29,12 +29,12 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
 
     if (status === "unauthenticated") {
       router.push("/auth");
-    } else if (session?.user?.accessType !== "employer") {
+    } else if (session?.user?.accessType !== "employee") {
       router.push("/unauthorized");
     }
   }, [session, status, router]);
 
-  if (status === "authenticated" && session?.user?.accessType === "employer") {
+  if (status === "authenticated" && session?.user?.accessType === "employee") {
     return (
       <html lang="en">
         <body className={`${lexend.className} relative mx-auto`}>

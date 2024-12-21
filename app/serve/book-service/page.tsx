@@ -1,16 +1,17 @@
 "use client"
-import { useCreateOrderMutation, userFetchUserPropertyQuery } from '@/app/hooks/order.hook'
-import { useFetchProviderWithOnService } from '@/app/hooks/services.hook'
-import BookingReview from '@/components/booking/BookingReview'
-import PaymentMethod from '@/components/booking/PaymentMethod'
+import { useCreateOrderMutation, userCreateJobMutation, userFetchUserPropertyQuery } from '@/app/hooks/order.hook'
+import { useFetchPostionsQuery, useFetchProviderWithOnService, useFetchSinglePostionsQuery } from '@/app/hooks/services.hook'
 import ServiceDetailsForm from '@/components/booking/ServiceDetailsForm'
 import NavbarHome from '@/components/Home/NavbarHome'
+import Navbar from '@/components/Navbar'
+import { jobFormikValiationSchema } from '@/lib/validation/formikSchema'
 // import { HouseRegisterSchema } from '@/lib/validation/formikSchema'
 import { useFormik } from 'formik'
 import { useSession } from 'next-auth/react'
 import Image from 'next/image'
 import { useSearchParams } from 'next/navigation'
 import React, { Suspense, useEffect, useState } from 'react'
+import { toast, Toaster } from 'sonner'
 
 const BookServiceContent = () => {
     const [steps, setSteps] = useState<number>(1)
@@ -18,8 +19,13 @@ const BookServiceContent = () => {
     const [token, setToken] = useState<string | null>(null);
     const searchParams = useSearchParams();
     const serviceId = searchParams?.get("serviceId") as string;
-    const onserviceId = searchParams?.get("onserviceId") as string;
     const providerId = searchParams?.get("providerId") as string;
+    const position = searchParams?.get("position");
+    const { data: singlePosition, isLoading: loadingPosition, isFetching, refetch } = useFetchSinglePostionsQuery(Number(position))
+    const { mutate: createJob } = userCreateJobMutation()
+    const [loading,setLoading] = useState<boolean>(false)
+
+   
 
     const { data: session } = useSession();
     useEffect(() => {
@@ -31,79 +37,69 @@ const BookServiceContent = () => {
         }
     }, [session]);
 
-    const { isLoading, data: provider, isError, error } = useFetchProviderWithOnService(serviceId, providerId!, token!);
-    const { isLoading: loadingProperty, data: properties, isError: propertyError } = userFetchUserPropertyQuery(session?.user.id!, token!);
-
-    const { mutate: createOrdder, isPending } = useCreateOrderMutation();
-
-    const orderFormik = useFormik({
+    const jobFormik = useFormik({
         initialValues: {
-            propertyId: '',
-            propertyName: '',
-            carType: '',
-            poolType: '',
-            carColor: '',
-            timeServiceRequired: '',
-            propertyType: 'HOUSE',
-            numberOfRooms: Number(),
-            numberOfBathrooms: Number(),
-            numberOfBedrooms: Number(),
-            parkingInstructions: '',
-            size: Number(),
-            numberOfWindows: Number(),
-            photos: [],
-            additionalInfo: {
-                comment: ''
-            },
-            propertyAddress: {
-                street: '',
-                city: '',
-                state: '',
-                country: '',
-                longitude: Number(''),
-                latitude: Number(''),
-                postalCode: ''
+            start_time: "",
+            end_time: "",
+            shift_date: "",
+            hours: "",
+            overtime_paid: "",
+            description: "",
+            mileage_paid: ""
+        },
+        validationSchema: jobFormikValiationSchema,
+        onSubmit: (values) => {
+            console.log("submiting......")
+            const data = {
+                start_time: `${values.shift_date} ${values.start_time}`,
+                end_time: `${values.shift_date} ${values.end_time}`,
+                shift_date: values.shift_date,
+                position_id: position,
+                number_of_staff: "5",
+                hours: values.hours,
+                overtime_paid: values.overtime_paid ? "yes" : "no",
+                mileage_paid: values.mileage_paid ? "yes" : "no", 
+                description: values.description
+            }
+            try {
+                setLoading(true)
+                createJob(data, {
+                    onSuccess: () => {
+                        toast.success("Postion created successfully")
+                        jobFormik.resetForm()
+                        setLoading(false)
+                        refetch()
+
+                    },
+                    onError:(error)=>{
+                        toast.error("Something get wrong try again later")
+                        setLoading(false)
+                    }
+                })
+
+            } catch (error) {
+                setLoading(false)
+                toast.error("Something get wrong")
+
             }
 
-        },
-        onSubmit: async () => {
-            try {
-                const data = {
-                    orderData: orderFormik.values,
-                    token: token || '',
-                    serviceId,
-                    serviceProviderId: provider?.id!,
-                };
-                // Fix the invocation of the createOrdder function
-                createOrdder(data, {
-                    onSuccess: () => {
-                        console.log('Order created successfully');
-                    },
-                    onError: (error) => {
-                        console.error('Error creating order:', error);
-                    }
-                });
-            } catch (error) {
-                console.error("Error in form submission:", error);
-            }
+
         }
     })
 
 
 
+
+
+
+
+
     return (
         <div className='flex flex-col'>
-            <NavbarHome />
+            <Navbar/>
+            <Toaster position="top-center" richColors closeButton />
 
-            <div className='w-full  bg-[#FAFAFA] py-2 px-[10px] md:px-[50px] lg:px-[100px] flex flex-col gap-[20px]'>
-                <div className='flex flex-row items-center gap-[10px]'>
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M4 11.9998H20" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                        <path d="M8.99997 17C8.99997 17 4.00002 13.3176 4 12C3.99999 10.6824 9 7 9 7" stroke="black" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                    </svg>
-                    <span className='text-[16px] font-[500]'>Service Booking</span>
-                </div>
-
+            <div className='w-full py-20  bg-white  px-[10px] md:px-[50px] lg:px-[100px] flex flex-col gap-[20px]'>
                 <div className='flex flex-col md:flex-row  gap-[10px] w-full'>
                     {confirmed ? (
                         <>
@@ -191,27 +187,20 @@ const BookServiceContent = () => {
                         </>
                     ) : (
                         <>
-                            <div className='w-full md:w-1/4  bg-white rounded-[12px] p-6 flex flex-col gap-[20px]'>
-
-                            </div>
-                            <div className='w-full flex bg-white rounded-[20px] flex-col'>
-                                <div className='flex p-4 flex-row gap-[20px]'>
-                                    <div className='flex felx-row gap-[10px] items-center'>
-                                        <h1 className='text-[14px] font-[700]'>Service:</h1>
-                                        <span className='text-[14px] font-[500] text-primary'>{`Deep cleaning`}</span>
+                            {loadingPosition ? ("") : (
+                                <>
+                                    <div className='w-full flex bg-white rounded-[20px] flex-col gap-[10px] px-[0px] md:px-20 lg:px-[40vh]'>
+                                        <h1 className='text-[20px] font-[800] text-center'>Create a Cleaning Job</h1>
+                                        <div className='w-full flex flex-col gap-[4px] p-4 rounded-[6px] border'>
+                                            <h2 className='text-[16px] font-[400] text-black'>{singlePosition?.data.position_title}</h2>
+                                            <span className='text-[14px] text-[#8D8D8D]'>Describe your cleaning needs and let companies apply to help you</span>
+                                        </div>
+                                        {steps === 1 && (<ServiceDetailsForm loading={loading} jobFormik={jobFormik} properties={``} setSteps={setSteps} />)}
                                     </div>
-                                    {/* <div className='flex felx-row gap-[10px] items-center'>
-                                        <h1 className='text-[14px] font-[700]'>Company:</h1>
-                                        <span className='text-[14px] font-[500] text-primary'>{`Supreme `}</span>
-                                    </div> */}
-                                </div>
-                                {steps === 1 && (<ServiceDetailsForm orderFormik={orderFormik} properties={properties} setSteps={setSteps} />)}
-                                {steps === 2 && (<BookingReview setConfirmed={setConfirmed} setSteps={setSteps} />)}
-                                {steps === 3 && (<PaymentMethod setConfirmed={setConfirmed} setSteps={setSteps} />)}
-                            </div>
+                                </>
+                            )}
                         </>
                     )}
-
                 </div>
             </div>
 

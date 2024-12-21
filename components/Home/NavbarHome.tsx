@@ -10,7 +10,6 @@ const NavbarHome = () => {
     const params: any = usePathname()
     const { data: session, status } = useSession()
     const token: any = session?.user.token
-    console.log(session)
     const [dashLink, setDashLink] = useState<string>("")
     useEffect(() => {
         if (session?.user.role == "CLIENT") {
@@ -23,7 +22,7 @@ const NavbarHome = () => {
 
     }, [session])
     return (
-        <div className='px-[10px] bg-white md:px-[50px] lg:px-[100px] p-4 flex w-full'>
+        <div className='px-[10px] bg-white md:px-[50px] lg:px-[100px] p-4 flex w-full border-b border-[#f8f8f8]'>
             <div className='flex flex-row items-center justify-between gap-[20px] w-full'>
                 <div className='flex flex-row gap-[20px] items-center'>
 

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 const ChooseType = ({
   onSelectType,
 }: {
-  onSelectType: (type: { registerAs: "company" | "client" }) => void;
+  onSelectType: (type: { registerAs: "company" | "client" | "freelancer" }) => void;
 }) => {
   const [accessType, setAccessType] = useState<{
     customer: boolean;

@@ -63,7 +63,7 @@ export default function CompanyForm({ formik }: { formik: any }) {
   const testData = [
     {
       id: 1,
-      name: "RESTAURANT",
+      name: "HOME",
     },
     {
       id: 2,
@@ -96,9 +96,9 @@ export default function CompanyForm({ formik }: { formik: any }) {
       onSubmit={formik.handleSubmit}
       className="flex flex-col gap-[10px]"
     >
-      <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-[10px]">
+      <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-[20px]">
         <div className="flex flex-col gap-[4px]">
-          <span className="text-[14px] text-black">Employer Name</span>
+          <span className="text-[14px] text-black">Company Name</span>
           <div className="w-full h-[50px] rounded-[12px] bg-[#F9F9F9]">
             <input
               type="text"
@@ -107,7 +107,7 @@ export default function CompanyForm({ formik }: { formik: any }) {
               placeholder="Type your employer name"
               value={formik.values.company_name}
               onChange={formik.handleChange}
-              // onBlur={formik.handleBlur}
+            // onBlur={formik.handleBlur}
             />
             {formik.touched.company_name && formik.errors.company_name && (
               <div className="text-red-500 text-[12px] px-4">
@@ -117,7 +117,7 @@ export default function CompanyForm({ formik }: { formik: any }) {
           </div>
         </div>
         <div className="flex flex-col gap-[4px]">
-          <span className="text-[14px] text-black">Employer Email</span>
+          <span className="text-[14px] text-black">Company Email</span>
           <div className="w-full h-[50px] rounded-[12px] bg-[#F9F9F9]">
             <input
               type="email"
@@ -170,9 +170,107 @@ export default function CompanyForm({ formik }: { formik: any }) {
             </div>
           ) : null}
         </div>
+
+        <div className="flex flex-col gap-[4px]">
+          <span className="text-[14px] text-black">Date Of Birth</span>
+          <div className="w-full h-[50px] rounded-[12px] bg-[#F9F9F9]">
+            <input
+              type="date"
+              name="dob"
+              className="w-full bg-transparent h-full px-4 text-[14px] font-[400] rounded-[12px] outline-none focus:outline-[#1990AF]/40 focus:outline-[1.8px]"
+              placeholder="Select date of birth"
+              value={formik.values.dob}
+              onChange={formik.handleChange}
+            />
+            {formik.touched.dob &&
+              formik.errors.dob && (
+                <div className="text-red-500 text-[12px] px-4">
+                  {formik.errors.dob}
+                </div>
+              )}
+          </div>
+        </div>
+        <div className="flex flex-col gap-[4px]">
+          <span className="text-[14px] text-black">Location</span>
+          <div className="w-full h-[50px] rounded-[12px] bg-[#F9F9F9]">
+            <input
+              type="text"
+              name="location"
+              className="w-full bg-transparent h-full px-4 text-[14px] font-[400] rounded-[12px] outline-none focus:outline-[#1990AF]/40 focus:outline-[1.8px]"
+              placeholder="Enter your location ex: Texas"
+              value={formik.values.location}
+              onChange={formik.handleChange}
+            />
+            {formik.touched.location &&
+              formik.errors.location && (
+                <div className="text-red-500 text-[12px] px-4">
+                  {formik.errors.location}
+                </div>
+              )}
+          </div>
+        </div>
+        <div className="flex flex-col gao-[4px]">
+          <span className="text-[14px] text-black">Gender</span>
+          <div className="flex flex-row gap-[10px] items-center">
+            <div className="flex flex-row gap-[20px] p-3 w-full bg-gray-50 rounded-[4px] items-center justify-center">
+              <span className="text-[14px] text-black">Male</span>
+              <input checked={formik.values.gender == "male"} onChange={formik.handleChange} value={"male"} name="gender" type="radio" />
+            </div>
+            <div className="flex flex-row gap-[20px] p-3 w-full bg-gray-50 rounded-[4px] items-center justify-center">
+              <span className="text-[14px] text-black">Female</span>
+              <input checked={formik.values.gender == "female"} onChange={formik.handleChange} value="female" name="gender" type="radio" />
+            </div>
+          </div>
+          {formik.touched.gender &&
+            formik.errors.gender && (
+              <div className="text-red-500 text-[12px] px-4">
+                {formik.errors.gender}
+              </div>
+            )}
+        </div>
+        <div className="flex flex-col gap-[4px]">
+          <span className="text-[14px] text-black">Social Security number</span>
+          <div className="w-full h-[50px] rounded-[12px] bg-[#F9F9F9]">
+            <input
+              type="text"
+              name="ssn"
+              className="w-full bg-transparent h-full px-4 text-[14px] font-[400] rounded-[12px] outline-none focus:outline-[#1990AF]/40 focus:outline-[1.8px]"
+              placeholder="Enter social security number"
+              value={formik.values.ssn}
+              onChange={formik.handleChange}
+            />
+            {formik.touched.ssn &&
+              formik.errors.ssn && (
+                <div className="text-red-500 text-[12px] px-4">
+                  {formik.errors.ssn}
+                </div>
+              )}
+          </div>
+        </div>
+        <div className="flex flex-col gap-[4px]">
+          <span className="text-[14px] text-black">Routing Number</span>
+          <div className="w-full h-[50px] rounded-[12px] bg-[#F9F9F9]">
+            <input
+              type="text"
+              name="routing_number"
+              className="w-full bg-transparent h-full px-4 text-[14px] font-[400] rounded-[12px] outline-none focus:outline-[#1990AF]/40 focus:outline-[1.8px]"
+              placeholder="Enter routing number"
+              value={formik.values.routing_number}
+              onChange={formik.handleChange}
+            />
+            {formik.touched.routing_number &&
+              formik.errors.routing_number && (
+                <div className="text-red-500 text-[12px] px-4">
+                  {formik.errors.routing_number}
+                </div>
+              )}
+          </div>
+        </div>
+        <div className=""></div>
+
         <div
           onClick={() => setVisible(!visible)}
-          className="p-4 rounded-[12px] gap-[10px] cursor-pointer hover:opacity-80 duration-300 transition-all flex items-center justify-center bg-primary"
+          className="p-4 rounded-[12px] gap-[10px]  cursor-pointer hover:opacity-80 duration-300 transition-all flex items-center justify-center bg-primary"
         >
           <FaLocationDot size={20} color="white" />
           <span className="text-center text-white">Pick your location</span>

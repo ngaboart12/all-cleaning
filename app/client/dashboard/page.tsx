@@ -14,7 +14,7 @@ const Dashboard = () => {
     const [currentOpen, setCurrentOpen] = useState<number>(1)
     const { data: baseService, isLoading: baseLoading, isError: basError } = fetchBaseServiceQuery()
     const currentDate = new Date()
-    const  [isOpened,setIsOpened] = useState<boolean>()
+    const [isOpened, setIsOpened] = useState<boolean>()
 
     const columns = [
         { field: '#', header: '#' },
@@ -27,8 +27,8 @@ const Dashboard = () => {
     const actionTemplate = (rowData: any) => {
         return (
             <div className="flex items-center space-x-4">
-                <button onClick={()=> setIsOpened(true)} className="text-primary flex flex-row items-center">View</button>
-                <button onClick={() => router.push(`/admin/bookings?id=${rowData.id}`)} className="text-red-500 flex flex-row items-center">Delete</button>
+                <button onClick={() => setIsOpened(true)} className="text-primary flex flex-row items-center">View</button>
+                {/* <button onClick={() => router.push(`/admin/bookings?id=${rowData.id}`)} className="text-red-500 flex flex-row items-center">Delete</button> */}
             </div>
         );
     };
@@ -125,7 +125,7 @@ const Dashboard = () => {
                                         <path d="M18.3333 5.83334C18.3333 8.13452 16.4678 10 14.1667 10C11.8655 10 10 8.13452 10 5.83334C10 3.53216 11.8655 1.66667 14.1667 1.66667C16.4678 1.66667 18.3333 3.53216 18.3333 5.83334Z" stroke={` ${currentOpen == 1 ? "#13829F" : "#8D8D8D"}`} stroke-width="1.5" stroke-linecap="round" />
                                         <path d="M1.66699 10C1.66699 11.5341 2.91064 12.7777 4.44477 12.7777C4.99959 12.7777 5.65369 12.6806 6.19313 12.8251C6.67243 12.9535 7.04679 13.3279 7.17523 13.8072C7.31977 14.3467 7.22255 15.0008 7.22255 15.5556C7.22255 17.0897 8.46624 18.3333 10.0003 18.3333" stroke={` ${currentOpen == 1 ? "#13829F" : "#8D8D8D"}`} stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                     </svg>
-                                    <span className={`text-[12px] sm:text-[14px] font-[600] ${currentOpen == 1 ? "text-primary" : "text-[#8D8D8D]"}`}>Ongoing Services</span>
+                                    <span className={`text-[12px] sm:text-[14px] font-[600] ${currentOpen == 1 ? "text-primary" : "text-[#8D8D8D]"}`}>Opened Jobs</span>
                                 </div>
                                 <div onClick={() => setCurrentOpen(2)} className={` cursor-pointer flex flex-row items-center  p-2 sm:p-4 ${currentOpen == 2 ? " border-b-[2px] border-primary" : ""} gap-[10px]`}>
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -136,7 +136,7 @@ const Dashboard = () => {
                                         <path d="M12.0837 8.33333C12.0837 7.18274 11.1509 6.25 10.0003 6.25C8.84974 6.25 7.91699 7.18274 7.91699 8.33333C7.91699 9.48392 8.84974 10.4167 10.0003 10.4167C11.1509 10.4167 12.0837 9.48392 12.0837 8.33333Z" stroke={` ${currentOpen == 2 ? "#13829F" : "#8D8D8D"}`} stroke-width="1.5" />
                                     </svg>
 
-                                    <span className={`text-[12px] sm:text-[14px] font-[600] ${currentOpen == 2 ? "text-primary" : "text-[#8D8D8D]"}`}>Payments</span>
+                                    <span className={`text-[12px] sm:text-[14px] font-[600] ${currentOpen == 2 ? "text-primary" : "text-[#8D8D8D]"}`}>Paid jobs</span>
                                 </div>
                                 <div onClick={() => setCurrentOpen(3)} className={` cursor-pointer flex flex-row items-center  p-2 sm:p-4 ${currentOpen == 3 ? " border-b-[2px] border-primary" : ""} gap-[10px]`}>
                                     <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -154,27 +154,14 @@ const Dashboard = () => {
                                     <Table actionTemplate={actionTemplate} columns={columns} data={bookedServices.slice(0, 3)} />
                                 )}
                                 {currentOpen == 2 && (
-                                    <Payments />
+                                    <Table actionTemplate={actionTemplate} columns={columns} data={bookedServices.filter((item) => item.paid)} />
                                 )}
                             </div>
                         </div>
                     </div>
-                    <div className='flex w-full lg:w-[30%] flex-col md:flex-row lg:flex-col  gap-[10px] '>
+                    <div className='flex w-full lg:w-[30%] flex-col md:flex-row lg:flex-col   gap-[10px] '>
                         <div className=' flex flex-col gap-[10px] w-full'>
                             <BookedService />
-                        </div>
-                        <div className='flex flex-row gap-[10px] w-full p-4 bg-white rounded-[12px]'>
-                            <div className='w-1/2 h-full bg-[#F2F2F2]'>
-                                <Image src={`/image/property1.jpeg`} width={1000} height={100} className='w-full h-full object-cover' alt='' />
-                            </div>
-                            <div className='flex flex-col gap-[4px]'>
-                                <span className='text-[14px] font-[700] text-[#13829F]'>Support</span>
-                                <span className='text-[14px] text-[#696969]'>Make your  next service booking easier by registering your properties </span>
-                                <a href='/client/dashboard/profile' className='w-full px-4 py-2 bg-primary text-white text-[14px] text-center '>
-                                    Register Now
-                                </a>
-                            </div>
-
                         </div>
                         <div className=' w-full flex flex-col gap-[10px]'>
                             <div className='w-full flex flex-row justify-between  items-center'>
@@ -211,7 +198,7 @@ const Dashboard = () => {
                     </div>
                 </div>
             </div>
-            <Dialog header={`Applied companies`} className='w-1/2' visible={isOpened} onHide={()=> setIsOpened(false)} >
+            <Dialog header={`Applied companies`} className='w-1/2' visible={isOpened} onHide={() => setIsOpened(false)} >
                 <div className='flex flex-col gap-[20px]'>
                     <div className='flex flex-row items-center gap-[10px] justify-between '>
                         <div className='flex flex-row items-center gap-[10px] cursor-pointer '>
@@ -224,7 +211,7 @@ const Dashboard = () => {
                             </div>
                         </div>
                         <button className='px-4 py-2 bg-primary text-white rounded-[4px] text-[12px]'>Accept</button>
-                        
+
                     </div>
                     <div className='flex flex-row items-center gap-[10px] justify-between '>
                         <div className='flex flex-row items-center gap-[10px] cursor-pointer  '>
@@ -237,7 +224,7 @@ const Dashboard = () => {
                             </div>
                         </div>
                         <button className='px-4 py-2 bg-primary text-white rounded-[4px] text-[12px]'>Accept</button>
-                        
+
                     </div>
                     <div className='flex flex-row items-center gap-[10px] justify-between '>
                         <div className='flex flex-row items-center gap-[10px] cursor-pointer '>
@@ -250,7 +237,7 @@ const Dashboard = () => {
                             </div>
                         </div>
                         <button className='px-4 py-2 bg-primary text-white rounded-[4px] text-[12px]'>Accept</button>
-                        
+
                     </div>
                 </div>
 
