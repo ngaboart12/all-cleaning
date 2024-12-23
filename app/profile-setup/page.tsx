@@ -72,6 +72,7 @@ const ProfileSetup = () => {
               accessType: "customer"
             }
           });
+          localStorage.setItem("accessType", "customer");
           toast.success("Customer Profile Enabled Successfully");
           router.push("/client/dashboard");
         } else if (isEnableCustomerError) {
@@ -126,6 +127,7 @@ const ProfileSetup = () => {
               accessType: "employee"
             }
           });
+          localStorage.setItem("accessType", "employee");
           toast.success("Company Profile Created Successfully");
           router.push("/provider");
         } catch (error) {
@@ -165,6 +167,7 @@ const ProfileSetup = () => {
                 accessType: "employee"
               }
             });
+            localStorage.setItem("accessType", "employee");
             toast.success("Profile Created Successfully");
             router.push("/provider");
           } catch (error) {
@@ -183,7 +186,7 @@ const ProfileSetup = () => {
 
   const handelNext = () => {
     if (steps < 3) {
-      if (steps === 2) {
+      if (steps === 1) {
         if (registerType !== undefined) {
           if (registerType === "company") {
             setSteps((steps) => steps + 1);

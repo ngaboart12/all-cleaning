@@ -18,7 +18,7 @@ const DashNavbar = () => {
 
             <div className=' flex-row gap-[40px] items-center hidden md:flex'>
                 <a href="/client/dashboard" className={` text-[12px] font-[400] hover:scale-110 duration-300  rounded-[8px] ${params == "/client/dashboard" ? " bg-primary px-6 p-2 text-white" : " text-primary "}`}>Home</a>
-                <a href="/client/dashboard/bookings" className={` rounded-[8px] ${params == "/client/dashboard/bookings" ? " bg-primary px-6 p-2 text-white" : "text-primary"} text-[12px] font-[400] hover:scale-110 duration-300`}>Bookings</a>
+                <a href="/client/dashboard/jobs" className={` rounded-[8px] ${params == "/client/dashboard/jobs" ? " bg-primary px-6 p-2 text-white" : "text-primary"} text-[12px] font-[400] hover:scale-110 duration-300`}>Current Job</a>
                 <a href="/client/dashboard/profile" className={` rounded-[8px] ${params == "/client/dashboard/profile" ? " bg-primary px-6 p-2 text-white" : "text-primary"} text-[12px] font-[400] hover:scale-110 duration-300`}>Profile</a>
                 <div className='flex flex-row items-center gap-[10px]'>
                     <div className=' cursor-pointer '>

@@ -29,13 +29,16 @@ const SignIn = () => {
         setLoading(false);
       } else {
         const session = await getSession();
-        console.log("SESSION", session);
         setLoading(false);
+
+        if (session?.user?.accessType) {
+          localStorage.setItem("isLoggedIn", "true");
+          localStorage.setItem("accessType", session.user.accessType);
+        }
         if (session?.user?.accessType === "system") {
           location.href = "/profile-setup";
         } else if (
-          session?.user?.accessType === "employee" ||
-          session?.user?.accessType === "employer"
+          session?.user?.accessType === "employee"
         ) {
           location.href = "/provider";
         } else if (session?.user?.accessType === "customer") {
@@ -46,7 +49,7 @@ const SignIn = () => {
         } 
         else {
           console.log("No Access Type");
-          location.href = "/auth";
+          location.href = "/client/dashboard";
         }
       }
       setLoading(false);

@@ -19,8 +19,11 @@ const JobModal = ({ selectedJob, isActive, setIsActive }: jobType) => {
                 onSuccess: () => {
                     toast.success("Application submitted successfully")
                 },
-                onError: (error) => {
-                    console.log(error)
+                onError: (error:any) => {
+                    if(error.response.data.code == 400 || error.response.data.error == "Already submitted the application"){
+                        toast.error("Application already submitted")
+                        return;
+                    }
                     toast.error(error.message)
                 }
             })

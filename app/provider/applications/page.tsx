@@ -1,4 +1,5 @@
 "use client"
+import { useFetchApplicantionProvider } from '@/app/hooks/jobs.hook';
 import { useFetchProviderServicesQuery } from '@/app/hooks/services.hook';
 import Table from '@/components/reusable/tables/Table';
 import { cleaners } from '@/lib/data/dummy';
@@ -24,7 +25,8 @@ const CleanersPage = () => {
   const [menuOpen, setMenuOpen] = useState<number | undefined>()
   const [isOpen, setIsOpen] = useState<boolean>(false)
   const token: any = session?.user.token;
-  const { isLoading: loadingService, data: services = [], error: fetchError, refetch } = useFetchProviderServicesQuery(token);
+  const { data: applications, isLoading, isError } = useFetchApplicantionProvider()
+  console.log("applic==>", applications)
 
   const handelOpenMenu = (index: number) => {
     setMenuOpen(index)
@@ -33,19 +35,17 @@ const CleanersPage = () => {
   }
   const columns = [
     { field: '#', header: '#' },
-    { field: 'name', header: 'Cleaner Name' },
-      { field: 'assignedArea', header: 'Assigned Area' },
-    { field: 'availability', header: 'Availability Status' },
-    { field: 'shift', header: 'Shift Timing' },
-    { field: 'contact', header: 'Email' },
-    { field: 'rating', header: 'Rating' },
+    { field: 'position_title', header: 'Position Name' },
+    { field: 'number_of_staff', header: 'Staff' },
+    { field: 'shift_date', header: 'Date' },
+    { field: 'application_status', header: 'Status' },
     { field: 'actions', header: 'Actions' },
   ];
   const actionTemplate = (rowData: any) => {
     return (
       <div className="flex items-center space-x-4">
-        <button onClick={() => router.push(`/admin/bookings?id=${rowData.id}`)} className="text-primary flex flex-row items-center">View</button>
-        <button onClick={() => router.push(`/admin/bookings?id=${rowData.id}`)} className="text-red-500 flex flex-row items-center">Delete</button>
+        <button onClick={() => router.push(``)} className="text-primary flex flex-row items-center">View</button>
+        <button onClick={() => router.push(``)} className="text-red-500 flex flex-row items-center">Delete</button>
       </div>
     );
   };
@@ -53,20 +53,23 @@ const CleanersPage = () => {
     <div className='flex flex-col py-24 min-h-screen  bg-[#F8F8F8] gap-[10px] px-[10px] md:px-[50px] lg:px-[100px]'>
       <div className='flex flex-row gap-[10px] justify-between bg-white rounded-[12px] p-4 px-6 items-center'>
         <div className='flex flex-row gap-[10px] items-center'>
-          <span className='text-[16px] font-[600]'>Cleaners</span>
+          <span className='text-[16px] font-[600]'>My Application</span>
           <div className='p-2 bg-primary rounded-[4px]'>
-            <h1 className='text-[13px] text-white'>10</h1>
+            <h1 className='text-[13px] text-white'>{!isLoading && applications?.data?.length}</h1>
           </div>
         </div>
-        <button className='flex flex-row gap-[10px] p-3 px-[20px] rounded-[4px] bg-primary'>
+        <a href='/provider/jobs' className='flex flex-row gap-[10px] p-3 px-[20px] rounded-[4px] bg-primary'>
           <span className='text-white text-[14px]'>+</span>
-          <span className='text-[14px] font-[400] text-white'>Add New Cleaner</span>
-        </button>
+          <span className='text-[14px] font-[400] text-white'>Apply To Another</span>
+        </a>
       </div>
-
-      <div className='flex flex-col gap-[10px] p-4 bg-white'>
-        <Table columns={columns} data={cleaners} actionTemplate={actionTemplate} />
-      </div>
+      {isLoading ? (
+        <div className='w-full p-10 items-center justify-center flex'>Loading</div>
+      ) : (
+        <div className='flex flex-col gap-[10px] p-4 bg-white'>
+          <Table columns={columns} data={applications.data} actionTemplate={actionTemplate} />
+        </div>
+      )}
 
 
     </div>

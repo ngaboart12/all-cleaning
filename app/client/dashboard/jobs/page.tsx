@@ -1,22 +1,20 @@
 "use client"
-import { useSelectAllJobsQuery } from '@/app/hooks/jobs.hook';
-import { useFetchProviderServicesQuery } from '@/app/hooks/services.hook';
-import Table from '@/components/reusable/tables/Table';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { Dialog } from 'primereact/dialog';
 import React, { useState } from 'react'
 import "primereact/resources/themes/lara-light-cyan/theme.css";
-import { Button } from 'primereact/button';
+import { useSelectAllJobsQuery } from '@/app/hooks/jobs.hook';
+import Table from '@/components/reusable/tables/Table';
 import JobModal from '@/components/modal/JobModal';
+import Applicants from '@/components/client/Applicants';
+
 
 
 
 const Jobs = () => {
     const router = useRouter()
     const { data: session } = useSession();
-    const [menuOpen, setMenuOpen] = useState<number | undefined>()
-    const [isOpen, setIsOpen] = useState<boolean>(false)
     const [isActive, setIsActive] = useState<boolean>(false)
     const token: any = session?.user.token;
     const { data: activeJobs, isLoading } = useSelectAllJobsQuery(1)
@@ -37,7 +35,7 @@ const Jobs = () => {
     const actionTemplate = (rowData: any) => {
         return (
             <div className="flex items-center space-x-4">
-                <button onClick={() =>{ setSelectedJob(rowData);setIsActive(true)}} className="text-primary flex flex-row items-center">View</button>
+                <button onClick={() =>{ setSelectedJob(rowData);setIsActive(true)}} className="text-primary flex flex-row items-center">Applicants</button>
             </div>
 
         );
@@ -56,7 +54,7 @@ const Jobs = () => {
                 </div>
 
                 {isLoading ? (
-                    <div className='w-full p-10 items-center justify-center flex'>Loading..</div>
+                    <div>Loading</div>
                 ) : (
                     <>
                         <div className='flex flex-col gap-[10px] p-4 bg-white'>
@@ -67,7 +65,10 @@ const Jobs = () => {
 
 
             </div>
-            <JobModal selectedJob={selectedJob} isActive={isActive} setIsActive={setIsActive} />
+            {selectedJob && isActive && (
+            <Applicants setIsActive={setIsActive} isActive={isActive} shift_id={selectedJob?.id} />
+            )}
+        
            
         </>
     )
