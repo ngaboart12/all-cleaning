@@ -10,7 +10,7 @@ const options = {
       credentials: {
         email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
-        accessType: { label: "Access Type", type: "text" }, // Added for handling access type updates
+        accessType: { label: "Access Type", type: "text" }, 
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
@@ -60,8 +60,7 @@ const options = {
   ],
   callbacks: {
     async jwt({ token, user, trigger, session }) {
-      if (trigger === "update" && session?.user) {
-        // Handle session updates
+      if (trigger === "update" && session?.user) {  
         return { ...token, accessType: session.user.accessType };
       }
 

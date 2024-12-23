@@ -8,26 +8,24 @@ import { IoClose } from 'react-icons/io5';
 import { RiLogoutCircleLine } from "react-icons/ri";
 
 const Navbar = () => {
-    const [isActive, setIsActive] = useState<boolean>(false)
-    const { data: session, status } = useSession()
-    const token: any = session?.user.token
-    console.log(session)
-    const [dashLink, setDashLink] = useState<string>("")
-    useEffect(() => {
-        if (session?.user.accessType == "customer") {
-            setDashLink("/client/dashboard")
-        } else if (session?.user.accessType == "employee") {
-            setDashLink("/provider")
-        } else if (session?.user.accessType == "administrator") {
-            setDashLink("/admin")
-        }else if(session?.user.accessType == "employer"){
-            setDashLink("/client/dashboard")
-        }
-        else {
-            setDashLink("/profile-setup")
-        }
+    const [isActive, setIsActive] = useState<boolean>(false);
+    const [dashLink, setDashLink] = useState<string>("");
+    const isLoggedIn = typeof window !== "undefined" ? localStorage.getItem("isLoggedIn") : null;
+    const accessType = typeof window !== "undefined" ? localStorage.getItem("accessType") : null;
 
-    }, [session])
+    useEffect(() => {
+        if (accessType === "customer") {
+            setDashLink("/client/dashboard");
+        } else if (accessType === "employee") {
+            setDashLink("/provider");
+        } else if (accessType === "administrator") {
+            setDashLink("/admin");
+        } else if (accessType === "employer") {
+            setDashLink("/client/dashboard");
+        } else {
+            setDashLink("/profile-setup");
+        }
+    }, [accessType]);
 
     return (
         <>
@@ -41,12 +39,12 @@ const Navbar = () => {
                     <a href="" className='text-white text-[12px] font-[400] hover:scale-110 duration-300'>How It Works</a>
                     <a href="/services" className='text-white text-[12px] font-[400] hover:scale-110 duration-300'>Services</a>
                     <a href="" className='text-white text-[12px] font-[400] hover:scale-110 duration-300'>About Us</a>
-                    {session?.user.token ? (
+                    {isLoggedIn && isLoggedIn == "true" ? (
                         <div className='flex flex-row gap-[10px] items-center'>
                             <a href={dashLink} className='px-[20px] py-[8px] rounded-[12px] bg-secondary flex flex-row items-center gap-[10px]'>
                                 <span className='text-[12px] font-[400] text-white'>Dashboard</span>
                             </a>
-                            <div onClick={() => handleLogout(token)} className='px-3 py-1 cursor-pointer hover:scale-110 duration-300 rounded-[4px]'>
+                            <div onClick={() => handleLogout()} className='px-3 py-1 cursor-pointer hover:scale-110 duration-300 rounded-[4px]'>
                                 <RiLogoutCircleLine size={20} className='text-white' />
                             </div>
                         </div>
@@ -78,12 +76,12 @@ const Navbar = () => {
                     <a href="" className='text-white text-[12px] font-[400] hover:scale-110 duration-300'>How It Works</a>
                     <a href="/services" className='text-white text-[12px] font-[400] hover:scale-110 duration-300'>Services</a>
                     <a href="" className='text-white text-[12px] font-[400] hover:scale-110 duration-300'>About Us</a>
-                    {session?.user.token ? (
+                    {isLoggedIn && isLoggedIn == "true" ? (
                         <div className='flex flex-row gap-[10px] items-center'>
                             <a href={dashLink} className='px-[20px] py-[8px] rounded-[12px] bg-secondary flex flex-row items-center gap-[10px]'>
                                 <span className='text-[12px] font-[400] text-white'>Dashboard</span>
                             </a>
-                            <div onClick={() => handleLogout(token)} className='px-3 py-1 cursor-pointer hover:scale-110 duration-300 rounded-[4px]'>
+                            <div onClick={() => handleLogout()} className='px-3 py-1 cursor-pointer hover:scale-110 duration-300 rounded-[4px]'>
                                 <RiLogoutCircleLine size={20} className='text-white' />
                             </div>
                         </div>

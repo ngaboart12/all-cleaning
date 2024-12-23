@@ -4,7 +4,7 @@ import { headers } from "next/headers";
 
 
 const fetchPostions = async()=>{
-  const response = await API.get(`/positions`)
+  const response = await API.get(`/positions/public`)
   return response.data
 }
 

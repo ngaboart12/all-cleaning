@@ -49,7 +49,7 @@ const Services = () => {
                     <div className='px-[20px] md:px-10 lg:px-20 items-center justify-center  w-full bg-white flex flex-col gap-[40px]'>
                         {positions?.data?.map((item: any, index: number) => {
                             return (
-                                <div key={index} id={``} className={`flex flex-col ${index % 2 !== 0 ? "lg:flex-row-reverse" : "lg:flex-row"} lg:flex-row w-full gap-[20px] items-center py-20`}>
+                                <div key={index} id={item?.position_title} className={`flex flex-col ${index % 2 !== 0 ? "lg:flex-row-reverse" : "lg:flex-row"} lg:flex-row w-full gap-[20px] items-center py-20`}>
                                     <div className='w-full lg:w-1/2 flex flex-col gap-[10px]'>
                                         <h1 className='text-[22px] font-[600] text-primary'>{item?.position_title}</h1>
                                         <span className='text-[14px] text-[#5F5F5F]'>
@@ -141,7 +141,7 @@ const Services = () => {
                     )}
                 </>)}
             </div>
-            <Dialog header={`Loggin Alert`} className='w-1/3 h-1/3' visible={!isLoggedIn} onHide={() => setIsLoggedIn(true)}>
+            <Dialog header={`Loggin Alert`} className='w-[90%] md:w-1/3' visible={!isLoggedIn} onHide={() => setIsLoggedIn(true)}>
                 <div className="flex flex-col items-center justify-center gap-[10px]">
                     <span className='text-center text-[14px]'>You're not logged In  or your token has expired please login and then procced to book</span>
                     <div className='flex flex-row items-center gap-[10px]'>
