@@ -20,13 +20,14 @@ export const useApplyTojobMutation = () => {
   });
 };
 
-export const useFetchApplications = (shift_id:number) => {
+export const useFetchApplications = (shift_id:number | undefined) => {
   return useQuery({
-    queryKey: ["applicationss"],
+    queryKey: ["applicationss", shift_id],
     queryFn: async () => {
       const response = await API.get(`/shifts/${shift_id}/applications`);
       return response.data;
     },
+    enabled: !!shift_id,
   });
 };
 

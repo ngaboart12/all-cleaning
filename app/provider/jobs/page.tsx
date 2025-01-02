@@ -52,7 +52,6 @@ const Jobs = () => {
                             <h1 className='text-[13px] text-white'>{!isLoading && activeJobs?.data?.pagination.count}</h1>
                         </div>
                     </div>
-
                 </div>
 
                 {isLoading ? (

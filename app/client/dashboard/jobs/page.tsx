@@ -21,6 +21,7 @@ const Jobs = () => {
     const [selectedJob,setSelectedJob] = useState<any>()
 
 
+
     const requested = [
         { id: "1", name: "Ngabo sevelin", date: "10 November 2024", price: 397, serviceName: 'Full House Cleaning', description: 'This is service', location: "Los angeles, califonia " },
         { id: "2", name: "Niyomukiza Serge", date: "22 October 2024", price: 397, serviceName: 'Car cleaning', description: 'This is service', location: "kigali, rwanda" },
@@ -35,7 +36,8 @@ const Jobs = () => {
     const actionTemplate = (rowData: any) => {
         return (
             <div className="flex items-center space-x-4">
-                <button onClick={() =>{ setSelectedJob(rowData);setIsActive(true)}} className="text-primary flex flex-row items-center">Applicants</button>
+                <button onClick={() =>{ setSelectedJob(rowData);setIsActive(true)}} className="text-primary flex flex-row items-center">View</button>
+                <button onClick={() =>{ setSelectedJob(rowData);setIsActive(true)}} className="text-red-500 flex flex-row items-center">Delete</button>
             </div>
 
         );
@@ -54,11 +56,11 @@ const Jobs = () => {
                 </div>
 
                 {isLoading ? (
-                    <div>Loading</div>
+                    <div className='p-6 w-full flex items-center justify-center'>Loading</div>
                 ) : (
                     <>
                         <div className='flex flex-col gap-[10px] p-4 bg-white'>
-                            <Table columns={columns} data={activeJobs?.data.data} actionTemplate={actionTemplate} addPagination />
+                            <Table columns={columns} data={activeJobs?.data.data.slice().reverse()} actionTemplate={actionTemplate} addPagination />
                         </div>
                     </>
                 )}

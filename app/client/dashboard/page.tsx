@@ -1,5 +1,8 @@
 "use client"
+import { useSelectAllJobsQuery } from '@/app/hooks/jobs.hook'
 import { fetchBaseServiceQuery } from '@/app/hooks/services.hook'
+import Applicants from '@/components/client/Applicants'
+import JobModal from '@/components/modal/JobModal'
 import BookedService from '@/components/reusable/BookedService'
 import Payments from '@/components/reusable/tables/Payments'
 import Table from '@/components/reusable/tables/Table'
@@ -12,22 +15,27 @@ import React, { useState } from 'react'
 const Dashboard = () => {
     const router = useRouter()
     const [currentOpen, setCurrentOpen] = useState<number>(1)
-    const { data: baseService, isLoading: baseLoading, isError: basError } = fetchBaseServiceQuery()
+    const { data: activeJobs, isLoading } = useSelectAllJobsQuery(1)
     const currentDate = new Date()
-    const [isOpened, setIsOpened] = useState<boolean>()
+    const [isOpened, setIsOpened] = useState<boolean>(false)
+    const [selectedJob,setSelectedJob] = useState<any>()
 
     const columns = [
         { field: '#', header: '#' },
-        { field: 'name', header: 'Customer Name' },
-        { field: 'service', header: 'Service Name' },
-        { field: 'date', header: 'Estimated Date' },
-        { field: 'duration', header: 'Providers' },
+        { field: 'position_title', header: 'Position' },
+        { field: 'shift_date', header: 'Date' },
+        { field: 'actions', header: 'Actions' },
+    ];
+    const columnsPaid = [
+        { field: '#', header: '#' },
+        { field: 'position_title', header: 'Position' },
+        { field: 'shift_date', header: 'Date' },
         { field: 'actions', header: 'Actions' },
     ];
     const actionTemplate = (rowData: any) => {
         return (
             <div className="flex items-center space-x-4">
-                <button onClick={() => setIsOpened(true)} className="text-primary flex flex-row items-center">View</button>
+                <button onClick={() => {setSelectedJob(rowData);setIsOpened(true)}} className="text-primary flex flex-row items-center">View</button>
                 {/* <button onClick={() => router.push(`/admin/bookings?id=${rowData.id}`)} className="text-red-500 flex flex-row items-center">Delete</button> */}
             </div>
         );
@@ -138,23 +146,13 @@ const Dashboard = () => {
 
                                     <span className={`text-[12px] sm:text-[14px] font-[600] ${currentOpen == 2 ? "text-primary" : "text-[#8D8D8D]"}`}>Paid jobs</span>
                                 </div>
-                                <div onClick={() => setCurrentOpen(3)} className={` cursor-pointer flex flex-row items-center  p-2 sm:p-4 ${currentOpen == 3 ? " border-b-[2px] border-primary" : ""} gap-[10px]`}>
-                                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M15.5137 16.6667H15.9222C16.8804 16.6667 17.6426 16.2301 18.3269 15.6197C20.0653 14.0688 15.9787 12.5 14.5837 12.5M12.917 4.22398C13.1062 4.18645 13.3027 4.16667 13.5043 4.16667C15.0209 4.16667 16.2503 5.28596 16.2503 6.66667C16.2503 8.04738 15.0209 9.16667 13.5043 9.16667C13.3027 9.16667 13.1062 9.14692 12.917 9.10934" stroke={` ${currentOpen == 3 ? "#13829F" : "#8D8D8D"}`} stroke-width="1.5" stroke-linecap="round" />
-                                        <path d="M3.73443 13.426C2.75195 13.9525 0.175949 15.0276 1.7449 16.3728C2.51133 17.03 3.36493 17.5 4.4381 17.5H10.5619C11.6351 17.5 12.4887 17.03 13.2551 16.3728C14.8241 15.0276 12.2481 13.9525 11.2656 13.426C8.96167 12.1913 6.03833 12.1913 3.73443 13.426Z" stroke={` ${currentOpen == 3 ? "#13829F" : "#8D8D8D"}`} stroke-width="1.5" />
-                                        <path d="M10.8337 6.25001C10.8337 8.09096 9.34124 9.58334 7.50033 9.58334C5.65938 9.58334 4.16699 8.09096 4.16699 6.25001C4.16699 4.40905 5.65938 2.91667 7.50033 2.91667C9.34124 2.91667 10.8337 4.40905 10.8337 6.25001Z" stroke={` ${currentOpen == 3 ? "#13829F" : "#8D8D8D"}`} stroke-width="1.5" />
-                                    </svg>
-
-
-                                    <span className={`text-[12px] sm:text-[14px] font-[600] ${currentOpen == 3 ? "text-primary" : "text-[#8D8D8D]"}`}>Providers</span>
-                                </div>
                             </div>
                             <div className='p-4'>
                                 {currentOpen == 1 && (
-                                    <Table actionTemplate={actionTemplate} columns={columns} data={bookedServices.slice(0, 3)} />
+                                    <Table actionTemplate={actionTemplate} columns={columns} data={!isLoading && activeJobs ? activeJobs.data.data : []} />
                                 )}
                                 {currentOpen == 2 && (
-                                    <Table actionTemplate={actionTemplate} columns={columns} data={bookedServices.filter((item) => item.paid)} />
+                                    <Table actionTemplate={actionTemplate} columns={columnsPaid} data={!isLoading && activeJobs ? activeJobs.data.data : []} />
                                 )}
                             </div>
                         </div>
@@ -198,51 +196,7 @@ const Dashboard = () => {
                     </div>
                 </div>
             </div>
-            <Dialog header={`Applied companies`} className='w-1/2' visible={isOpened} onHide={() => setIsOpened(false)} >
-                <div className='flex flex-col gap-[20px]'>
-                    <div className='flex flex-row items-center gap-[10px] justify-between '>
-                        <div className='flex flex-row items-center gap-[10px] cursor-pointer '>
-                            <div className='w-[50px] h-[50px] bg-gray-100 rounded-[6px]'>
-                                <Image src={`/image/cleanlogo1.jpg`} width={1000} height={1000} className='w-full h-full object-cover rounded-[6px]' alt='' />
-                            </div>
-                            <div className='flex flex-col'>
-                                <span className='text-[14px] font-[700] text-black'>ServiceMaster Clean</span>
-                                <span className='text-[12px] font-[400]'> New York City , Manhattan (borough), </span>
-                            </div>
-                        </div>
-                        <button className='px-4 py-2 bg-primary text-white rounded-[4px] text-[12px]'>Accept</button>
-
-                    </div>
-                    <div className='flex flex-row items-center gap-[10px] justify-between '>
-                        <div className='flex flex-row items-center gap-[10px] cursor-pointer  '>
-                            <div className='w-[50px] h-[50px] bg-gray-100 rounded-[6px]'>
-                                <Image src={`/image/cleanlogo2.jpg`} width={1000} height={1000} className='w-full h-full object-cover rounded-[6px]' alt='' />
-                            </div>
-                            <div className='flex flex-col'>
-                                <span className='text-[14px] font-[700] text-black'>Clean Signal</span>
-                                <span className='text-[12px] font-[400]'>California ,Los Angeles ,  Hollywood, </span>
-                            </div>
-                        </div>
-                        <button className='px-4 py-2 bg-primary text-white rounded-[4px] text-[12px]'>Accept</button>
-
-                    </div>
-                    <div className='flex flex-row items-center gap-[10px] justify-between '>
-                        <div className='flex flex-row items-center gap-[10px] cursor-pointer '>
-                            <div className='w-[50px] h-[50px] bg-gray-100 rounded-[6px]'>
-                                <Image src={`/image/company.png`} width={1000} height={1000} className='w-full h-full object-cover rounded-[6px]' alt='' />
-                            </div>
-                            <div className='flex flex-col'>
-                                <span className='text-[14px] font-[700] text-black'>Chem-Dry</span>
-                                <span className='text-[12px] font-[400]'> Florida, Miami , South Beach </span>
-                            </div>
-                        </div>
-                        <button className='px-4 py-2 bg-primary text-white rounded-[4px] text-[12px]'>Accept</button>
-
-                    </div>
-                </div>
-
-            </Dialog>
-
+            <Applicants setIsActive={setIsOpened} isActive={isOpened} shift_id={selectedJob?.id} />
         </>
     );
 };
