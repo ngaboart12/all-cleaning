@@ -1,4 +1,5 @@
 import { useFetchApplications } from '@/app/hooks/jobs.hook';
+import Image from 'next/image';
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog'
 import React from 'react'
@@ -11,11 +12,10 @@ interface applicantType {
 
 const Applicants = ({ shift_id, setIsActive, isActive }: applicantType) => {
     const { data: applicants, isLoading, isError } = useFetchApplications(shift_id)
-    console.log("applicants====>", applicants)
     return (
         <Dialog header={"Applicants"} visible={isActive} onHide={() => setIsActive(false)} className='w-[90%] md:w-1/2' >
             {!isLoading && (
-                <div className='w-full flex flex-col'>
+                <div className='w-full flex flex-col pt-2'>
                     <div className='flex flex-row justify-between items-center'>
                         <div className='flex flex-row items-center gap-[10px]'>
                             <span className='text-[14px]'>Applicant</span>
@@ -23,55 +23,38 @@ const Applicants = ({ shift_id, setIsActive, isActive }: applicantType) => {
                         </div>
                         <a href="#" className='text-[14px] font-[500] text-primary'>View All</a>
                     </div>
-                    {applicants.data.length == 0 && (
+                    {applicants?.data.length == 0 && (
                         <div className='w-full flex items-center justify-center h-full p-6'>
                             <span className='text-[18px] font-[500] text-black'>No Applicant found</span>
                         </div>
                     )}
 
-                <div className='w-full grid grid-cols-1 md:grid-cols-1 gap-[20px] pt-4'>
-                    {applicants?.data?.slice(0,1).map((appl: any, index: number) => {
-                        return (
-                            <div key={index} className='border w-full p-4 rounded-[12px] flex flex-col gap-[10px]'>
-                                <div className='flex flex-row justify-between items-center'>
-                                    <div className='flex flex-row gap-[5px] items-center'>
-                                        <span className='text-[16px] font-[700]'>Position</span>
-                                        <span className='text-[16px] font-[700] text-black'>{appl?.position_title}</span>
-                                    </div>
-                                    <div className={`p-2 text-[12px] border ${appl.application_status == "Pending" ? "border-[orange] text-[orange]" : ""} rounded-[12px] flex flex-row gap-[4px] items-center`}>
-                                        <div className={`w-2 h-2 rounded-full ${appl.application_status == "Pending" ? "bg-[orange]" : "bg-[#000000]"} `}></div>
-                                        {appl.application_status}
-                                    </div>
-                                </div>
-                                <div className=' grid grid-cols-1 sm:grid-cols-2 gap-[10px]'>
-                                    <div className='flex flex-row gap-[4px]'>
-                                        <span className='text-[13px] text-[#4a4a4a] font-[500]'>Applicant Type:</span>
-                                        <span className='text-[13px] text-black font-[500]'>{appl?.company_name === null ? "Freelancer" : "Company"}</span>
-                                    </div>
-                                    <div className='flex flex-row gap-[4px]'>
-                                        <span className='text-[13px] text-[#4a4a4a] font-[500]'>Applicant Name:</span>
-                                        <span className='text-[13px] text-black font-[500]'>{appl?.applicant_name}</span>
-                                    </div>
-                                    {appl?.company_name !== null && (
-                                        <div className='flex flex-row gap-[4px]'>
-                                            <span className='text-[13px] text-[#4a4a4a] font-[500]'>Applicant Name:</span>
-                                            <span className='text-[13px] text-black font-[500]'>{appl?.company_name}</span>
+                    <div className='w-full grid grid-cols-1 md:grid-cols-1 gap-[20px] pt-4'>
+                        {applicants?.data?.slice(0, 3).map((appl: any, index: number) => {
+                            return (
+                                <div key={index} className='flex flex-row items-center gap-[10px] justify-between '>
+                                    <div className='flex flex-row items-center gap-[10px] cursor-pointer '>
+                                        <div className='w-[50px] h-[50px] bg-gray-100 rounded-[6px]'>
+                                            <Image src={`/image/cleanlogo1.jpg`} width={1000} height={1000} className='w-full h-full object-cover rounded-[6px]' alt='' />
                                         </div>
-                                    )}
-                                     <div className='flex flex-row gap-[4px]'>
-                                        <span className='text-[13px] text-[#4a4a4a] font-[500]'>Number of staff:</span>
-                                        <span className='text-[13px] text-black font-[500]'>{appl?.number_of_staff}</span>
-                                    </div>
-                                </div>
-                                <div className='flex flex-col md:flex-row items-center w-full gap-[10px]'>
-                                    <Button className='p-3 bg-primary text-white rounded-[6px] w-full flex items-center justify-center'>Approve</Button>
-                                    <Button className='p-3 bg-red-500 text-white rounded-[6px] w-full flex items-center justify-center'>Deny</Button>
-                                </div>
-                            </div>
-                        )
-                    })}
+                                        <div className='flex flex-col'>
+                                            <div className='flex flex-row gap-[4px] items-center'>
+                                                <span className='text-[14px] font-[700] text-black'>{appl.company_name ? appl.company_name : appl.applicant_name}</span>
 
-                </div>
+                                            </div>
+                                            <div className='flex flex-row items-center gap-[10px]'>
+                                                <span className='text-[12px]'>Type:</span>
+                                                <span className='text-[12px] font-[400]'>{appl.company_name ?  "Company" : "Freelancer"}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button className='px-4 py-2 bg-primary text-white rounded-[4px] text-[12px]'>Accept</button>
+
+                                </div>
+                            )
+                        })}
+
+                    </div>
                 </div>
 
             )}
