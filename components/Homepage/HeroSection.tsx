@@ -7,7 +7,7 @@ const HeroSection = () => {
     return (
         <div className='flex flex-col gap-[40px] lg:flex-row  bg-primary  '>
             <motion.div initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }} className='w-full  lg:h-full lg:w-1/2 pt-20 lg:py-[20vh] pl-[20px] md:pl-[10px] lg:pl-20  lg:mt-0 items-center lg:items-start   flex flex-col gap-[10px] justify-center '>
+                animate={{ opacity: 1 }} className='w-full  lg:h-full lg:w-1/2 pt-20 lg:py-[20vh] pl-[20px] md:pl-[10px] lg:pl-20  lg:mt-0 items-center lg:items-start   flex flex-col gap-[10px] justify-center '>
                 <h1 className=' text-[25px] leading-[30px] lg:leading-[40px]  max-w-[600px] text-center lg:text-start lg:text-[40px] text-white font-[800] '>Find Trusted <br /> Cleaners or Grow Your Cleaning Business</h1>
                 <span className=' text-subtext text-[14px] text-center sm:text-start'>Find Trusted Cleaners or Grow Your Cleaning Business</span>
                 <div className='flex flex-col sm:flex-row gap-[10px] lg:py-4'>

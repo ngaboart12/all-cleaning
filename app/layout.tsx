@@ -1,14 +1,10 @@
-"use client"
+ "use client"
 import { useEffect, useState } from 'react';
-import type { Metadata } from 'next';
 import { Inter, Lexend } from 'next/font/google';
 import './globals.css';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
-import SplashScreen from '@/components/SplashScreen'; // Import your splash screen component
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
-import { SessionProvider } from 'next-auth/react';
+import { Toaster } from 'sonner';
 
 
 const inter = Inter({ subsets: ['latin'] });
@@ -33,12 +29,12 @@ export default function RootLayout({
   }, []);
 
   return (
-    <SessionProvider>
       <html lang="en">
         <body className={`${lexend.className} max-w-[1724px] relative mx-auto`}>
          <div>
             <QueryClientProvider client={queryClient}>
               <main className="relative overflow-hidden">
+                <Toaster position={`top-right`} />
                 {children}
                 <ReactQueryDevtools initialIsOpen={false} />
               </main>
@@ -48,6 +44,5 @@ export default function RootLayout({
 
         </body>
       </html>
-    </SessionProvider>
   );
 }

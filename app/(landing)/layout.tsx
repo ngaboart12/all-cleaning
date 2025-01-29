@@ -1,24 +1,24 @@
 "use client"
-import { useEffect, useState } from 'react';
-import type { Metadata } from 'next';
 import { Inter, Lexend } from 'next/font/google';
 import '../globals.css';
-import SplashScreen from '@/components/SplashScreen';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import { SessionProvider, useSession } from 'next-auth/react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { useState } from 'react';
 
 const inter = Inter({ subsets: ['latin'] });
 const lexend = Lexend({ subsets: ['latin'] });
-
-
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  // Create a client
+  const [queryClient] = useState(() => new QueryClient());
+
   return (
+    <QueryClientProvider client={queryClient}>
       <html lang="en">
         <body className={`${lexend.className} max-w-[1724px] relative mx-auto bg-primary`}>
           <Navbar />
@@ -28,5 +28,6 @@ export default function RootLayout({
           <Footer />
         </body>
       </html>
+    </QueryClientProvider>
   );
 }
